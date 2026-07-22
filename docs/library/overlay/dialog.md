@@ -45,19 +45,19 @@ DialogContent: |
 import reflex as rx
 ```
 
-# Dialog
+# Dialog（对话框）
 
-The `dialog.root` contains all the parts of a dialog.
+`dialog.root` 包含对话框的所有部分。
 
-The `dialog.trigger` wraps the control that will open the dialog.
+`dialog.trigger` 包裹用于打开对话框的控件。
 
-The `dialog.content` contains the content of the dialog.
+`dialog.content` 包含对话框的内容。
 
-The `dialog.title` is a title that is announced when the dialog is opened.
+`dialog.title` 是对话框打开时播报的标题。
 
-The `dialog.description` is a description that is announced when the dialog is opened.
+`dialog.description` 是对话框打开时播报的描述。
 
-The `dialog.close` wraps the control that will close the dialog.
+`dialog.close` 包裹用于关闭对话框的控件。
 
 ```python demo
 rx.dialog.root(
@@ -74,7 +74,7 @@ rx.dialog.root(
 )
 ```
 
-## In context examples
+## 实际场景示例
 
 ```python demo
 rx.dialog.root(
@@ -152,9 +152,9 @@ rx.dialog.root(
 )
 ```
 
-## Events when the Dialog opens or closes
+## 对话框打开或关闭时的事件
 
-The `on_open_change` event is called when the `open` state of the dialog changes. It is used in conjunction with the `open` prop, which is passed to the event handler.
+当对话框的 `open` 状态发生变化时，会调用 `on_open_change` 事件。它与 `open` prop 配合使用，`open` 的值会传递给事件处理器。
 
 ```python demo exec
 class DialogState(rx.State):
@@ -192,21 +192,21 @@ def dialog_example():
     )
 ```
 
-Check out the [menu docs](/docs/library/overlay/dropdown-menu) for an example of opening a dialog from within a dropdown menu.
+查看[菜单文档](/docs/library/overlay/dropdown-menu)了解从下拉菜单中打开对话框的示例。
 
-## Form Submission to a Database from a Dialog
+## 从对话框提交表单到数据库
 
-This example adds new users to a database from a dialog using a form.
+此示例使用表单从对话框向数据库添加新用户。
 
-1. It defines a User model with name and email fields.
-2. The `add_user_to_db` method adds a new user to the database, checking for existing emails.
-3. On form submission, it calls the `add_user_to_db` method.
-4. The UI component has:
+1. 它定义了一个包含 name 和 email 字段的 User 模型。
+2. `add_user_to_db` 方法向数据库添加新用户，并检查邮箱是否已存在。
+3. 表单提交时，调用 `add_user_to_db` 方法。
+4. UI 组件包含：
 
-- A button to open a dialog
-- A dialog containing a form to add a new user
-- Input fields for name and email
-- Submit and Cancel buttons
+- 一个用于打开对话框的按钮
+- 一个包含添加新用户表单的对话框
+- 姓名和邮箱输入框
+- 提交和取消按钮
 
 ```python demo exec
 class User(rx.Model, table=True):

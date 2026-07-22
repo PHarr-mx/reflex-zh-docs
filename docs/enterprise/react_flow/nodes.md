@@ -1,32 +1,32 @@
-# Nodes
+# 节点（Nodes）
 
-Nodes are the fundamental building blocks of a flow. This page explains how to define and customize nodes in Reflex Flow.
+节点（Nodes）是流程图的基本构建块。本页介绍如何在 Reflex Flow 中定义和自定义节点。
 
-## The Node Type
+## 节点类型（Node Type）
 
-A node is represented as a Python dictionary with the following fields:
+节点以 Python 字典表示，包含以下字段：
 
-- `id` (`str`) – Unique identifier for the node.
-- `position` (`dict`) – Position of the node with `x` and `y` coordinates.
-- `data` (`dict`) – Arbitrary data passed to the node component.
-- `type` (`str`) – Node type defined in `node_types`.
-- `sourcePosition` (`str`) – Controls source handle position ("top", "right", "bottom", "left").
-- `targetPosition` (`str`) – Controls target handle position ("top", "right", "bottom", "left").
-- `hidden` (`bool`) – Whether the node is visible on the canvas.
-- `selected` (`bool`) – Whether the node is currently selected.
-- `draggable` (`bool`) – Whether the node can be dragged.
-- `selectable` (`bool`) – Whether the node can be selected.
-- `connectable` (`bool`) – Whether the node can be connected to other nodes.
-- `deletable` (`bool`) – Whether the node can be deleted.
-- `width` (`float`) – Width of the node.
-- `height` (`float`) – Height of the node.
-- `parentId` (`str`) – Parent node ID for creating sub-flows.
-- `style` (`dict`) – Custom styles for the node.
-- `className` (`str`) – CSS class name for the node.
+- `id`（`str`）—— 节点的唯一标识符。
+- `position`（`dict`）—— 节点的位置，包含 `x` 和 `y` 坐标。
+- `data`（`dict`）—— 传递给节点组件的任意数据。
+- `type`（`str`）—— 在 `node_types` 中定义的节点类型。
+- `sourcePosition`（`str`）—— 控制源连接点的位置（"top"、"right"、"bottom"、"left"）。
+- `targetPosition`（`str`）—— 控制目标连接点的位置（"top"、"right"、"bottom"、"left"）。
+- `hidden`（`bool`）—— 节点是否在画布上可见。
+- `selected`（`bool`）—— 节点当前是否被选中。
+- `draggable`（`bool`）—— 节点是否可被拖动。
+- `selectable`（`bool`）—— 节点是否可被选中。
+- `connectable`（`bool`）—— 节点是否可与其他节点连接。
+- `deletable`（`bool`）—— 节点是否可被删除。
+- `width`（`float`）—— 节点的宽度。
+- `height`（`float`）—— 节点的高度。
+- `parentId`（`str`）—— 用于创建子流程图的父节点 ID。
+- `style`（`dict`）—— 节点的自定义样式。
+- `className`（`str`）—— 节点的 CSS 类名。
 
-## Built-in Node Types
+## 内置节点类型
 
-Reflex Flow includes several built-in node types:
+Reflex Flow 包含几种内置节点类型：
 
 ```python
 nodes: list[Node] = [
@@ -51,13 +51,13 @@ nodes: list[Node] = [
 ]
 ```
 
-- **input** – Entry point with only source handles
-- **default** – Standard node with both source and target handles
-- **output** – Exit point with only target handles
+- **input** —— 仅具有源连接点的入口点
+- **default** —— 同时具有源连接点和目标连接点的标准节点
+- **output** —— 仅具有目标连接点的出口点
 
-## Basic Node Configuration
+## 基本节点配置
 
-### Node Positioning
+### 节点定位
 
 ```python
 node = {
@@ -68,7 +68,7 @@ node = {
 }
 ```
 
-### Node Styling
+### 节点样式
 
 ```python
 styled_node = {
@@ -86,7 +86,7 @@ styled_node = {
 }
 ```
 
-### Handle Positioning
+### 连接点定位
 
 ```python
 node_with_handles = {
@@ -99,11 +99,11 @@ node_with_handles = {
 }
 ```
 
-## Custom Nodes
+## 自定义节点
 
-Creating custom nodes is as easy as building a regular React component and passing it to the `node_types`. Since they’re standard React components, you can display any content and implement any functionality you need. Plus, you’ll have access to a range of props that allow you to extend and customize the default node behavior.
+创建自定义节点就像构建一个普通的 React 组件并将其传递给 `node_types` 一样简单。由于它们是标准的 React 组件，你可以显示任何内容并实现所需的任何功能。此外，你还可以访问一系列属性，从而扩展和自定义默认的节点行为。
 
-Below is an example custom node using a `color picker` component.
+下面是一个使用 `color picker` 组件的自定义节点示例。
 
 ```python demo exec
 from typing import Any

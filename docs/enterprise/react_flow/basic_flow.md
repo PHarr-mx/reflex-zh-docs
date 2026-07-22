@@ -1,39 +1,39 @@
-# Basic Flow Example
+# 基本流程图示例
 
-This example demonstrates a simple flow diagram with three nodes and two edges, showing how nodes can be connected and how edges can be animated.
+此示例演示了一个包含三个节点和两条边的简单流程图，展示了如何连接节点以及如何为边添加动画效果。
 
-### Nodes
+### 节点
 
-- Input Node – starting point
-- Default Node – standard content node
-- Output Node – endpoint of the flow
+- 输入节点（Input Node）——起始点
+- 默认节点（Default Node）——标准内容节点
+- 输出节点（Output Node）——流程的终点
 
-### Edges
+### 边
 
-- Input → Default (animated)
-- Default → Output
+- 输入 → 默认（带动画）
+- 默认 → 输出
 
-### Interactivity
+### 交互性
 
-- Nodes can be moved
-- Edges update dynamically
-- Users can drag from handles to create new edges
-- Zoom, pan, and mini-map controls are available
+- 节点可以移动
+- 边会动态更新
+- 用户可以从连接点拖动以创建新边
+- 提供缩放、平移和小地图控件
 
-### Visual Layout
+### 视觉布局
 
-- Flow fits viewport automatically
-- Background grid for orientation
-- Light and dark color modes supported
+- 流程图自动适配视口
+- 背景网格用于定位参考
+- 支持浅色和深色模式
 
-### Example Flow
+### 示例流程
 
 ```python demo exec
 import reflex as rx
 import reflex_enterprise as rxe
 from reflex_enterprise.components.flow.types import Node, Edge
 
-# Common style for all nodes
+# 所有节点的通用样式
 node_style = {
     "backgroundColor": "#ffcc00",
     "color": "#000000",
@@ -76,16 +76,16 @@ class FlowState(rx.State):
 def flow_example():
     return rx.box(
         rxe.flow(
-            # Core flow components
+            # 核心流程组件
             rxe.flow.controls(),
             rxe.flow.background(),
             rxe.flow.mini_map(),
-            # Flow configuration
+            # 流程配置
             default_nodes=FlowState.nodes,
             default_edges=FlowState.edges,
             nodes=FlowState.nodes,
             edges=FlowState.edges,
-            # Visual settings
+            # 视觉设置
             fit_view=True,
             attribution_position="bottom-right",
         ),

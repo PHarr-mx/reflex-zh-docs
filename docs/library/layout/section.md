@@ -21,13 +21,13 @@ Section: |
 import reflex as rx
 ```
 
-# Section
+# 区块（Section）
 
-Denotes a section of page content, providing vertical padding by default.
+表示页面内容的一个区块，默认提供垂直内边距。
 
-Primarily this is a semantic component that is used to group related textual content.
+这主要是一个语义化组件，用于将相关的文本内容组合在一起。
 
-## Basic Example
+## 基本示例
 
 ```python demo
 rx.box(

@@ -25,11 +25,11 @@ Grid: |
 import reflex as rx
 ```
 
-# Grid
+# 网格（Grid）
 
-Component for creating grid layouts. Either `rows` or `columns` may be specified.
+用于创建网格布局的组件。可以指定 `rows` 或 `columns`。
 
-## Basic Example
+## 基本示例
 
 ```python demo
 rx.grid(

@@ -2,8 +2,8 @@
 title: Number Formatter
 ---
 
-# Number Formatter component
-`rxe.mantine.number_formatter` is a component for formatting numbers in a user-friendly way. It allows you to specify the format, precision, and other options for displaying numbers.
+# Number Formatter 组件
+`rxe.mantine.number_formatter` 是一个以用户友好的方式格式化数字的组件。它允许你指定格式、精度和其他数字显示选项。
 
 ```python demo exec
 import reflex as rx

@@ -27,26 +27,26 @@ import random
 import reflex as rx
 ```
 
-# Scroll Area
+# 滚动区域（Scroll Area）
 
-Custom styled, cross-browser scrollable area using native functionality.
+使用原生功能实现的自定义样式、跨浏览器可滚动区域。
 
-## Basic Example
+## 基本示例
 
 ```python demo
 rx.scroll_area(
     rx.flex(
         rx.text(
             """Three fundamental aspects of typography are legibility, readability, and
-        aesthetics. Although in a non-technical sense “legible” and “readable”
+        aesthetics. Although in a non-technical sense "legible" and "readable"
         are often used synonymously, typographically they are separate but
         related concepts.""",
         ),
         rx.text(
             """Legibility describes how easily individual characters can be
-        distinguished from one another. It is described by Walter Tracy as “the
-        quality of being decipherable and recognisable”. For instance, if a “b”
-        and an “h”, or a “3” and an “8”, are difficult to distinguish at small
+        distinguished from one another. It is described by Walter Tracy as "the
+        quality of being decipherable and recognisable". For instance, if a "b"
+        and an "h", or a "3" and an "8", are difficult to distinguish at small
         sizes, this is a problem of legibility.""",
         ),
         rx.text(
@@ -65,9 +65,9 @@ rx.scroll_area(
 )
 ```
 
-## Control the scrollable axes
+## 控制可滚动轴
 
-Use the `scrollbars` prop to limit scrollable axes. This prop can take values `"vertical" | "horizontal" | "both"`.
+使用 `scrollbars` 属性来限制可滚动的轴。该属性可取值为 `"vertical" | "horizontal" | "both"`。
 
 ```python demo
 rx.grid(
@@ -158,17 +158,17 @@ rx.grid(
 )
 ```
 
-## Setting the type of the Scrollbars
+## 设置滚动条类型
 
-The `type` prop describes the nature of scrollbar visibility.
+`type` 属性描述滚动条可见性的行为。
 
-`auto` means that scrollbars are visible when content is overflowing on the corresponding orientation.
+`auto` 表示当内容在对应方向上溢出时，滚动条可见。
 
-`always` means that scrollbars are always visible regardless of whether the content is overflowing.
+`always` 表示无论内容是否溢出，滚动条始终可见。
 
-`scroll` means that scrollbars are visible when the user is scrolling along its corresponding orientation.
+`scroll` 表示当用户沿对应方向滚动时，滚动条可见。
 
-`hover` when the user is scrolling along its corresponding orientation and when the user is hovering over the scroll area.
+`hover` 表示当用户沿对应方向滚动以及当用户将鼠标悬停在滚动区域上时，滚动条可见。
 
 ```python demo
 rx.grid(

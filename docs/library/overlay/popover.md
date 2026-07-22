@@ -49,19 +49,19 @@ PopoverContent: |
 import reflex as rx
 ```
 
-# Popover
+# Popover（弹出框）
 
-A popover displays content, triggered by a button.
+弹出框（Popover）由按钮触发，用于显示内容。
 
-The `popover.root` contains all the parts of a popover.
+`popover.root` 包含弹出框的所有部分。
 
-The `popover.trigger` contains the button that toggles the popover.
+`popover.trigger` 包含用于切换弹出框的按钮。
 
-The `popover.content` is the component that pops out when the popover is open.
+`popover.content` 是弹出框打开时弹出的组件。
 
-The `popover.close` is the button that closes an open popover.
+`popover.close` 是用于关闭已打开弹出框的按钮。
 
-## Basic Example
+## 基本示例
 
 ```python demo
 rx.popover.root(
@@ -81,7 +81,7 @@ rx.popover.root(
 )
 ```
 
-## Examples in Context
+## 实际场景示例
 
 ```python demo
 rx.popover.root(
@@ -136,9 +136,9 @@ rx.popover.root(
 )
 ```
 
-## Popover with dynamic title
+## 带动态标题的 Popover
 
-Code like below will not work as expected and it is necessary to place the dynamic title (`Index2State.language`) inside of an `rx.text` component.
+如下代码不会按预期工作，需要将动态标题（`Index2State.language`）放在 `rx.text` 组件内部。
 
 ```python
 class Index2State(rx.State):
@@ -154,7 +154,7 @@ def index() -> rx.Component:
     )
 ```
 
-This code will work:
+以下代码可以正常工作：
 
 ```python demo exec
 class Index2State(rx.State):
@@ -170,9 +170,9 @@ def index() -> rx.Component:
     )
 ```
 
-## Events when the Popover opens or closes
+## Popover 打开或关闭时的事件
 
-The `on_open_change` event is called when the `open` state of the popover changes. It is used in conjunction with the `open` prop, which is passed to the event handler.
+当弹出框的 `open` 状态发生变化时，会调用 `on_open_change` 事件。它与 `open` prop 配合使用，`open` 的值会传递给事件处理器。
 
 ```python demo exec
 class PopoverState(rx.State):

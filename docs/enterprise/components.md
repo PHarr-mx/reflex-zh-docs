@@ -10,7 +10,7 @@ def enterprise_component_grid():
     sections = [
         {
             "title": "AG Grid",
-            "description": "Advanced data grid with sorting, filtering, editing, and pagination",
+            "description": "支持排序、筛选、编辑和分页的高级数据网格",
             "link": "/docs/enterprise/ag-grid/",
             "components": [
                 ("Overview", "/docs/enterprise/ag-grid/"),
@@ -24,7 +24,7 @@ def enterprise_component_grid():
         },
         {
             "title": "AG Chart",
-            "description": "Interactive charts and data visualization",
+            "description": "交互式图表和数据可视化",
             "link": "/docs/enterprise/ag-chart/",
             "components": [
                 ("Overview", "/docs/enterprise/ag-chart/"),
@@ -32,7 +32,7 @@ def enterprise_component_grid():
         },
         {
             "title": "Interactive Components",
-            "description": "Drag-and-drop and mapping functionality",
+            "description": "拖放和地图功能",
             "link": "/docs/enterprise/drag-and-drop/",
             "components": [
                 ("Drag and Drop", "/docs/enterprise/drag-and-drop/"),
@@ -41,7 +41,7 @@ def enterprise_component_grid():
         },
         {
             "title": "Mantine",
-            "description": "Rich UI components from Mantine library",
+            "description": "来自 Mantine 库的丰富 UI 组件",
             "link": "/docs/enterprise/mantine/",
             "components": [
                 ("Overview", "/docs/enterprise/mantine/"),
@@ -110,14 +110,14 @@ component_grid = enterprise_component_grid()
 
 ```python eval
 rx.el.h1(
-    "Enterprise Components",
+    "企业版组件",
     class_name="lg:text-5xl text-3xl font-[525] scroll-mt-[113px] my-4 text-secondary-12",
 )
 ```
 
 ```python eval
 rx.el.span(
-    "Advanced UI components and features to enhance your Reflex applications. Available for free with the 'Built with Reflex' badge, or without the badge with an enterprise license.",
+    "增强 Reflex 应用的高级 UI 组件和功能。使用 'Built with Reflex' 徽章可免费使用，或使用企业许可证去除徽章。",
     class_name="font-[475] text-secondary-11 max-w-[80%] text-sm",
 )
 ```

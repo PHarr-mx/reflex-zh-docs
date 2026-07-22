@@ -15,11 +15,11 @@ import reflex as rx
 import reflex.components.radix.primitives as rdxp
 ```
 
-# Select
+# 选择器（Select）
 
-Displays a list of options for the user to pick from, triggered by a button.
+显示一个供用户选择的选项列表，由按钮触发。
 
-## Basic Example
+## 基本示例
 
 ```python demo
 rx.select.root(
@@ -42,11 +42,11 @@ rx.select.root(
 )
 ```
 
-## Usage
+## 用法
 
-## Disabling
+## 禁用
 
-It is possible to disable individual items in a `select` using the `disabled` prop associated with the `rx.select.item`.
+可以使用与 `rx.select.item` 关联的 `disabled` 属性来禁用 `select` 中的单个选项。
 
 ```python demo
 rx.select.root(
@@ -61,7 +61,7 @@ rx.select.root(
 )
 ```
 
-To prevent the user from interacting with select entirely, set the `disabled` prop to `True` on the `rx.select.root` component.
+要完全阻止用户与选择器交互，在 `rx.select.root` 组件上将 `disabled` 属性设置为 `True`。
 
 ```python demo
 rx.select.root(
@@ -76,11 +76,11 @@ rx.select.root(
 )
 ```
 
-## Setting Defaults
+## 设置默认值
 
-It is possible to set several default values when constructing a `select`.
+在构建 `select` 时可以设置多个默认值。
 
-The `placeholder` prop in the `rx.select.trigger` specifies the content that will be rendered when `value` or `default_value` is empty or not set.
+`rx.select.trigger` 中的 `placeholder` 属性指定当 `value` 或 `default_value` 为空或未设置时渲染的内容。
 
 ```python demo
 rx.select.root(
@@ -94,8 +94,7 @@ rx.select.root(
 )
 ```
 
-The `default_value` in the `rx.select.root` specifies the value of the `select` when initially rendered.
-The `default_value` should correspond to the `value` of a child `rx.select.item`.
+`rx.select.root` 中的 `default_value` 指定 `select` 初始渲染时的值。`default_value` 应该对应子元素 `rx.select.item` 的 `value`。
 
 ```python demo
 rx.select.root(
@@ -110,11 +109,9 @@ rx.select.root(
 )
 ```
 
-## Fully controlled
+## 完全受控
 
-The `on_change` event trigger is fired when the value of the select changes.
-In this example the `rx.select.root` `value` prop specifies which item is selected, and this
-can also be controlled using state and a button without direct interaction with the select component.
+当选择器的值改变时，会触发 `on_change` 事件。在此示例中，`rx.select.root` 的 `value` 属性指定哪个选项被选中，这也可以通过状态和按钮来控制，而无需直接与选择器组件交互。
 
 ```python demo exec
 class SelectState2(rx.State):
@@ -127,7 +124,7 @@ class SelectState2(rx.State):
 
     @rx.event
     def choose_randomly(self):
-        """Change the select value var."""
+        """改变选择器的值变量。"""
         original_value = self.value
         while self.value == original_value:
             self.value = random.choice(self.values)
@@ -152,9 +149,7 @@ def select_example2():
     )
 ```
 
-The `open` prop and `on_open_change` event trigger work similarly to `value` and `on_change` to control the open state of the select.
-If `on_open_change` handler does not alter the `open` prop, the select will not be able to be opened or closed by clicking on the
-`select_trigger`.
+`open` 属性和 `on_open_change` 事件触发器的工作方式类似于 `value` 和 `on_change`，用于控制选择器的打开状态。如果 `on_open_change` 处理函数没有改变 `open` 属性，则无法通过点击 `select_trigger` 来打开或关闭选择器。
 
 ```python demo exec
 class SelectState8(rx.State):
@@ -183,13 +178,13 @@ def select_example8():
     )
 ```
 
-### Submitting a Form with Select
+### 使用选择器提交表单
 
-When a select is part of a form, the `name` prop of the `rx.select.root` sets the key that will be submitted with the form data.
+当选择器是表单的一部分时，`rx.select.root` 的 `name` 属性设置随表单数据一起提交的键。
 
-The `value` prop of `rx.select.item` provides the value to be associated with the `name` key when the form is submitted with that item selected.
+`rx.select.item` 的 `value` 属性提供当表单提交且选中该项时与 `name` 键关联的值。
 
-When the `required` prop of the `rx.select.root` is `True`, it indicates that the user must select a value before the form may be submitted.
+当 `rx.select.root` 的 `required` 属性为 `True` 时，表示用户必须在提交表单之前选择一个值。
 
 ```python demo exec
 class FormSelectState(rx.State):
@@ -197,7 +192,7 @@ class FormSelectState(rx.State):
 
     @rx.event
     def handle_submit(self, form_data: dict):
-        """Handle the form submit."""
+        """处理表单提交。"""
         self.form_data = form_data
 
 
@@ -241,7 +236,7 @@ def form_select():
     )
 ```
 
-## Real World Example
+## 实际示例
 
 ```python demo
 rx.card(

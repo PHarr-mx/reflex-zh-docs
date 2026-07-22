@@ -15,25 +15,25 @@ from matplotlib.figure import Figure
 from reflex.style import toggle_color_mode
 ```
 
-# Pyplot: Display Matplotlib Charts in a Python Web App
+# Pyplot：在 Python Web 应用中显示 Matplotlib 图表
 
-Pyplot (`reflex-pyplot`) lets you render any [Matplotlib](https://matplotlib.org/) figure inside a Reflex web app. Matplotlib's `pyplot` interface is the most popular way to create plots in Python, but on its own it renders to a static window or an image file. The `pyplot` component takes a `matplotlib.pyplot` figure and displays it directly in the browser — no Flask routes, HTML templating, or manual image encoding required — so you can turn plotting scripts and notebooks into interactive, stateful dashboards in pure Python.
+Pyplot（`reflex-pyplot`）让你可以在 Reflex Web 应用中渲染任何 [Matplotlib](https://matplotlib.org/) 图形。Matplotlib 的 `pyplot` 接口是 Python 中最流行的创建图表的方式，但它本身只能渲染到静态窗口或图像文件。`pyplot` 组件接收一个 `matplotlib.pyplot` 图形并直接在浏览器中显示——无需 Flask 路由、HTML 模板或手动图像编码——让你可以将绘图脚本和笔记本转化为纯 Python 的交互式、有状态的仪表板。
 
-## What is pyplot?
+## 什么是 pyplot？
 
-`matplotlib.pyplot` is a collection of functions that make Matplotlib behave like MATLAB: each call (`plt.plot`, `plt.scatter`, `plt.bar`, and so on) builds up a figure by adding lines, bars, labels, or legends. In a normal script you would finish with `plt.show()` to open a window. In a Reflex app you instead pass the `Figure` object to the `pyplot` component, which serves it to the frontend and re-renders it whenever your state changes.
+`matplotlib.pyplot` 是一组函数，使 Matplotlib 的行为类似于 MATLAB：每次调用（`plt.plot`、`plt.scatter`、`plt.bar` 等）通过添加线条、柱形、标签或图例来构建图形。在普通脚本中，你会以 `plt.show()` 结束来打开一个窗口。在 Reflex 应用中，你将 `Figure` 对象传递给 `pyplot` 组件，它会将其提供给前端，并在状态变化时重新渲染。
 
-## Installation
+## 安装
 
-Install the `reflex-pyplot` package using pip.
+使用 pip 安装 `reflex-pyplot` 包。
 
 ```bash
 pip install reflex-pyplot
 ```
 
-## Basic Example
+## 基本示例
 
-To display a Matplotlib plot in your app, you can use the `pyplot` component. Pass in the figure you created with Matplotlib to the `pyplot` component as a child.
+要在应用中显示 Matplotlib 图表，你可以使用 `pyplot` 组件。将你用 Matplotlib 创建的图形作为子组件传递给 `pyplot` 组件。
 
 ```python demo exec
 import matplotlib.pyplot as plt
@@ -62,14 +62,14 @@ def pyplot_simple_example():
 ```
 
 ```md alert info
-# You must close the figure after creating
+# 创建图形后必须关闭它
 
-Not closing the figure could cause memory issues.
+不关闭图形可能会导致内存问题。
 ```
 
-## Line Plot
+## 折线图
 
-A line plot is the most common Matplotlib chart. Build it with `plt.subplots()` and `ax.plot()` exactly as you would in a script, then hand the figure to `pyplot` to show it in the browser.
+折线图是最常见的 Matplotlib 图表。使用 `plt.subplots()` 和 `ax.plot()` 像在脚本中一样构建它，然后将图形交给 `pyplot` 在浏览器中显示。
 
 ```python demo exec
 import matplotlib.pyplot as plt
@@ -98,9 +98,9 @@ def pyplot_line_example():
     )
 ```
 
-## Bar Chart
+## 柱状图
 
-The same pattern works for a Matplotlib bar chart — call `ax.bar()` with your categories and values, then render the figure with `pyplot`.
+相同的模式也适用于 Matplotlib 柱状图——使用类别和值调用 `ax.bar()`，然后用 `pyplot` 渲染图形。
 
 ```python demo exec
 import matplotlib.pyplot as plt
@@ -127,11 +127,11 @@ def pyplot_bar_example():
     )
 ```
 
-## Stateful Example
+## 带状态的示例
 
-Lets create a scatter plot of random data. We'll also allow the user to randomize the data and change the number of points.
+让我们创建一个随机数据的散点图。我们还将允许用户随机化数据并更改点的数量。
 
-In this example, we'll use a `color_mode_cond` to display the plot in both light and dark mode. We need to do this manually here because the colors are determined by the matplotlib chart and not the theme.
+在这个示例中，我们使用 `color_mode_cond` 在浅色和深色模式下显示图表。我们需要在这里手动执行此操作，因为颜色由 matplotlib 图表决定，而不是由主题决定。
 
 ```python demo exec
 import random
@@ -228,16 +228,16 @@ def pyplot_example():
     )
 ```
 
-## Common Questions
+## 常见问题
 
-### How do I display a Matplotlib plot in a website?
+### 如何在网站中显示 Matplotlib 图表？
 
-Create the figure with `matplotlib.pyplot` as usual, then pass the `Figure` object to Reflex's `pyplot` component. Reflex renders it in the browser for you — you don't need Flask, a REST endpoint, or manual base64 image encoding.
+像往常一样使用 `matplotlib.pyplot` 创建图形，然后将 `Figure` 对象传递给 Reflex 的 `pyplot` 组件。Reflex 会为你在浏览器中渲染它——你不需要 Flask、REST 端点或手动 base64 图像编码。
 
-### Can I make Matplotlib interactive in Reflex?
+### 我可以在 Reflex 中使 Matplotlib 具有交互性吗？
 
-Yes. Compute the figure inside an `rx.var` that depends on your state, then update the state from buttons, sliders, or other events. The chart re-renders automatically, as shown in the Stateful Example above.
+可以。在依赖于状态的 `rx.var` 中计算图形，然后从按钮、滑块或其他事件更新状态。图表会自动重新渲染，如上面的带状态示例所示。
 
-### Do I need to call `plt.show()`?
+### 我需要调用 `plt.show()` 吗？
 
-No. `plt.show()` opens a desktop window and is not used in a web app. Instead, return the figure to the `pyplot` component and call `plt.close(fig)` after creating it to free memory.
+不需要。`plt.show()` 会打开一个桌面窗口，在 Web 应用中不使用。相反，将图形返回给 `pyplot` 组件，并在创建后调用 `plt.close(fig)` 来释放内存。

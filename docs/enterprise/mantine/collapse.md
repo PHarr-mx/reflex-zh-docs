@@ -2,9 +2,9 @@
 title: Collapse
 ---
 
-# Collapse component
+# Collapse 组件
 
-`rxe.mantine.collapse` is a component that allows you to create collapsible sections in your application. It is useful for hiding or showing content based on user interaction, such as clicking a button or a link.
+`rxe.mantine.collapse` 是一个允许你在应用程序中创建可折叠区域的组件。它适用于根据用户交互（如点击按钮或链接）来隐藏或显示内容。
 
 ```python demo exec
 import reflex as rx

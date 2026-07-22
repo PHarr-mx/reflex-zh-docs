@@ -2,8 +2,8 @@
 title: Loading Overlay
 ---
 
-# Loading Overlay component
-`rxe.mantine.loading_overlay` is a component that displays a loading overlay on top of its children. It is useful for indicating that a process is ongoing and prevents user interaction with the underlying content.
+# Loading Overlay 组件
+`rxe.mantine.loading_overlay` 是一个在其子元素上方显示加载遮罩层的组件。它适用于指示正在进行的操作，并防止用户与底层内容进行交互。
 
 ```python demo exec
 import reflex as rx

@@ -3,17 +3,17 @@ meta_description: "Define AG Grid columns in Python with Reflex. Configure colum
 order: 1
 ---
 
-# Column Definitions
+# 列定义（Column Definitions）
 
-## Basic Columns
+## 基本列
 
-AgGrid allows you to define the columns of your grid, passed to the prop `column_defs`. Each dictionary represents a column.
+AgGrid 允许你定义网格的列，传递给 `column_defs` 属性。每个字典代表一列。
 
 ```md alert warning
-# If you are converting from other AG Grid implementation, we also support camelCase for the name of the properties.
+# 如果你是从其他 AG Grid 实现迁移过来的，我们也支持属性名使用 camelCase。
 ```
 
-Here we define a grid with 3 columns:
+这里我们定义一个包含 3 列的网格：
 ```python
 column_defs = [
     {"field": "direction"},
@@ -22,7 +22,7 @@ column_defs = [
 ]
 ```
 
-To set default properties for all your columns, you can define `default_col_def` in your grid:
+要为所有列设置默认属性，你可以在网格中定义 `default_col_def`：
 ```python
 default_col_def = {
     "sortable": True,

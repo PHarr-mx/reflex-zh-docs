@@ -1,17 +1,17 @@
-# Built with Reflex Badge
+# Built with Reflex 徽章
 
-The "Built with Reflex" badge appears in the bottom right corner of apps using reflex-enterprise components.
+"Built with Reflex" 徽章会显示在使用 reflex-enterprise 组件的应用右下角。
 
-## Removing the Badge
+## 移除徽章
 
-To remove the badge, you need to be on the Enterprise tier.
+要移除徽章，你需要使用 Enterprise 版本。
 
-## Configuration
+## 配置
 
 ```python
 import reflex_enterprise as rxe
 
 config = rxe.Config(
-    show_built_with_reflex=False,  # Requires paid tier
+    show_built_with_reflex=False,  # 需要付费版本
 )
 ```

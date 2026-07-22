@@ -7,15 +7,15 @@ components:
 import reflex as rx
 ```
 
-# Input
+# 输入框（Input）
 
-A text field is an input field that users can type into. This component uses Radix's [text field](https://www.radix-ui.com/themes/docs/components/text-field) component.
+文本字段（Text Field）是用户可以输入内容的输入框。此组件使用 Radix 的 [text field](https://www.radix-ui.com/themes/docs/components/text-field) 组件。
 
-## Overview
+## 概述
 
-The TextField component is used to capture user input and can include an optional slot for buttons and icons. It is based on the <div> element and supports common margin props.
+TextField 组件用于捕获用户输入，可以包含一个可选的插槽（Slot）用于放置按钮和图标。它基于 <div> 元素，支持通用的 margin 属性。
 
-## Basic Example
+## 基本示例
 
 ```python demo
 rx.input(
@@ -26,7 +26,7 @@ rx.input(
 )
 ```
 
-## Stateful Example with Blur Event
+## 带 Blur 事件的有状态示例
 
 ```python demo exec
 class TextfieldBlur1(rx.State):
@@ -50,7 +50,7 @@ def blur_example1():
     )
 ```
 
-## Controlled Example
+## 受控示例
 
 ```python demo exec
 class TextfieldControlled1(rx.State):
@@ -75,7 +75,7 @@ def controlled_example1():
     )
 ```
 
-## Real World Example
+## 实际示例
 
 ```python demo exec
 def song(title, initials: str, genre: str):

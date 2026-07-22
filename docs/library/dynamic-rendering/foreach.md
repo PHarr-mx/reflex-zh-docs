@@ -2,13 +2,13 @@
 import reflex as rx
 ```
 
-# Foreach
+# 循环渲染（Foreach）
 
-The `rx.foreach` component takes an iterable (list, tuple, or dict) and a function that renders each item in the list.
-This is useful for dynamically rendering a list of items defined in a state.
+`rx.foreach` 组件接受一个可迭代对象（list、tuple 或 dict）和一个渲染列表中每个项目的函数。
+这对于动态渲染状态中定义的项目列表非常有用。
 
 ```md alert warning
-# Use `rx.foreach` for state vars; use Python list or dict comprehensions for constants.
+# 对状态变量使用 `rx.foreach`；对常量使用 Python 列表或字典推导式。
 ```
 
 ```python demo exec
@@ -48,7 +48,7 @@ def foreach_example():
     )
 ```
 
-The function can also take an index as a second argument.
+该函数还可以接受索引作为第二个参数。
 
 ```python demo exec
 def colored_box_index(color: rx.Var[str], index: rx.Var[int]):
@@ -64,10 +64,10 @@ def foreach_example_index():
     )
 ```
 
-Nested foreach components can be used to render nested lists.
+嵌套的 foreach 组件可用于渲染嵌套列表。
 
-When indexing into a nested list, it's important to declare the list's type as Reflex requires it for type checking.
-This ensures that any potential frontend JS errors are caught before the user can encounter them.
+当索引嵌套列表时，声明列表的类型很重要，因为 Reflex 需要它来进行类型检查。
+这确保了在用户遇到潜在的前端 JS 错误之前就能捕获它们。
 
 ```python demo exec
 class NestedForeachState(rx.State):
@@ -91,7 +91,7 @@ def nested_foreach_example():
     return rx.vstack(rx.foreach(NestedForeachState.numbers, display_row))
 ```
 
-Below is a more complex example of foreach within a todo list.
+下面是一个在待办事项列表中使用 foreach 的更复杂示例。
 
 ```python demo exec
 from dataclasses import dataclass, field
@@ -161,11 +161,11 @@ def todo_example():
     )
 ```
 
-## Dictionaries
+## 字典
 
-Items in a dictionary are passed to the render function as key-value pairs.
-When iterating over a dict, keys are coerced to strings in the `foreach` callback, even when the Python dictionary uses another key type.
-Using the color example, we can slightly modify the code to use dicts as shown below.
+字典中的项目以键值对的形式传递给渲染函数。
+当遍历字典时，即使 Python 字典使用其他键类型，键在 `foreach` 回调中也会被强制转换为字符串。
+使用颜色示例，我们可以稍微修改代码以使用字典，如下所示。
 
 ```python demo exec
 class SimpleDictForeachState(rx.State):
@@ -173,7 +173,7 @@ class SimpleDictForeachState(rx.State):
 
 
 def display_color(color: rx.Var[tuple[str, str]]):
-    # color is presented as a key-value pair such as ("1", "#3E63DD").
+    # color 以键值对形式呈现，例如 ("1", "#3E63DD")。
     return color_swatch(color[0], color[1])
 
 
@@ -183,8 +183,8 @@ def foreach_dict_example():
     )
 ```
 
-Now let's show a more complex example with dicts using the color example.
-This example groups related hex colors in a dictionary and renders both the keys and values as swatches:
+现在让我们用颜色示例展示一个使用字典的更复杂示例。
+此示例将相关的十六进制颜色分组到字典中，并将键和值都渲染为色块：
 
 ```python demo exec
 class ComplexDictForeachState(rx.State):
@@ -217,7 +217,7 @@ def foreach_complex_dict_example():
     )
 ```
 
-## API Reference
+## API 参考
 
 ### `rx.foreach`
 
@@ -225,5 +225,5 @@ def foreach_complex_dict_example():
 rx.foreach(iterable, render_fn)
 ```
 
-- `iterable`: A state var or iterable to render. Lists, tuples, sets, strings, and dicts are supported; dicts are passed to `render_fn` as key-value tuples with string keys.
-- `render_fn`: A function that returns a component for each item. It receives the item as the first `rx.Var[...]` argument and, optionally, the index as a second `rx.Var[int]` argument.
+- `iterable`：要渲染的状态变量或可迭代对象。支持列表、元组、集合、字符串和字典；字典以字符串键的键值元组形式传递给 `render_fn`。
+- `render_fn`：为每个项目返回组件的函数。它接收项目作为第一个 `rx.Var[...]` 参数，并可选地接收索引作为第二个 `rx.Var[int]` 参数。

@@ -10,11 +10,11 @@ HighLevelCheckbox: |
 import reflex as rx
 ```
 
-# Checkbox
+# 复选框（Checkbox）
 
-## Basic Example
+## 基本示例
 
-The `on_change` trigger is called when the `checkbox` is clicked.
+当 `checkbox` 被点击时，会调用 `on_change` 触发器。
 
 ```python demo exec
 class CheckboxState(rx.State):
@@ -32,7 +32,7 @@ def checkbox_example():
     )
 ```
 
-The `input` prop is used to set the `checkbox` as a controlled component.
+`input` 属性用于将 `checkbox` 设置为受控组件。
 
 ```python demo exec
 class FormCheckboxState(rx.State):
@@ -40,7 +40,7 @@ class FormCheckboxState(rx.State):
 
     @rx.event
     def handle_submit(self, form_data: dict):
-        """Handle the form submit."""
+        """处理表单提交。"""
         print(form_data)
         self.form_data = form_data
 

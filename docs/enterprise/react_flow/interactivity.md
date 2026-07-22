@@ -1,10 +1,10 @@
-# Adding Interactivity to Your Flow
+# 为流程图添加交互性
 
-This guide shows how to create an interactive flow in Reflex, allowing you to select, drag, and connect nodes and edges.
+本指南介绍如何在 Reflex 中创建交互式流程图，使你能够选择、拖动和连接节点与边。
 
-## Define the State
+## 定义状态
 
-We start by defining the nodes and edges of the flow. The `FlowState` class holds the nodes and edges as state variables and includes event handlers to respond to changes.
+我们首先定义流程图的节点和边。`FlowState` 类将节点和边作为状态变量保存，并包含用于响应变化的事件处理程序。
 
 ```python
 import reflex as rx
@@ -39,9 +39,9 @@ class FlowState(rx.State):
     ]
 ```
 
-## Add Event Handlers
+## 添加事件处理程序
 
-Event handlers allow the flow to respond to user interactions such as dragging nodes, updating edges, or creating new connections.
+事件处理程序使流程图能够响应用户交互，例如拖动节点、更新边或创建新连接。
 
 ```python
 @rx.event
@@ -54,14 +54,14 @@ def set_edges(self, edges: list[Edge]):
     self.edges = edges
 ```
 
-- set_nodes updates nodes when they are moved or edited.
+- set_nodes 在节点被移动或编辑时更新节点。
 
-- set_edges updates edges when they are modified or deleted.
+- set_edges 在边被修改或删除时更新边。
 
 
-## Render the Interactive Flow
+## 渲染交互式流程图
 
-Finally, we render the flow using **rxe.flow**, passing in the state and event handlers. Additional UI features include zoom/pan controls, a background grid, and a mini-map for navigation.
+最后，我们使用 **rxe.flow** 渲染流程图，并传入状态和事件处理程序。额外的 UI 功能包括缩放/平移控件、背景网格以及用于导航的小地图。
 
 ```python
 def interactive_flow():

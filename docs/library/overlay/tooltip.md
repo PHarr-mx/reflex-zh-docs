@@ -14,11 +14,11 @@ Tooltip: |
 import reflex as rx
 ```
 
-# Tooltip
+# Tooltip（工具提示）
 
-A `tooltip` displays informative information when users hover over or focus on an element.
+`tooltip` 在用户悬停或聚焦于某个元素时显示提示信息。
 
-It takes a `content` prop, which is the content associated with the tooltip.
+它接受一个 `content` prop，即与工具提示关联的内容。
 
 ```python demo
 rx.tooltip(
@@ -27,9 +27,9 @@ rx.tooltip(
 )
 ```
 
-## Events when the Tooltip opens or closes
+## Tooltip 打开或关闭时的事件
 
-The `on_open_change` event is called when the `open` state of the tooltip changes. It is used in conjunction with the `open` prop, which is passed to the event handler.
+当工具提示的 `open` 状态发生变化时，会调用 `on_open_change` 事件。它与 `open` prop 配合使用，`open` 的值会传递给事件处理器。
 
 ```python demo exec
 class TooltipState(rx.State):

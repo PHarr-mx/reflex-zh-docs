@@ -90,7 +90,7 @@ FormMessage: |
           )
 ---
 
-# Form
+# 表单（Form）
 
 ```python exec
 import reflex as rx
@@ -98,16 +98,16 @@ import reflex.components.radix.primitives as rdxp
 ```
 
 ```md warning info
-## Low Level Form is Experimental
+## 底层表单是实验性功能
 
-Please use the High Level Form for now for production.
+目前生产环境请使用高层表单。
 ```
 
-Forms are used to collect information from your users. Forms group the inputs and submit them together.
+表单（Form）用于从用户那里收集信息。表单将输入控件组合在一起并一起提交。
 
-## Basic Example
+## 基本示例
 
-Here is an example of a form collecting an email address, with built-in validation on the email. If email entered is invalid, the form cannot be submitted. Note that the `form.submit` button is not automatically disabled. It is still clickable, but does not submit the form data. After successful submission, an alert window shows up and the form is cleared. There are a few `flex` containers used in the example to control the layout of the form components.
+下面是一个收集电子邮件地址的表单示例，带有内置的邮箱验证。如果输入的邮箱无效，则无法提交表单。请注意，`form.submit` 按钮不会自动禁用。它仍然可以点击，但不会提交表单数据。成功提交后，会弹出一个警告窗口并清空表单。示例中使用了一些 `flex` 容器来控制表单组件的布局。
 
 ```python demo
 rx.form.root(
@@ -117,7 +117,7 @@ rx.form.root(
             rx.form.control(
                 rx.input(
                     placeholder="Email Address",
-                    # type attribute is required for "typeMismatch" validation
+                    # type 属性是 "typeMismatch" 验证所必需的
                     type="email",
                 ),
                 as_child=True,
@@ -138,9 +138,9 @@ rx.form.root(
 )
 ```
 
-In this example, the `rx.input` has an attribute `type="email"` and the `form.message` has the attribute `match="typeMismatch"`. Those are required for the form to validate the input by its type. The prop `as_child="True"` is required when using other components to construct a Form component. This example has used `rx.input` to construct the Form Control and `button` the Form Submit.
+在此示例中，`rx.input` 具有 `type="email"` 属性，`form.message` 具有 `match="typeMismatch"` 属性。这些是表单按类型验证输入所必需的。当使用其他组件来构建 Form 组件时，需要设置 `as_child="True"` 属性。此示例使用 `rx.input` 来构建 Form Control，使用 `button` 来构建 Form Submit。
 
-## Form Anatomy
+## 表单结构
 
 ```python eval
 rx.code_block(
@@ -156,21 +156,21 @@ rx.code_block(
 )
 ```
 
-A Form Root (`form.root`) contains all the parts of a form. The Form Field (`form.field`), Form Submit (`form.submit`), etc should all be inside a Form Root. A Form Field can contain a Form Label (`form.label`), a Form Control (`form.control`), and a Form Message (`form.message`). A Form Label is a label element. A Form Control is where the user enters the input or makes selections. By default, the Form Control is a input. Using other form components to construct the Form Control is supported. To do that, set the prop `as_child=True` on the Form Control.
+Form Root（`form.root`）包含表单的所有部分。Form Field（`form.field`）、Form Submit（`form.submit`）等都应该在 Form Root 内部。一个 Form Field 可以包含 Form Label（`form.label`）、Form Control（`form.control`）和 Form Message（`form.message`）。Form Label 是一个标签元素。Form Control 是用户输入或进行选择的地方。默认情况下，Form Control 是一个输入框。支持使用其他表单组件来构建 Form Control。为此，需要在 Form Control 上设置 `as_child=True` 属性。
 
 ```md alert info
-The current version of Radix Forms does not support composing **Form Control** with other Radix form primitives such as **Checkbox**, **Select**, etc.
+当前版本的 Radix Forms 不支持将 **Form Control** 与其他 Radix 表单原语（如 **Checkbox**、**Select** 等）组合使用。
 ```
 
-The Form Message is a validation message which is automatically wired (functionality and accessibility). When the Form Control determines the input is invalid, the Form Message is shown. The `match` prop is to enable [client side validation](#client-side-validation). To perform [server side validation](#server-side-validation), **both** the `force_match` prop of the Form Control and the `server_invalid` prop of the Form Field are set together.
+Form Message 是一个验证消息，它会自动连接功能和可访问性。当 Form Control 判定输入无效时，会显示 Form Message。`match` 属性用于启用[客户端验证](#client-side-validation)。要执行[服务器端验证](#server-side-validation)，需要**同时**设置 Form Control 的 `force_match` 属性和 Form Field 的 `server_invalid` 属性。
 
-The Form Submit is by default a button that submits the form. To use another button component as a Form Submit, include that button as a child inside `form.submit` and set the prop `as_child=True`.
+Form Submit 默认是一个提交表单的按钮。要使用其他按钮组件作为 Form Submit，将该按钮作为子元素包含在 `form.submit` 中并设置 `as_child=True` 属性。
 
-The `on_submit` prop of the Form Root accepts an event handler. It is called with the submitted form data dictionary. To clear the form after submission, set the `reset_on_submit=True` prop.
+Form Root 的 `on_submit` 属性接受一个事件处理函数。它会在提交时被调用，并接收提交的表单数据字典。要在提交后清空表单，设置 `reset_on_submit=True` 属性。
 
-## Data Submission
+## 数据提交
 
-As previously mentioned, the various pieces of data in the form are submitted together as a dictionary. The form control or the input components must have the `name` attribute. This `name` is the key to get the value from the form data dictionary. If no validation is needed, the form type components such as Checkbox, Radio Groups, TextArea can be included directly under the Form Root instead of inside a Form Control.
+如前所述，表单中的各种数据会作为一个字典一起提交。表单控件或输入组件必须具有 `name` 属性。这个 `name` 是从表单数据字典中获取值的键。如果不需要验证，表单类型组件（如 Checkbox、Radio Groups、TextArea）可以直接放在 Form Root 下面，而不需要放在 Form Control 内部。
 
 ```python demo exec
 import reflex as rx
@@ -182,7 +182,7 @@ class RadixFormSubmissionState(rx.State):
 
     @rx.event
     def handle_submit(self, form_data: dict):
-        """Handle the form submit."""
+        """处理表单提交。"""
         self.form_data = form_data
 
     @rx.var
@@ -299,13 +299,13 @@ def radix_form_submission_example():
     )
 ```
 
-## Validation
+## 验证
 
-Server side validation is done through **Computed Vars** on the State. The **Var** should return a boolean flag indicating when input is invalid. Set that **Var** on both the `server_invalid` prop of `form.field` and the `force_match` prop of `form.message`. There is an example how to do that in the [Final Example](#final-example).
+服务器端验证通过 State 上的**计算变量（Computed Vars）**来完成。该 **Var** 应该返回一个布尔值，指示输入何时无效。将该 **Var** 同时设置在 `form.field` 的 `server_invalid` 属性和 `form.message` 的 `force_match` 属性上。在[最终示例](#final-example)中有一个如何这样做的例子。
 
-## Final Example
+## 最终示例
 
-The final example shows a form that collects username and email during sign-up and validates them using server side validation. When server side validation fails, messages are displayed in red to show what is not accepted in the form, and the submit button is disabled. After submission, the collected form data is displayed in texts below the form and the form is cleared.
+最终示例展示了一个在注册时收集用户名和邮箱并使用服务器端验证进行验证的表单。当服务器端验证失败时，会以红色显示消息来表明表单中哪些内容不被接受，并且提交按钮会被禁用。提交后，收集的表单数据会显示在表单下方的文本中，并且表单会被清空。
 
 ```python demo exec
 import re
@@ -314,17 +314,17 @@ import reflex.components.radix.primitives as rdxp
 
 
 class RadixFormState(rx.State):
-    # These track the user input real time for validation
+    # 这些实时跟踪用户输入以进行验证
     user_entered_username: str
     user_entered_email: str
 
-    # These are the submitted data
+    # 这些是提交的数据
     username: str
     email: str
 
     mock_username_db: list[str] = ["reflex", "admin"]
 
-    # Add explicit setters
+    # 添加显式的 setter
     def set_user_entered_username(self, value: str):
         self.user_entered_username = value
 
@@ -355,7 +355,7 @@ class RadixFormState(rx.State):
 
     @rx.event
     def handle_submit(self, form_data: dict):
-        """Handle the form submit."""
+        """处理表单提交。"""
         self.username = form_data.get("username")
         self.email = form_data.get("email")
 
@@ -370,13 +370,13 @@ def radix_form_example():
                         rx.form.control(
                             rx.input(
                                 placeholder="Username",
-                                # workaround: `name` seems to be required when on_change is set
+                                # 解决方法：设置 on_change 时似乎需要 `name`
                                 on_change=RadixFormState.set_user_entered_username,
                                 name="username",
                             ),
                             as_child=True,
                         ),
-                        # server side validation message can be displayed inside a rx.cond
+                        # 服务器端验证消息可以在 rx.cond 中显示
                         rx.cond(
                             RadixFormState.username_empty,
                             rx.form.message(
@@ -384,14 +384,14 @@ def radix_form_example():
                                 color="var(--red-11)",
                             ),
                         ),
-                        # server side validation message can be displayed by `force_match` prop
+                        # 服务器端验证消息可以通过 `force_match` 属性显示
                         rx.form.message(
                             "Username already taken",
-                            # this is a workaround:
-                            # `force_match` does not work without `match`
-                            # This case does not want client side validation
-                            # and intentionally not set `required` on the input
-                            # so "valueMissing" is always false
+                            # 这是一个解决方法：
+                            # `force_match` 在没有 `match` 的情况下不起作用
+                            # 此情况不需要客户端验证
+                            # 并且故意没有在输入框上设置 `required`
+                            # 所以 "valueMissing" 始终为 false
                             match="valueMissing",
                             force_match=RadixFormState.username_is_taken,
                             color="var(--red-11)",

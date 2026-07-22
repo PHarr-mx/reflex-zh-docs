@@ -10,13 +10,13 @@ TextArea: |
 import reflex as rx
 ```
 
-# Text Area
+# 文本域（Text Area）
 
-A text area is a multi-line text input field.
+文本域（Text Area）是一个多行文本输入框。
 
-## Basic Example
+## 基本示例
 
-The text area component can be controlled by a single value. The `on_blur` prop can be used to update the value when the text area loses focus.
+文本域组件可以通过单个值来控制。`on_blur` 属性可用于在文本域失去焦点时更新值。
 
 ```python demo exec
 class TextAreaBlur(rx.State):
@@ -37,9 +37,9 @@ def blur_example():
     )
 ```
 
-## Text Area in forms
+## 在表单中使用文本域
 
-Here we show how to use a text area in a form. We use the `name` prop to identify the text area in the form data. The form data is then passed to the `submit_feedback` method to be processed.
+这里展示了如何在表单中使用文本域。我们使用 `name` 属性来标识表单数据中的文本域。表单数据随后会传递给 `submit_feedback` 方法进行处理。
 
 ```python demo exec
 class TextAreaFeedbackState(rx.State):

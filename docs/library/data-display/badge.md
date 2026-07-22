@@ -6,28 +6,28 @@ Badge: |
   lambda **props: rx.badge("Basic Badge", **props)
 ---
 
-# Badge
+# 徽章（Badge）
 
 ```python exec
 import reflex as rx
 ```
 
-Badges are used to highlight an item's status for quick recognition.
+徽章（Badge）用于突出显示项目的状态，以便快速识别。
 
-## Basic Example
+## 基本示例
 
-To create a badge component with only text inside, pass the text as an argument.
+要创建仅包含文本的徽章组件，请将文本作为参数传入。
 
 ```python demo
 rx.badge("New")
 ```
 
-## Styling
+## 样式
 
 
-### Size
+### 尺寸
 
-The `size` prop controls the size and padding of a badge. It can take values of `"1" | "2"`, with default being `"1"`.
+`size` 属性控制徽章的大小和内边距。可取值为 `"1" | "2"`，默认值为 `"1"`。
 
 ```python demo
 rx.flex(
@@ -39,9 +39,9 @@ rx.flex(
 )
 ```
 
-### Variant
+### 变体
 
-The `variant` prop controls the visual style of the badge. The supported variant types are `"solid" | "soft" | "surface" | "outline"`. The variant default is `"soft"`.
+`variant` 属性控制徽章的视觉样式。支持的变体类型为 `"solid" | "soft" | "surface" | "outline"`。默认变体为 `"soft"`。
 
 ```python demo
 rx.flex(
@@ -54,9 +54,9 @@ rx.flex(
 )
 ```
 
-### Color Scheme
+### 配色方案
 
-The `color_scheme` prop sets a specific color, ignoring the global theme.
+`color_scheme` 属性设置特定颜色，忽略全局主题。
 
 ```python demo
 rx.flex(
@@ -68,9 +68,9 @@ rx.flex(
 )
 ```
 
-### High Contrast
+### 高对比度
 
-The `high_contrast` prop increases color contrast of the fallback text with the background.
+`high_contrast` 属性增加后备文本与背景之间的颜色对比度。
 
 ```python demo
 rx.flex(
@@ -93,9 +93,9 @@ rx.flex(
 )
 ```
 
-### Radius
+### 圆角
 
-The `radius` prop sets specific radius value, ignoring the global theme. It can take values `"none" | "small" | "medium" | "large" | "full"`.
+`radius` 属性设置特定的圆角值，忽略全局主题。可取值为 `"none" | "small" | "medium" | "large" | "full"`。
 
 ```python demo
 rx.flex(
@@ -108,10 +108,9 @@ rx.flex(
 )
 ```
 
-## Final Example
+## 综合示例
 
-A badge may contain more complex elements within it. This example uses a `flex` component to align an icon and the text correctly, using the `gap` prop to
-ensure a comfortable spacing between the two.
+徽章内部可以包含更复杂的元素。此示例使用 `flex` 组件来正确对齐图标和文本，并使用 `gap` 属性确保两者之间有舒适的间距。
 
 ```python demo
 rx.badge(

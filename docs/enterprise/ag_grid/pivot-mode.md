@@ -7,15 +7,15 @@ import reflex as rx
 import reflex_enterprise as rxe
 ```
 
-# Pivot Mode
+# 透视模式（Pivot Mode）
 
-Pivot mode allows you to visualize your data in a different way than how they are originally structured in the data source. When pivoting on a column, the values in that column will be used as column headers. This allows you to see the data in a more compact way, and can be useful when you have a lot of data to display.
+透视模式允许你以不同于数据源中原始结构的方式来可视化数据。当对某一列进行透视时，该列中的值将用作列标题。这允许你以更紧凑的方式查看数据，当你有大量数据需要显示时非常有用。
 
-To enable pivot mode, set the `pivot_mode` property to `True` in the grid props. Once pivot mode is enabled, you can define which column to pivot on by setting the `pivot` property in a column definition. In addition to the pivot column, at least one column definition must have `row_group` property set to `True` to define the row grouping.
+要启用透视模式，在网格属性中将 `pivot_mode` 属性设置为 `True`。启用透视模式后，你可以通过在列定义中设置 `pivot` 属性来定义要透视的列。除了透视列之外，至少有一个列定义必须将 `row_group` 属性设置为 `True` 来定义行分组。
 
-You can also define how rows are aggregated by passing the `agg_func` property in the column definition. The `agg_func` property should be set to a string that represents the aggregation function to use. The built-in aggregation functions are `sum`, `min`, `max`, `count`, `avg`, `first`, and `last`.
+你还可以通过在列定义中传递 `agg_func` 属性来定义行的聚合方式。`agg_func` 属性应设置为一个表示要使用的聚合函数的字符串。内置的聚合函数有 `sum`、`min`、`max`、`count`、`avg`、`first` 和 `last`。
 
-You can find a live example here: [Pivot Mode Example](https://aggrid.reflex.run/pivot).
+你可以在此处找到一个在线示例：[透视模式示例](https://aggrid.reflex.run/pivot)。
 
 ```python demo exec
 import pandas as pd
@@ -59,7 +59,7 @@ def pivot_page():
     )
 ```
 
-## Pivot using State
+## 使用状态进行透视
 
 ```python demo exec
 import pandas as pd
@@ -130,6 +130,6 @@ def sandbox_page():
     )
 ```
 
-📊 **Dataset source:** [wind_dataset.csv](https://raw.githubusercontent.com/plotly/datasets/master/wind_dataset.csv)
+📊 **数据集来源：** [wind_dataset.csv](https://raw.githubusercontent.com/plotly/datasets/master/wind_dataset.csv)
 
 

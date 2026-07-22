@@ -7,15 +7,14 @@ components:
 import reflex as rx
 ```
 
-# Aspect Ratio
+# 宽高比（Aspect Ratio）
 
-Displays content with a desired ratio.
+以所需的宽高比显示内容。
 
-## Basic Example
+## 基本示例
 
-Setting the `ratio` prop will adjust the width or height
-of the content such that the `width` divided by the `height` equals the `ratio`.
-For responsive scaling, set the `width` or `height` of the content to `"100%"`.
+设置 `ratio` 属性会调整内容的宽度或高度，使 `width` 除以 `height` 等于 `ratio`。
+要实现响应式缩放，请将内容的 `width` 或 `height` 设置为 `"100%"`。
 
 ```python demo
 rx.grid(
@@ -61,9 +60,9 @@ rx.grid(
 ```
 
 ```md alert warning
-# Never set `height` or `width` directly on an `aspect_ratio` component or its contents.
+# 不要直接在 `aspect_ratio` 组件或其内容上设置 `height` 或 `width`。
 
-Instead, wrap the `aspect_ratio` in a `box` that constrains either the width or the height, then set the content width and height to `"100%"`.
+应将 `aspect_ratio` 包裹在一个约束了宽度或高度的 `box` 中，然后将内容的宽度和高度设置为 `"100%"`。
 ```
 
 ```python demo

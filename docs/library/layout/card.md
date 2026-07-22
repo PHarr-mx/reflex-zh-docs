@@ -10,16 +10,13 @@ Card: |
 import reflex as rx
 ```
 
-# Card
+# 卡片（Card）
 
-A Card component is used for grouping related components. It is similar to the Box, except it has a
-border, uses the theme colors and border radius, and provides a `size` prop to control spacing
-and margin according to the Radix `"1"` - `"5"` scale.
+Card 组件用于将相关组件组合在一起。它与 Box 类似，但带有边框，使用主题颜色和边框圆角，并提供 `size` 属性来根据 Radix `"1"` - `"5"` 比例控制间距和外边距。
 
-The Card requires less styling than a Box to achieve consistent visual results when used with
-themes.
+在配合主题使用时，Card 比 Box 需要更少的样式设置即可实现一致的视觉效果。
 
-## Basic Example
+## 基本示例
 
 ```python demo
 rx.flex(
@@ -34,10 +31,9 @@ rx.flex(
 )
 ```
 
-## Rendering as a Different Element
+## 渲染为其他元素
 
-The `as_child` prop may be used to render the Card as a different element. Link and Button are
-commonly used to make a Card clickable.
+可以使用 `as_child` 属性将 Card 渲染为其他元素。Link 和 Button 常用于使 Card 可点击。
 
 ```python demo
 rx.card(
@@ -55,4 +51,4 @@ rx.card(
 )
 ```
 
-## Using Inset Content
+## 使用内嵌内容（Inset）

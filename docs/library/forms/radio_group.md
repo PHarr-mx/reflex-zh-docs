@@ -32,11 +32,11 @@ RadioGroupItem: |
 import reflex as rx
 ```
 
-# Radio Group
+# 单选组（Radio Group）
 
-A set of interactive radio buttons where only one can be selected at a time.
+一组交互式的单选按钮（Radio Button），同一时间只能选中一个。
 
-## Basic example
+## 基本示例
 
 ```python demo exec
 class RadioGroupState(rx.State):
@@ -54,11 +54,11 @@ def radio_group_state_example():
     )
 ```
 
-## Submitting a form using Radio Group
+## 使用单选组提交表单
 
-The `name` prop is used to name the group. It is submitted with its owning form as part of a name/value pair.
+`name` 属性用于命名该组。它作为名称/值对的一部分随所属表单一起提交。
 
-When the `required` prop is `True`, it indicates that the user must check a radio item before the owning form can be submitted.
+当 `required` 属性为 `True` 时，表示用户必须在提交所属表单之前选择一个单选项。
 
 ```python demo exec
 class FormRadioState(rx.State):
@@ -66,7 +66,7 @@ class FormRadioState(rx.State):
 
     @rx.event
     def handle_submit(self, form_data: dict):
-        """Handle the form submit."""
+        """处理表单提交。"""
         self.form_data = form_data
 
 

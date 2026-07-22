@@ -3,13 +3,13 @@ meta_description: "Wire AG Grid to a pandas DataFrame or a Reflex database model
 order: 6
 ---
 
-# Model Wrapper
+# 模型包装器（Model Wrapper）
 
-A model wrapper is an utility used to wrap a database model and provide a consistent interface over it. It allows automatically adding new rows to the database, updating existing rows, and deleting rows.
+模型包装器是一个用于包装数据库模型并在其上提供一致接口的实用工具。它允许自动向数据库添加新行、更新现有行和删除行。
 
-## Default Model Wrapper
+## 默认模型包装器
 
-You can use the basic functionality of the model wrapper by using the `rxe.model_wrapper` function. This function takes a database model and returns a wrapper object that can be used to interact with the model.
+你可以使用 `rxe.model_wrapper` 函数来使用模型包装器的基本功能。此函数接受一个数据库模型并返回一个可用于与模型交互的包装器对象。
 
 ```python
 import reflex_enterprise as rxe
@@ -19,11 +19,11 @@ def index_page():
     return rxe.model_wrapper(class_model=MyModel)
 ```
 
-By default the model_wrapper use the infinite rows model from AgGrid.
+默认情况下，model_wrapper 使用 AgGrid 的无限行模型（Infinite Rows Model）。
 
-## Custom Model Wrapper
+## 自定义模型包装器
 
-If the default model wrapper does not fit your needs, you can create a custom model wrapper by subclassing the `rxe.ModelWrapper` class. This allows you to customize the behavior of the model wrapper to fit your specific use case.
+如果默认模型包装器不能满足你的需求，你可以通过继承 `rxe.ModelWrapper` 类来创建自定义模型包装器。这允许你自定义模型包装器的行为以适应你的特定用例。
 
 ```python
 import reflex_enterprise as rxe
@@ -33,18 +33,18 @@ class MyCustomWrapper(rxe.ModelWrapper[MyModel]):
     pass
 ```
 
-In the custom model wrapper, you can override the following methods:
+在自定义模型包装器中，你可以重写以下方法：
 - `_get_columns_defs`
 - `_get_data`
 - `_row_count`
 - `on_value_setter`
 
-to modify how the model wrapper will behave.
+来修改模型包装器的行为方式。
 
 
-## SSRM Model Wrapper
+## SSRM 模型包装器
 
-The SSRM model wrapper, used with `rxe.model_wrapper_ssrm`, is a version of the model wrapper that allows you to use the ServerSideRowModel of AgGrid.
+SSRM 模型包装器，通过 `rxe.model_wrapper_ssrm` 使用，是模型包装器的一个版本，允许你使用 AgGrid 的服务端行模型（ServerSideRowModel）。
 
 ```python
 import reflex_enterprise as rxe
@@ -54,9 +54,9 @@ def index_page():
     return rxe.model_wrapper_ssrm(class_model=MyModel)
 ```
 
-## SSRM Custom Model Wrapper
+## SSRM 自定义模型包装器
 
-In the same way you can extend the default model wrapper, you can extend the SSRM custom model wrapper by subclassing the `rxe.ModelWrapperSSRM` class. This allows you to customize the behavior of the model wrapper to fit your specific use case.
+与扩展默认模型包装器的方式相同，你可以通过继承 `rxe.ModelWrapperSSRM` 类来扩展 SSRM 自定义模型包装器。这允许你自定义模型包装器的行为以适应你的特定用例。
 
 ```python
 import reflex_enterprise as rxe
@@ -66,4 +66,4 @@ class MyCustomSSRMWrapper(rxe.ModelWrapperSSRM[MyModel]):
     pass
 ```
 
-The overridable methods are the same as the standard model wrapper.
+可重写的方法与标准模型包装器相同。

@@ -8,18 +8,18 @@ components:
 import reflex as rx
 ```
 
-# Cartesian Grid
+# 笛卡尔网格（Cartesian Grid）
 
-The Cartesian Grid is a component in Recharts that provides a visual reference for data points in charts. It helps users to better interpret the data by adding horizontal and vertical lines across the chart area.
+笛卡尔网格是 Recharts 中的一个组件，为图表中的数据点提供视觉参考。它通过在图表区域添加水平线和垂直线，帮助用户更好地解读数据。
 
-## Simple Example
+## 简单示例
 
-The `stroke_dasharray` prop in Recharts is used to create dashed or dotted lines for various chart elements like lines, axes, or grids. It's based on the SVG stroke-dasharray attribute. The `stroke_dasharray` prop accepts a comma-separated string of numbers that define a repeating pattern of dashes and gaps along the length of the stroke.
+Recharts 中的 `stroke_dasharray` 属性用于为折线、坐标轴或网格等各种图表元素创建虚线或点线。它基于 SVG 的 stroke-dasharray 属性。`stroke_dasharray` 属性接受一个以逗号分隔的数字字符串，定义沿描边长度重复的虚线和间隔模式。
 
-- `stroke_dasharray="5,5"`: creates a line with 5-pixel dashes and 5-pixel gaps
-- `stroke_dasharray="10,5,5,5"`: creates a more complex pattern with 10-pixel dashes, 5-pixel gaps, 5-pixel dashes, and 5-pixel gaps
+- `stroke_dasharray="5,5"`：创建 5 像素虚线和 5 像素间隔的线条
+- `stroke_dasharray="10,5,5,5"`：创建更复杂的模式，包含 10 像素虚线、5 像素间隔、5 像素虚线和 5 像素间隔
 
-Here's a simple example using it on a Line component:
+以下是在 Line 组件上使用它的简单示例：
 
 ```python demo graphing
 data = [
@@ -47,9 +47,9 @@ def cgrid_simple():
     )
 ```
 
-## Hidden Axes
+## 隐藏网格线
 
-A `cartesian_grid` component can be used to hide the horizontal and vertical grid lines in a chart by setting the `horizontal` and `vertical` props to `False`. This can be useful when you want to show the grid lines only on one axis or when you want to create a cleaner look for the chart.
+通过将 `cartesian_grid` 组件的 `horizontal` 和 `vertical` 属性设置为 `False`，可以隐藏图表中的水平和垂直网格线。当你只想在一个轴上显示网格线，或者想为图表创建更简洁的外观时，这会很有用。
 
 ```python demo graphing
 data = [
@@ -79,20 +79,20 @@ def cgrid_hidden():
     )
 ```
 
-## Custom Grid Lines
+## 自定义网格线
 
-The `horizontal_points` and `vertical_points` props allow you to specify custom grid lines on the chart, offering fine-grained control over the grid's appearance.
+`horizontal_points` 和 `vertical_points` 属性允许你在图表上指定自定义网格线，提供对网格外观的精细控制。
 
-These props accept arrays of numbers, where each number represents a pixel offset:
+这些属性接受数字数组，其中每个数字代表一个像素偏移量：
 
-- For `horizontal_points`, the offset is measured from the top edge of the chart
-- For `vertical_points`, the offset is measured from the left edge of the chart
+- 对于 `horizontal_points`，偏移量从图表顶部边缘开始测量
+- 对于 `vertical_points`，偏移量从图表左侧边缘开始测量
 
 ```md alert info
-# **Important**: The values provided to these props are not directly related to the axis values. They represent pixel offsets within the chart's rendering area.
+# **重要**：提供给这些属性的值与轴值没有直接关系。它们代表图表渲染区域内的像素偏移量。
 ```
 
-Here's an example demonstrating custom grid lines in a scatter chart:
+以下是在散点图中演示自定义网格线的示例：
 
 ```python demo graphing
 data2 = [
@@ -129,4 +129,4 @@ def cgrid_custom():
     )
 ```
 
-Use these props judiciously to enhance data visualization without cluttering the chart. They're particularly useful for highlighting specific data ranges or creating visual reference points.
+请谨慎使用这些属性来增强数据可视化效果，同时避免使图表过于杂乱。它们对于突出显示特定数据范围或创建视觉参考点特别有用。

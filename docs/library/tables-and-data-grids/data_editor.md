@@ -4,9 +4,9 @@ components:
 meta_description: "Build an editable data grid in Python with Reflex. The rx.data_editor component is a fast, spreadsheet-like data grid based on Glide Data Grid for editing tabular data — all in pure Python."
 ---
 
-# Data Editor
+# Data Editor（数据编辑器）
 
-The Reflex data editor (`rx.data_editor`) is a fast, editable data grid based on [Glide Data Grid](https://grid.glideapps.com/). Use it for spreadsheet-like editing of tabular data in pure Python — add, edit, and format cells across many rows and columns.
+Reflex 数据编辑器（`rx.data_editor`）是一个基于 [Glide Data Grid](https://grid.glideapps.com/) 的快速、可编辑数据网格。用它可以在纯 Python 中进行类似电子表格的表格数据编辑——跨多行多列添加、编辑和格式化单元格。
 
 ```python exec
 import reflex as rx
@@ -36,25 +36,25 @@ data: list[list[Any]] = [
 ]
 ```
 
-This component is introduced as an alternative to the [datatable](/docs/library/tables-and-data-grids/data-table) to support editing the displayed data.
+此组件作为 [datatable](/docs/library/tables-and-data-grids/data-table) 的替代方案引入，以支持编辑显示的数据。
 
-## Columns
+## 列定义
 
-The columns definition should be a `list` of `dict`, each `dict` describing the associated columns.
-Property of a column dict:
+列定义应该是一个 `dict` 的 `list`，每个 `dict` 描述对应的列。
+列字典的属性：
 
-- `title`: The text to display in the header of the column.
-- `id`: An id for the column, if not defined, will default to a lower case of `title`
-- `width`: The width of the column.
-- `type`: The type of the columns, default to `"str"`.
+- `title`：列标题中显示的文本。
+- `id`：列的 id，如果未定义，默认为 `title` 的小写形式。
+- `width`：列的宽度。
+- `type`：列的类型，默认为 `"str"`。
 
-## Data
+## 数据
 
-The `data` props of `rx.data_editor` accept a `list` of `list`, where each `list` represent a row of data to display in the table.
+`rx.data_editor` 的 `data` prop 接受一个 `list` 的 `list`，其中每个 `list` 代表表格中要显示的一行数据。
 
-## Simple Example
+## 简单示例
 
-Here is a basic example of using the data_editor representing data with no interaction and no styling. Below we define the `columns` and the `data` which are taken in by the `rx.data_editor` component. When we define the `columns` we must define a `title` and a `type` for each column we create. The columns in the `data` must then match the defined `type` or errors will be thrown.
+下面是使用 data_editor 表示数据的基本示例，没有交互也没有样式。下面我们定义了 `columns` 和 `data`，它们由 `rx.data_editor` 组件接收。定义 `columns` 时，必须为创建的每一列定义 `title` 和 `type`。`data` 中的列必须与定义的 `type` 匹配，否则会抛出错误。
 
 ```python demo box
 rx.data_editor(
@@ -95,7 +95,7 @@ rx.data_editor(
 )
 ```
 
-## Interactive Example
+## 交互示例
 
 ```python exec
 class DataEditorState_HP(rx.State):
@@ -173,7 +173,7 @@ class DataEditorState_HP(rx.State):
         [
             "3",
             "Hermione Jean Granger",
-            "19 September, 1979",
+            "19 September, 1979",
             True,
             "Gryffindor",
             "10¾'  vine wood dragon heartstring",
@@ -193,17 +193,17 @@ class DataEditorState_HP(rx.State):
         [
             "5",
             "Rubeus Hagrid",
-            "6 December 1928",
+            "6 December 1928",
             False,
             "Gryffindor",
             "16'  Oak unknown core",
             "None",
-            "Part-Human (Half-giant)",
+            "Part-Human (Half-giant)",
         ],
         [
             "6",
             "Fred Weasley",
-            "1 April, 1978",
+            "1 April, 1978",
             True,
             "Gryffindor",
             "Unknown",
@@ -220,7 +220,7 @@ class DataEditorState_HP(rx.State):
         self.clicked_data = f"Cell clicked: {pos}"
 ```
 
-Here we define a State, as shown below, that allows us to print the location of the cell as a heading when we click on it, using the `on_cell_clicked` `event trigger`. Check out all the other `event triggers` that you can use with datatable at the bottom of this page. We also define a `group` with a label `Data`. This groups all the columns with this `group` label under a larger group `Data` as seen in the table below.
+这里我们定义了一个 State，如下所示，它允许我们在点击单元格时使用 `on_cell_clicked` 事件触发器将单元格位置打印为标题。查看本页底部可与 datatable 一起使用的所有其他事件触发器。我们还定义了一个标签为 `Data` 的 `group`。这会将所有带有此 `group` 标签的列归入一个更大的组 `Data` 下，如下表所示。
 
 ```python demo box
 rx.heading(DataEditorState_HP.clicked_data, as_="h2")
@@ -306,7 +306,7 @@ class DataEditorState_HP(rx.State):
         [
             "3",
             "Hermione Jean Granger",
-            "19 September, 1979",
+            "19 September, 1979",
             True,
             "Gryffindor",
             "10¾'  vine wood dragon heartstring",
@@ -326,17 +326,17 @@ class DataEditorState_HP(rx.State):
         [
             "5",
             "Rubeus Hagrid",
-            "6 December 1928",
+            "6 December 1928",
             False,
             "Gryffindor",
             "16'  Oak unknown core",
             "None",
-            "Part-Human (Half-giant)",
+            "Part-Human (Half-giant)",
         ],
         [
             "6",
             "Fred Weasley",
-            "1 April, 1978",
+            "1 April, 1978",
             True,
             "Gryffindor",
             "Unknown",
@@ -361,11 +361,11 @@ rx.data_editor(
 )
 ```
 
-## Styling Example
+## 样式示例
 
-Now let's style our datatable to make it look more aesthetic and easier to use. We must first import `DataEditorTheme` and then we can start setting our style props as seen below in `dark_theme`.
+现在让我们为数据表格添加样式，使其更美观、更易用。我们必须先导入 `DataEditorTheme`，然后就可以开始设置样式 prop，如下面的 `dark_theme` 所示。
 
-We then set these themes using `theme=DataEditorTheme(**dark_theme)`. On top of the styling we can also set some `props` to make some other aesthetic changes to our datatable. We have set the `row_height` to equal `50` so that the content is easier to read. We have also made the `smooth_scroll_x` and `smooth_scroll_y` equal `True` so that we can smoothly scroll along the columns and rows. Finally, we added `column_select=single`, where column select can take any of the following values `none`, `single` or `multiple`.
+然后我们使用 `theme=DataEditorTheme(**dark_theme)` 设置这些主题。除了样式之外，我们还可以设置一些 `props` 来对数据表格进行其他美观调整。我们将 `row_height` 设置为 `50`，使内容更易阅读。我们还将 `smooth_scroll_x` 和 `smooth_scroll_y` 设置为 `True`，以便沿列和行平滑滚动。最后，我们添加了 `column_select=single`，其中 column select 可以取以下值：`none`、`single` 或 `multiple`。
 
 ```python exec
 from reflex.components.datadisplay.dataeditor import DataEditorTheme
@@ -455,10 +455,10 @@ rx.data_editor(
 )
 ```
 
-## Related
+## 相关内容
 
-Explore the other ways to work with tabular data in Reflex, all in pure Python:
+探索在 Reflex 中处理表格数据的其他方法，全部使用纯 Python：
 
 - [Data Table](/docs/library/tables-and-data-grids/data-table)
 - [Table](/docs/library/tables-and-data-grids/table)
-- [Tables and Data Grids](/docs/library/tables-and-data-grids/)
+- [表格和数据网格](/docs/library/tables-and-data-grids/)

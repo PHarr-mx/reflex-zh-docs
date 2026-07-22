@@ -6,18 +6,18 @@ Progress: |
   lambda **props: rx.box(rx.progress(value=50, **props), width="20rem")
 ---
 
-# Progress
+# 进度条（Progress）
 
-Progress is used to display the progress status for a task that takes a long time or consists of several steps.
+进度条（Progress）用于显示需要较长时间或由多个步骤组成的任务的进度状态。
 
 ```python exec
 import reflex as rx
 ```
 
-## Basic Example
+## 基本示例
 
-`rx.progress` expects the `value` prop to set the progress value.
-`width` is default to 100%, the width of its parent component.
+`rx.progress` 需要通过 `value` 属性来设置进度值。
+`width` 默认为 100%，即父组件的宽度。
 
 ```python demo
 rx.vstack(
@@ -28,7 +28,7 @@ rx.vstack(
 )
 ```
 
-For a dynamic progress, you can assign a state variable to the `value` prop instead of a constant value.
+对于动态进度条，你可以将状态变量赋值给 `value` 属性，而不是常量值。
 
 ```python demo exec
 import asyncio

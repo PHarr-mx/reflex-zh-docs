@@ -2,41 +2,32 @@
 title: Event Handler API
 ---
 
-_New in reflex-enterprise v0.7.1._
+_reflex-enterprise v0.7.1 新增。_
 
-# Event Handler API Plugin
+# 事件处理器 API 插件（Event Handler API Plugin）
 
-`rxe.EventHandlerAPIPlugin` exposes every registered event handler on your
-Reflex state as an HTTP `POST` endpoint and auto-generates an OpenAPI 3
-specification for them. This turns any Reflex app into a machine-driveable
-API without writing a single route by hand — great for LLM agents, CLI
-scripts, end-to-end tests, or external integrations that need to drive the
-same logic the frontend uses.
+`rxe.EventHandlerAPIPlugin` 将 Reflex 状态上所有已注册的事件处理器（Event Handlers）暴露为 HTTP `POST` 端点，并自动生成 OpenAPI 3 规范。这使得任何 Reflex 应用无需手动编写路由即可成为机器可驱动的 API——非常适合 LLM 代理、CLI 脚本、端到端测试或需要驱动前端相同逻辑的外部集成。
 
 ```md alert info
-# Requires `reflex >= 0.9.0` and `reflex-enterprise`. The plugin only works with `rxe.App`.
+# 需要 `reflex >= 0.9.0` 和 `reflex-enterprise`。该插件仅适用于 `rxe.App`。
 ```
 
-## Endpoints
+## 端点
 
-When the plugin is enabled, the following routes are added to the backend:
+启用插件后，以下路由将添加到后端：
 
-| Path | Purpose |
+| 路径 | 用途 |
 | --- | --- |
-| `POST /_reflex/event/<state_full_name>/<handler_name>` | One endpoint per `@rx.event` handler on every state class. Streams state deltas as newline-delimited JSON. |
-| `POST /_reflex/retrieve_state` | Returns the full root state `.dict()` for the session token without re-hydrating client storage. |
-| `GET /_reflex/events/openapi.yaml` | Auto-generated OpenAPI 3 specification describing every endpoint above. |
-| `GET,HEAD /.well-known/api-catalog` | RFC 9727 API catalog pointing at the OpenAPI spec (RFC 9264 Linkset). |
+| `POST /_reflex/event/<state_full_name>/<handler_name>` | 每个状态类上的每个 `@rx.event` 处理器对应一个端点。以换行分隔的 JSON 流式传输状态增量。 |
+| `POST /_reflex/retrieve_state` | 返回会话令牌对应的完整根状态 `.dict()`，无需重新注入客户端存储。 |
+| `GET /_reflex/events/openapi.yaml` | 自动生成的 OpenAPI 3 规范，描述上述所有端点。 |
+| `GET,HEAD /.well-known/api-catalog` | RFC 9727 API 目录，指向 OpenAPI 规范（RFC 9264 Linkset）。 |
 
-Handler argument names and type annotations are introspected to build each
-`requestBody` schema, and the docstring's first line becomes the endpoint
-`summary`. Handlers registered as page `on_load` triggers are listed in the
-`description` field of the spec so API consumers can tell which endpoint is
-invoked when a given page is "visited".
+处理器参数名称和类型注解会被内省以构建每个 `requestBody` 模式，文档字符串的第一行成为端点的 `summary`。注册为页面 `on_load` 触发器的处理器会列在规范的 `description` 字段中，以便 API 使用者了解访问特定页面时会调用哪个端点。
 
-## Configuration
+## 配置
 
-Add the plugin to the `plugins` list of `rxe.Config` in `rxconfig.py`:
+在 `rxconfig.py` 中将插件添加到 `rxe.Config` 的 `plugins` 列表：
 
 ```python
 import reflex as rx
@@ -46,7 +37,7 @@ config = rxe.Config(
     app_name="my_app",
     plugins=[
         rxe.EventHandlerAPIPlugin(
-            # All three arguments are optional.
+            # 所有三个参数都是可选的。
             api_version="1.0.0",
             contact={"name": "Ops", "email": "ops@example.com"},
             license_info={
@@ -58,7 +49,7 @@ config = rxe.Config(
 )
 ```
 
-Your app must use `rxe.App()` (not `rx.App()`):
+你的应用必须使用 `rxe.App()`（而非 `rx.App()`）：
 
 ```python
 import reflex_enterprise as rxe
@@ -67,40 +58,34 @@ app = rxe.App()
 ```
 
 ```md alert warning
-# The backend serves the API on the Reflex backend port (default `http://localhost:8000` in dev, or the `deploy_url` in production). If you're running production with `--single-port`, the API is instead reachable on the frontend port (default `http://localhost:3000`).
+# 后端在 Reflex 后端端口上提供 API（开发环境默认为 `http://localhost:8000`，生产环境为 `deploy_url`）。如果你使用 `--single-port` 运行生产环境，则 API 可通过前端端口访问（默认 `http://localhost:3000`）。
 ```
 
-## Authentication
+## 认证
 
-Every endpoint requires a Bearer token in the `Authorization` header. The
-token is a random UUID that identifies a **client session**:
+每个端点都需要在 `Authorization` 头中携带 Bearer 令牌。该令牌是一个随机 UUID，用于标识**客户端会话**：
 
 ```
 Authorization: Bearer <random-uuid>
 ```
 
-All calls using the same token share state — the token plays the same role
-as the per-tab session cookie the browser uses. Generate one with any UUID
-library:
+使用相同令牌的所有调用共享状态——该令牌的作用与浏览器使用的按标签页会话 cookie 相同。使用任何 UUID 库生成一个：
 
 ```bash
 TOKEN=$(python -c 'import uuid; print(uuid.uuid4())')
 ```
 
-Reuse `$TOKEN` across calls if you want subsequent requests to see the
-effects of earlier ones (e.g. create a ticket, then list tickets). Pick a
-new UUID to get a fresh, independent session.
+如果你希望后续请求能看到先前请求的效果（例如创建一个工单，然后列出工单），请在多次调用间重用 `$TOKEN`。选择新的 UUID 可获得全新的独立会话。
 
-## Discovering the API
+## 发现 API
 
-The plugin publishes the OpenAPI spec at a well-known location per RFC 9727.
-Any compliant client can discover it from the catalog:
+该插件按照 RFC 9727 在已知位置发布 OpenAPI 规范。任何兼容的客户端都可以从目录中发现它：
 
 ```bash
 curl http://localhost:8000/.well-known/api-catalog
 ```
 
-Response (RFC 9264 Linkset):
+响应（RFC 9264 Linkset）：
 
 ```json
 {
@@ -118,28 +103,24 @@ Response (RFC 9264 Linkset):
 }
 ```
 
-Fetch the spec directly:
+直接获取规范：
 
 ```bash
 curl http://localhost:8000/_reflex/events/openapi.yaml
 ```
 
-Browse it with any OpenAPI viewer (Swagger UI, Redoc, Scalar, the JetBrains
-HTTP client, etc.) pointed at that URL.
+使用任何 OpenAPI 查看器（Swagger UI、Redoc、Scalar、JetBrains HTTP 客户端等）打开该 URL 即可浏览。
 
-## Response shape
+## 响应格式
 
-Event handler endpoints return the state deltas produced by the handler as
-**newline-delimited JSON** (`application/x-ndjson`). Each line is one
-delta; the stream ends when the handler finishes:
+事件处理器端点以**换行分隔的 JSON**（`application/x-ndjson`）返回处理器产生的状态增量。每行是一个增量；处理器完成时流结束：
 
 ```
 {"state.TicketState": {"tickets": [...], "total_count": 3}}
 {"state.TicketState": {"open_count": 2}}
 ```
 
-For one-shot clients that just want the final state, simply consume the
-stream to completion and then (optionally) fetch the full state:
+对于只需要最终状态的一次性客户端，只需消费完整个流，然后（可选地）获取完整状态：
 
 ```bash
 curl -X POST -H "Authorization: Bearer $TOKEN" \
@@ -147,14 +128,12 @@ curl -X POST -H "Authorization: Bearer $TOKEN" \
 ```
 
 ```md alert info
-# Unlike the built-in `hydrate` event, `/_reflex/retrieve_state` does **not** reset client-storage vars (`rx.Cookie`, `rx.LocalStorage`, `rx.SessionStorage`). Use it whenever you want to read state without modifying it.
+# 与内置的 `hydrate` 事件不同，`/_reflex/retrieve_state` **不会**重置客户端存储变量（`rx.Cookie`、`rx.LocalStorage`、`rx.SessionStorage`）。当你想读取状态而不修改它时使用它。
 ```
 
-## The tickets demo app
+## 工单演示应用
 
-The `reflex-enterprise` repository includes a ready-to-run IT-ticketing demo
-under `demos/tickets/` that exercises every feature of the plugin. Its
-`rxconfig.py` is the minimal reference setup:
+`reflex-enterprise` 仓库在 `demos/tickets/` 下包含一个可直接运行的 IT 工单演示，涵盖了插件的所有功能。其 `rxconfig.py` 是最小参考配置：
 
 ```python
 import reflex as rx
@@ -177,10 +156,7 @@ config = rxe.Config(
 )
 ```
 
-The state class exposes typical CRUD handlers — `create_ticket`,
-`update_ticket`, `set_status`, `delete_ticket`, `seed`, `clear_all`, plus
-list/filter/sort/pagination helpers and a `load_tickets` on-load handler.
-Here's a trimmed excerpt:
+状态类暴露了典型的 CRUD 处理器——`create_ticket`、`update_ticket`、`set_status`、`delete_ticket`、`seed`、`clear_all`，以及列表/过滤/排序/分页辅助函数和 `load_tickets` 加载处理器。以下是精简摘录：
 
 ```python
 class TicketState(rx.State):
@@ -223,21 +199,17 @@ class TicketState(rx.State):
         ...
 ```
 
-Because the state's full name is `tickets___tickets____ticket_state`, the
-generated handler routes live at:
+由于状态的完整名称是 `tickets___tickets____ticket_state`，生成的处理器路由位于：
 
 ```
 POST /_reflex/event/tickets___tickets____ticket_state/<handler_name>
 ```
 
-The state full name is built from the Python module path (dot separators
-become `___`) followed by the class name — inspect the generated
-`openapi.yaml` if you are unsure of the exact path for a given handler.
+状态完整名称由 Python 模块路径（点分隔符变为 `___`）加类名构成——如果你不确定某个处理器的确切路径，请检查生成的 `openapi.yaml`。
 
-### curl examples
+### curl 示例
 
-Assume a dev server running on `http://localhost:8000` and a token in
-`$TOKEN`:
+假设开发服务器运行在 `http://localhost:8000`，令牌存储在 `$TOKEN` 中：
 
 ```bash
 TOKEN=$(python -c 'import uuid; print(uuid.uuid4())')
@@ -245,38 +217,35 @@ BASE=http://localhost:8000
 TICKET_STATE=$BASE/_reflex/event/tickets___tickets____ticket_state
 ```
 
-**Discover the API.**
+**发现 API。**
 
 ```bash
 curl $BASE/.well-known/api-catalog
 curl $BASE/_reflex/events/openapi.yaml
 ```
 
-**Retrieve the full state dict.**
+**获取完整状态字典。**
 
 ```bash
 curl -X POST -H "Authorization: Bearer $TOKEN" \
      $BASE/_reflex/retrieve_state
 ```
 
-**Seed some sample tickets.**
+**填充一些示例工单。**
 
 ```bash
 curl -X POST -H "Authorization: Bearer $TOKEN" \
      $TICKET_STATE/seed
 ```
 
-**Load the first page of tickets into the session.** This mirrors the
-`on_load` handler the frontend runs when a browser hits `/`:
+**将第一页工单加载到会话中。** 这模拟了浏览器访问 `/` 时前端运行的 `on_load` 处理器：
 
 ```bash
 curl -X POST -H "Authorization: Bearer $TOKEN" \
      $TICKET_STATE/load_tickets
 ```
 
-**Create a ticket.** `title` is required; `description`, `priority`, and
-`assignee` are optional (the server applies the same defaults as in the
-Python signature):
+**创建工单。** `title` 是必填的；`description`、`priority` 和 `assignee` 是可选的（服务器应用与 Python 签名中相同的默认值）：
 
 ```bash
 curl -X POST -H "Authorization: Bearer $TOKEN" \
@@ -285,7 +254,7 @@ curl -X POST -H "Authorization: Bearer $TOKEN" \
      $TICKET_STATE/create_ticket
 ```
 
-**Change a ticket's status.**
+**更改工单状态。**
 
 ```bash
 curl -X POST -H "Authorization: Bearer $TOKEN" \
@@ -294,8 +263,7 @@ curl -X POST -H "Authorization: Bearer $TOKEN" \
      $TICKET_STATE/set_status
 ```
 
-**Partial update.** `update_ticket` treats empty strings as "leave
-unchanged":
+**部分更新。** `update_ticket` 将空字符串视为"保持不变"：
 
 ```bash
 curl -X POST -H "Authorization: Bearer $TOKEN" \
@@ -304,7 +272,7 @@ curl -X POST -H "Authorization: Bearer $TOKEN" \
      $TICKET_STATE/update_ticket
 ```
 
-**Delete a ticket.**
+**删除工单。**
 
 ```bash
 curl -X POST -H "Authorization: Bearer $TOKEN" \
@@ -313,17 +281,16 @@ curl -X POST -H "Authorization: Bearer $TOKEN" \
      $TICKET_STATE/delete_ticket
 ```
 
-**Clear the board.**
+**清空看板。**
 
 ```bash
 curl -X POST -H "Authorization: Bearer $TOKEN" \
      $TICKET_STATE/clear_all
 ```
 
-### Example OpenAPI excerpt
+### OpenAPI 摘录示例
 
-The generated spec groups handlers under an OpenAPI `tag` matching the
-state class name. Here's the entry for `create_ticket`:
+生成的规范将处理器按与状态类名匹配的 OpenAPI `tag` 分组。以下是 `create_ticket` 的条目：
 
 ```yaml
 /_reflex/event/tickets___tickets____ticket_state/create_ticket:
@@ -353,26 +320,23 @@ state class name. Here's the entry for `create_ticket`:
       "401": {$ref: "#/components/responses/Unauthorized"}
 ```
 
-## Driving the app from an LLM
+## 从 LLM 驱动应用
 
-Because the OpenAPI spec is self-describing (summaries, parameter types,
-defaults, on-load references), most LLM agents with HTTP tool access can
-drive a Reflex app end-to-end without any extra glue code. Give them the
-spec URL and a natural-language task:
+由于 OpenAPI 规范是自描述的（摘要、参数类型、默认值、on-load 引用），大多数具有 HTTP 工具访问能力的 LLM 代理无需任何额外的胶水代码即可端到端地驱动 Reflex 应用。只需给它们规范 URL 和自然语言任务：
 
 > Use the API exposed at `http://localhost:8000/_reflex/events/openapi.yaml` to drive the application.
 >
 > Create a new ticket assigned to Masen for investigating RegistrationContext issues in reflex CI.
 
-A well-equipped agent will:
+一个装备良好的代理将会：
 
-1. `GET /_reflex/events/openapi.yaml` and parse the operations.
-2. Generate a session token (`uuid4`) to use as the Bearer credential.
-3. Call `POST /_reflex/event/.../create_ticket` with a body like
-   `{"title": "Investigate RegistrationContext issues in Reflex CI", "assignee": "Masen", "priority": "medium"}`.
-4. Optionally call `/_reflex/retrieve_state` to confirm the ticket landed.
+1. `GET /_reflex/events/openapi.yaml` 并解析操作。
+2. 生成一个会话令牌（`uuid4`）用作 Bearer 凭证。
+3. 调用 `POST /_reflex/event/.../create_ticket`，请求体如
+   `{"title": "Investigate RegistrationContext issues in Reflex CI", "assignee": "Masen", "priority": "medium"}`。
+4. 可选地调用 `/_reflex/retrieve_state` 确认工单已创建。
 
-Other prompts that work well with the tickets demo:
+其他适用于工单演示的提示：
 
 > Using the Reflex API at `http://localhost:8000`, seed the database, then close every ticket currently assigned to `bob`.
 
@@ -381,33 +345,21 @@ Other prompts that work well with the tickets demo:
 > Using the Reflex API at `http://localhost:8000`, create three high-priority tickets for the following issues, then show me the resulting state: <list of issues>
 
 ```md alert info
-# For agents that can't follow `api-catalog` automatically, point them directly at `/_reflex/events/openapi.yaml`. A single URL is enough context for most tool-using models to take it from there.
+# 对于无法自动跟踪 `api-catalog` 的代理，直接将它们指向 `/_reflex/events/openapi.yaml`。对于大多数使用工具的模型来说，一个 URL 就足以让它们继续工作。
 ```
 
-## Dynamic route variables
+## 动态路由变量
 
-If any of your pages use dynamic route segments (e.g. `/tickets/[ticket_id]`),
-the plugin surfaces those as **optional query parameters** on every
-endpoint so the state can read them via `self.router`:
+如果你的任何页面使用动态路由段（例如 `/tickets/[ticket_id]`），插件会将它们作为**可选查询参数**暴露在每个端点上，以便状态可以通过 `self.router` 读取它们：
 
 ```
 POST /_reflex/event/.../load_ticket_detail?ticket_id=<uuid>
 ```
 
-They appear under `components.parameters.route_<name>` in the OpenAPI spec
-and are referenced from every operation's `parameters` list.
+它们出现在 OpenAPI 规范的 `components.parameters.route_<name>` 下，并从每个操作的 `parameters` 列表中引用。
 
-## Security considerations
+## 安全注意事项
 
-- **The Bearer token is just a session id, not an auth credential.** Anyone
-  who can reach the backend and generate UUIDs can drive the app. Put the
-  API behind your normal auth layer (reverse-proxy, OIDC, VPN, etc.) before
-  exposing it outside trusted networks.
-- **Every event handler on every state is exposed by default.** If you have
-  privileged handlers, either split them onto a state class you don't want
-  to expose, or run the plugin only in environments where API access is
-  appropriate.
-- **Handlers that return `rx.redirect(...)` work over the API**, but the
-  redirect is emitted as a state delta rather than an HTTP 3xx — the client
-  sees the URL change, not a browser redirect. This is usually what you
-  want for programmatic clients.
+- **Bearer 令牌只是会话 ID，不是认证凭证。** 任何能访问后端并生成 UUID 的人都可以驱动应用。在将 API 暴露到受信任网络之外之前，请将其置于正常的认证层之后（反向代理、OIDC、VPN 等）。
+- **每个状态上的每个事件处理器默认都会暴露。** 如果你有特权处理器，要么将它们拆分到不想暴露的状态类上，要么仅在 API 访问适当的环境中运行插件。
+- **返回 `rx.redirect(...)` 的处理器通过 API 也能工作**，但重定向会作为状态增量发出而非 HTTP 3xx——客户端看到的是 URL 变化，而非浏览器重定向。对于编程客户端来说，这通常是你想要的行为。

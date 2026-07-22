@@ -4,13 +4,13 @@ title: TagsInput
 
 # TagsInput
 
-`rxe.mantine.tags_input` is a wrapping of the mantine component [TagsInput](https://mantine.dev/core/tags-input/). It is an utility component that can be used to display a list of tags or labels. It can be used in various contexts, such as in a form or as a standalone component.
+`rxe.mantine.tags_input` 是 Mantine 组件 [TagsInput](https://mantine.dev/core/tags-input/) 的封装。它是一个实用组件，可用于显示标签或标记列表。它可以在各种场景中使用，例如在表单中或作为独立组件。
 
 ```md alert info
-# You can use the props mentioned in the Mantine documentation, but they need to be passed in snake_case.
+# 你可以使用 Mantine 文档中提到的属性，但需要以 snake_case 形式传递。
 ```
 
-## Basic Example
+## 基本示例
 
 ```python demo exec
 import reflex as rx
@@ -18,14 +18,14 @@ import reflex_enterprise as rxe
 
 
 def tags_input_simple_page():
-    """TagsInput demo."""
+    """TagsInput 演示。"""
     return rxe.mantine.tags_input(
         placeholder="Enter tags",
         label="Press Enter to ad a tag",
     )
 ```
 
-## State Example
+## 状态示例
 
 ```python demo exec
 import reflex as rx
@@ -33,18 +33,18 @@ import reflex_enterprise as rxe
 
 
 class TagsInputState(rx.State):
-    """State for the TagsInput component."""
+    """TagsInput 组件的状态。"""
 
     tags: list[str] = ["Tag1", "Tag2"]
 
     @rx.event
     def update_tags(self, tags: list[str]):
-        """Add a tag to the list of tags."""
+        """向标签列表中添加一个标签。"""
         self.tags = tags
 
 
 def tags_input_page():
-    """TagsInput demo."""
+    """TagsInput 演示。"""
     return rxe.mantine.tags_input(
         value=TagsInputState.tags,
         on_change=TagsInputState.update_tags,

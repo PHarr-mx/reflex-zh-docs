@@ -7,15 +7,15 @@ components:
 import reflex as rx
 ```
 
-# Heading
+# Heading（标题）
 
 ```python demo
 rx.heading("The quick brown fox jumps over the lazy dog.", as_="h2")
 ```
 
-## As another element
+## 作为其他元素
 
-Use the `as_` prop to change the heading level. This prop is purely semantic and does not change the visual appearance.
+使用 `as_` prop 来更改标题级别。此 prop 纯粹是语义性的，不会改变视觉外观。
 
 ```python demo
 rx.flex(
@@ -27,9 +27,9 @@ rx.flex(
 )
 ```
 
-## Size
+## 尺寸
 
-Use the `size` prop to control the size of the heading. The prop also provides correct line height and corrective letter spacing—as text size increases, the relative line height and letter spacing decrease
+使用 `size` prop 来控制标题的大小。该 prop 还提供正确的行高和修正的字间距——随着文本尺寸增大，相对行高和字间距会减小。
 
 ```python demo
 rx.flex(
@@ -47,9 +47,9 @@ rx.flex(
 )
 ```
 
-## Weight
+## 字重
 
-Use the `weight` prop to set the text weight.
+使用 `weight` prop 来设置文本字重。
 
 ```python demo
 rx.flex(
@@ -68,9 +68,9 @@ rx.flex(
 )
 ```
 
-## Align
+## 对齐
 
-Use the `align` prop to set text alignment.
+使用 `align` prop 来设置文本对齐方式。
 
 ```python demo
 rx.flex(
@@ -83,9 +83,9 @@ rx.flex(
 )
 ```
 
-## Trim
+## 修剪
 
-Use the `trim` prop to trim the leading space at the start, end, or both sides of the text.
+使用 `trim` prop 来修剪文本开头、结尾或两侧的 leading 空间。
 
 ```python demo
 rx.flex(
@@ -114,7 +114,7 @@ rx.flex(
 )
 ```
 
-Trimming the leading is useful when dialing in vertical spacing in cards or other “boxy” components. Otherwise, padding looks larger on top and bottom than on the sides.
+修剪 leading 在调整卡片或其他"盒状"组件的垂直间距时很有用。否则，上下方向的 padding 看起来会比两侧更大。
 
 ```python demo
 rx.flex(
@@ -150,9 +150,9 @@ rx.flex(
 )
 ```
 
-## Color
+## 颜色
 
-Use the `color_scheme` prop to assign a specific color, ignoring the global theme.
+使用 `color_scheme` prop 来指定特定颜色，忽略全局主题。
 
 ```python demo
 rx.flex(
@@ -172,9 +172,9 @@ rx.flex(
 )
 ```
 
-## High Contrast
+## 高对比度
 
-Use the `high_contrast` prop to increase color contrast with the background.
+使用 `high_contrast` prop 来增加与背景的颜色对比度。
 
 ```python demo
 rx.flex(

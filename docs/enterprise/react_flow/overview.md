@@ -1,23 +1,23 @@
-# Overview
+# 概述
 
-At its core, a flow diagram is an interactive graph composed of nodes connected by edges. To help understand the key concepts, let’s go over the main components of a flow.
+从本质上讲，流程图（Flow）是由边（Edges）连接的节点（Nodes）组成的交互式图形。为了帮助理解关键概念，让我们逐一了解流程图的主要组成部分。
 
-### Nodes
+### 节点（Nodes）
 
-Nodes are the building blocks of a flow. While there are a few default node types available, the real power comes from customizing them. You can design nodes to include interactive elements, display dynamic data, or support multiple connection points. The framework provides the foundation—you provide the functionality and style.
+节点是流程图的基本构建块。虽然有几种默认的节点类型可用，但真正的强大之处在于自定义。你可以设计包含交互元素、显示动态数据或支持多个连接点的节点。框架提供基础——你提供功能和样式。
 
-### Handles
+### 连接点（Handles）
 
-Handles are the points on a node where edges attach. They typically appear on the top, bottom, left, or right sides of a node, but can be positioned and styled freely. Nodes can have multiple handles, allowing for complex connection setups.
+连接点是节点上边所附着的点。它们通常出现在节点的上、下、左、右侧，但可以自由定位和设置样式。节点可以有多个连接点，从而实现复杂的连接设置。
 
-### Edges
+### 边（Edges）
 
-Edges are the connections between nodes. Each edge requires a source node and a target node. Edges can be styled and customized, and nodes with multiple handles can support multiple edges. Custom edges can include interactive elements, specialized routing, or unique visual styles beyond simple lines.
+边是节点之间的连接。每条边需要一个源节点和一个目标节点。边可以进行样式化和自定义，拥有多个连接点的节点可以支持多条边。自定义边可以包含交互元素、特殊路由或超越简单线条的独特视觉样式。
 
-### Connection Line
+### 连接线（Connection Line）
 
-When creating a new edge, you can click and drag from one handle to another. While dragging, the placeholder edge is called a connection line. Connection lines behave like edges and can be customized in appearance and behavior.
+创建新边时，你可以从一个连接点点击并拖动到另一个连接点。拖动时，占位的边称为连接线。连接线的行为类似于边，可以在外观和行为上进行自定义。
 
-### Viewport
+### 视口（Viewport）
 
-The viewport is the visible area containing the flow. Each node has x- and y-coordinates representing its position. Moving the viewport changes these coordinates, and zooming in or out adjusts the zoom level. The viewport ensures the diagram remains navigable and interactive.
+视口是包含流程图的可见区域。每个节点都有表示其位置的 x 和 y 坐标。移动视口会改变这些坐标，放大或缩小会调整缩放级别。视口确保图表保持可导航和可交互。

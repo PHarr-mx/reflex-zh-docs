@@ -19,17 +19,17 @@ TextFieldSlot: |
 import reflex as rx
 ```
 
-# Input
+# 输入框（Input）
 
-The `input` component is an input field that users can type into.
+`input` 组件是用户可以输入内容的输入框。
 
-```md video https://youtube.com/embed/ITOZkzjtjUA?start=1517&end=1869
-# Video: Input
+```md video https://youtube.com/embed/ITOZKzjtjUA?start=1517&end=1869
+# 视频：输入框
 ```
 
-## Basic Example
+## 基本示例
 
-The `on_blur` event handler is called when focus has left the `input` for example, it’s called when the user clicks outside of a focused text input.
+当焦点离开 `input` 时，会调用 `on_blur` 事件处理函数。例如，当用户点击已聚焦的文本输入框外部时，就会触发它。
 
 ```python demo exec
 class TextfieldBlur(rx.State):
@@ -50,7 +50,7 @@ def blur_example():
     )
 ```
 
-The `on_change` event handler is called when the `value` of `input` has changed.
+当 `input` 的 `value` 发生变化时，会调用 `on_change` 事件处理函数。
 
 ```python demo exec
 class TextfieldControlled(rx.State):
@@ -72,15 +72,15 @@ def controlled_example():
     )
 ```
 
-Behind the scenes, the input component is implemented as a debounced input to avoid sending individual state updates per character to the backend while the user is still typing. This allows a state variable to directly control the `value` prop from the backend without the user experiencing input lag.
+在底层实现中，input 组件被实现为一个防抖输入，以避免在用户仍在输入时逐字符向后端发送状态更新。这使得状态变量可以直接从后端控制 `value` 属性，而用户不会感受到输入延迟。
 
-## Input Types
+## 输入类型
 
-The `type` prop controls how the input is rendered (e.g. plain text, password, file picker).
+`type` 属性控制输入框的渲染方式（例如纯文本、密码、文件选择器）。
 
-It accepts the same values as the native HTML `<input type>` attribute, such as:
+它接受与原生 HTML `<input type>` 属性相同的值，例如：
 
-- `"text"` (default)
+- `"text"`（默认）
 - `"password"`
 - `"email"`
 - `"number"`
@@ -92,7 +92,7 @@ It accepts the same values as the native HTML `<input type>` attribute, such as:
 - `"url"`
 - `"color"`
 
-and several others. See the [MDN reference](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/input#input_types) for the full list.
+以及其他几种类型。完整列表请参阅 [MDN 参考文档](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/input#input_types)。
 
 ```python demo
 rx.vstack(
@@ -102,13 +102,13 @@ rx.vstack(
 )
 ```
 
-## Submitting a form using input
+## 使用输入框提交表单
 
-The `name` prop is needed to submit with its owning form as part of a name/value pair.
+提交表单时需要 `name` 属性，作为名称/值对的一部分。
 
-When the `required` prop is `True`, it indicates that the user must input text before the owning form can be submitted.
+当 `required` 属性为 `True` 时，表示用户必须在提交所属表单之前输入文本。
 
-The `type` is set here to `password`. The element is presented as a one-line plain text editor control in which the text is obscured so that it cannot be read. The `type` prop can take any value of `email`, `file`, `password`, `text` and several others. Learn more [here](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/input).
+这里将 `type` 设置为 `password`。该元素呈现为单行纯文本编辑控件，其中文本被隐藏，无法被读取。`type` 属性可以接受 `email`、`file`、`password`、`text` 以及其他几种值。了解更多请参见[此处](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/input)。
 
 ```python demo exec
 class FormInputState(rx.State):
@@ -116,7 +116,7 @@ class FormInputState(rx.State):
 
     @rx.event
     def handle_submit(self, form_data: dict):
-        """Handle the form submit."""
+        """处理表单提交。"""
         self.form_data = form_data
 
 
@@ -150,11 +150,11 @@ def form_input1():
     )
 ```
 
-To learn more about how to use forms in the [Form](/docs/library/forms/form) docs.
+要了解更多关于如何使用表单的信息，请参阅[表单](/docs/library/forms/form)文档。
 
-## Setting a value without using a State var
+## 不使用 State 变量设置值
 
-Set the value of the specified reference element, without needing to link it up to a State var. This is an alternate way to modify the value of the `input`.
+设置指定引用元素的值，无需将其链接到 State 变量。这是修改 `input` 值的另一种方式。
 
 ```python demo
 rx.hstack(

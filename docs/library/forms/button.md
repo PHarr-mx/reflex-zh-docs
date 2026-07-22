@@ -10,13 +10,13 @@ Button: |
 import reflex as rx
 ```
 
-# Button
+# 按钮（Button）
 
-Buttons are essential elements in your application's user interface that users can click to trigger events.
+按钮（Button）是应用界面中的基本元素，用户可以点击按钮来触发事件。
 
-## Basic Example
+## 基本示例
 
-The `on_click` trigger is called when the button is clicked.
+当按钮被点击时，会调用 `on_click` 触发器。
 
 ```python demo exec
 class CountState(rx.State):
@@ -48,11 +48,11 @@ def counter():
     )
 ```
 
-### Loading and Disabled
+### 加载和禁用
 
-The `loading` prop is used to indicate that the action triggered by the button is currently in progress. When set to `True`, the button displays a loading spinner, providing visual feedback to the user that the action is being processed. This also prevents multiple clicks while the button is in the loading state. By default, `loading` is set to `False`.
+`loading` 属性用于指示按钮触发的操作正在进行中。当设置为 `True` 时，按钮会显示一个加载动画，为用户提供操作正在处理的视觉反馈。这也能防止按钮在加载状态下被多次点击。默认情况下，`loading` 设置为 `False`。
 
-The `disabled` prop also prevents the button from being but does not provide a spinner.
+`disabled` 属性同样会阻止按钮被点击，但不会显示加载动画。
 
 ```python demo
 rx.flex(

@@ -6,18 +6,18 @@ title: Radar Chart
 meta_description: "Build radar (spider) charts in Python with Reflex. Create interactive Recharts radar charts with multiple series, custom polar axes, legends, and tooltips — all in pure Python."
 ---
 
-# Radar Chart
+# 雷达图（Radar Chart）
 
 ```python exec
 import reflex as rx
 from typing import Any
 ```
 
-Radar charts in Reflex are built on [Recharts](https://recharts.org/), a React charting library, and created in pure Python. A radar chart (also called a spider chart) shows multivariate data of three or more quantitative variables mapped onto an axis.
+Reflex 中的雷达图基于 [Recharts](https://recharts.org/)（一个 React 图表库）构建，使用纯 Python 创建。雷达图（也称为蜘蛛图）展示三个或更多定量变量的多变量数据，将它们映射到坐标轴上。
 
-## Simple Example
+## 简单示例
 
-For a radar chart we must define an `rx.recharts.radar()` component for each set of values we wish to plot. Each `rx.recharts.radar()` component has a `data_key` which clearly states which variable in our data we are plotting. In this simple example we plot the `A` column of our data against the `subject` column which we set as the `data_key` in `rx.recharts.polar_angle_axis`.
+对于雷达图，我们必须为每组要绘制的值定义一个 `rx.recharts.radar()` 组件。每个 `rx.recharts.radar()` 组件都有一个 `data_key`，用于明确指出我们正在绘制数据中的哪个变量。在这个简单示例中，我们将数据的 `A` 列绘制出来，并将 `subject` 列设置为 `rx.recharts.polar_angle_axis` 中的 `data_key`。
 
 ```python demo graphing
 data = [
@@ -46,11 +46,11 @@ def radar_simple():
     )
 ```
 
-## Multiple Radars
+## 多个雷达
 
-We can also add two radars on one chart by using two `rx.recharts.radar` components.
+我们还可以通过使用两个 `rx.recharts.radar` 组件在同一个图表上添加两个雷达。
 
-In this plot an `inner_radius` and an `outer_radius` are set which determine the chart's size and shape. The `inner_radius` sets the distance from the center to the innermost part of the chart (creating a hollow center if greater than zero), while the `outer_radius` defines the chart's overall size by setting the distance from the center to the outermost edge of the radar plot.
+在这个图中设置了 `inner_radius` 和 `outer_radius`，它们决定了图表的大小和形状。`inner_radius` 设置从中心到图表最内层的距离（如果大于零则创建空心中心），而 `outer_radius` 通过设置从中心到雷达图最外边缘的距离来定义图表的整体大小。
 
 ```python demo graphing
 data = [
@@ -88,9 +88,9 @@ def radar_multiple():
     )
 ```
 
-## Using More Props
+## 使用更多属性
 
-The `dot` prop shows points at each data vertex when true. `legend_type="line"` displays a line in the chart legend. `animation_begin=0` starts the animation immediately, `animation_duration=8000` sets an 8-second animation, and `animation_easing="ease-in"` makes the animation start slowly and speed up. These props control the chart's appearance and animation behavior.
+`dot` 属性为 true 时在每个数据顶点显示点。`legend_type="line"` 在图表图例中显示一条线。`animation_begin=0` 立即开始动画，`animation_duration=8000` 设置 8 秒的动画时长，`animation_easing="ease-in"` 使动画从慢到快。这些属性控制图表的外观和动画行为。
 
 ```python demo graphing
 data = [
@@ -126,12 +126,9 @@ def radar_start_end():
     )
 ```
 
-## Dynamic Data
+## 动态数据
 
-Chart data tied to a State var causes the chart to automatically update when the
-state changes, providing a nice way to visualize data in response to user
-interface elements. View the "Data" tab to see the substate driving this
-radar chart of character traits.
+绑定到 State 变量的图表数据会在状态变化时自动更新，提供了一种根据用户界面元素可视化数据的好方法。查看 "Data" 选项卡以了解驱动此角色特质雷达图的子状态。
 
 ```python demo exec
 class RadarChartState(rx.State):
@@ -197,10 +194,10 @@ def radar_dynamic():
     )
 ```
 
-## Related Charts
+## 相关图表
 
-Explore more chart types you can build with Reflex and Recharts in pure Python:
+探索更多可以使用 Reflex 和 Recharts 以纯 Python 构建的图表类型：
 
-- [Radial Bar Chart](/docs/library/graphing/charts/radialbarchart)
-- [Pie Chart](/docs/library/graphing/charts/piechart)
-- [Line Chart](/docs/library/graphing/charts/linechart)
+- [径向柱状图](/docs/library/graphing/charts/radialbarchart)
+- [饼图](/docs/library/graphing/charts/piechart)
+- [折线图](/docs/library/graphing/charts/linechart)

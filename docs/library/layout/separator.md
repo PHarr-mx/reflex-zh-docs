@@ -9,11 +9,11 @@ Separator: |
 import reflex as rx
 ```
 
-# Separator
+# 分隔符（Separator）
 
-Visually or semantically separates content.
+在视觉或语义上分隔内容。
 
-## Basic Example
+## 基本示例
 
 ```python demo
 rx.flex(
@@ -26,11 +26,9 @@ rx.flex(
 )
 ```
 
-## Size
+## 尺寸
 
-The `size` prop controls how long the separator is. Using `size="4"` will make
-the separator fill the parent container. Setting CSS `width` or `height` prop to `"100%"`
-can also achieve this effect, but `size` works the same regardless of the orientation.
+`size` 属性控制分隔符的长度。使用 `size="4"` 会使分隔符填满父容器。将 CSS 的 `width` 或 `height` 属性设置为 `"100%"` 也可以达到同样的效果，但 `size` 无论方向如何都能以相同方式工作。
 
 ```python demo
 rx.flex(
@@ -42,9 +40,9 @@ rx.flex(
 )
 ```
 
-## Orientation
+## 方向
 
-Setting the orientation prop to `vertical` will make the separator appear vertically.
+将 orientation 属性设置为 `vertical` 会使分隔符垂直显示。
 
 ```python demo
 rx.flex(

@@ -9,8 +9,8 @@ import reflex as rx
 
 # Markdown
 
-The `rx.markdown` component can be used to render markdown text.
-It is based on [Github Flavored Markdown](https://github.github.com/gfm/).
+`rx.markdown` 组件可用于渲染 Markdown 文本。
+它基于 [Github Flavored Markdown](https://github.github.com/gfm/)。
 
 ```python demo
 rx.vstack(
@@ -22,23 +22,23 @@ rx.vstack(
 )
 ```
 
-## Math Equations
+## 数学公式
 
-You can render math equations using LaTeX.
-For inline equations, surround the equation with `$`:
+你可以使用 LaTeX 渲染数学公式。
+对于行内公式，用 `$` 包围公式：
 
 ```python demo
 rx.markdown("Pythagorean theorem: $a^2 + b^2 = c^2$.")
 ```
 
 ```md alert warning
-# Escaping dollar signs
-Because `$` is used as the math delimiter, any pair of `$` characters in the content is interpreted as an inline LaTeX equation — the text between them may disappear or render as a garbled formula. This commonly affects prices and other monetary values, especially in dynamic content such as streamed LLM output. To render literal dollar signs, escape them before passing the text to `rx.markdown`, e.g. `content.replace("$", "\\$")`.
+# 转义美元符号
+由于 `$` 被用作数学定界符，内容中的任何一对 `$` 字符都会被解释为行内 LaTeX 公式——它们之间的文本可能会消失或渲染为乱码公式。这通常会影响价格和其他货币值，尤其是在流式 LLM 输出等动态内容中。要渲染字面美元符号，请在将文本传递给 `rx.markdown` 之前进行转义，例如 `content.replace("$", "\\$")`。
 ```
 
-## Syntax Highlighting
+## 语法高亮
 
-You can render code blocks with syntax highlighting using the \`\`\`{language} syntax:
+你可以使用 \`\`\`{language} 语法渲染带语法高亮的代码块：
 
 ````python demo
 rx.markdown(
@@ -54,9 +54,9 @@ app.add_page(index)
 )
 ````
 
-## Tables
+## 表格
 
-You can render tables using the `|` syntax:
+你可以使用 `|` 语法渲染表格：
 
 ```python demo
 rx.markdown(
@@ -69,32 +69,31 @@ rx.markdown(
 )
 ```
 
-## Plugins
+## 插件
 
-Plugins can be used to extend the functionality of the markdown renderer.
+插件可用于扩展 Markdown 渲染器的功能。
 
-By default Reflex uses the following plugins:
+默认情况下，Reflex 使用以下插件：
 
-- `remark-gfm` for Github Flavored Markdown support (`use_gfm`).
-- `remark-math` and `rehype-katex` for math equation support (`use_math`, `use_katex`).
-- `rehype-unwrap-images` to remove paragraph tags around images (`use_unwrap_images`).
-- `rehype-raw` to render raw HTML in markdown (`use_raw`). NOTE: in a future release this will be disabled by default for security reasons.
+- `remark-gfm` 用于 Github Flavored Markdown 支持（`use_gfm`）。
+- `remark-math` 和 `rehype-katex` 用于数学公式支持（`use_math`、`use_katex`）。
+- `rehype-unwrap-images` 用于移除图片周围的段落标签（`use_unwrap_images`）。
+- `rehype-raw` 用于渲染 Markdown 中的原始 HTML（`use_raw`）。注意：出于安全原因，未来版本将默认禁用此功能。
 
-These default plugins can be disabled by passing `use_[plugin_name]=False` to the `rx.markdown` component. For example, to disable raw HTML rendering, use `rx.markdown(..., use_raw=False)`.
+这些默认插件可以通过向 `rx.markdown` 组件传递 `use_[plugin_name]=False` 来禁用。例如，要禁用原始 HTML 渲染，使用 `rx.markdown(..., use_raw=False)`。
 
-## Arbitrary Plugins
+## 任意插件
 
-You can also add arbitrary remark or rehype plugins using the `remark_plugins`
-and `rehype_plugins` props in conjunction with the `rx.markdown.plugin` helper.
+你还可以使用 `remark_plugins` 和 `rehype_plugins` prop 配合 `rx.markdown.plugin` 辅助函数来添加任意 remark 或 rehype 插件。
 
-`rx.markdown.plugin` takes two arguments:
+`rx.markdown.plugin` 接受两个参数：
 
-1. The npm package name and version of the plugin (e.g. `remark-emoji@5.0.2`).
-2. The named export to use from the plugin (e.g. `remarkEmoji`).
+1. 插件的 npm 包名和版本（例如 `remark-emoji@5.0.2`）。
+2. 要使用的插件命名导出（例如 `remarkEmoji`）。
 
-### Remark Plugin Example
+### Remark 插件示例
 
-For example, to add support for emojis using the `remark-emoji` plugin:
+例如，要使用 `remark-emoji` 插件添加 emoji 支持：
 
 ```python demo
 rx.markdown(
@@ -105,9 +104,9 @@ rx.markdown(
 )
 ```
 
-### Rehype Plugin Example
+### Rehype 插件示例
 
-To make `rehype-raw` safer for untrusted HTML input we can use `rehype-sanitize`, which defaults to a safe schema similar to that used by Github.
+为了使 `rehype-raw` 对不受信任的 HTML 输入更安全，我们可以使用 `rehype-sanitize`，它默认使用类似于 Github 的安全 schema。
 
 ```python demo
 rx.markdown(
@@ -119,15 +118,11 @@ rx.markdown(
 )
 ```
 
-### Plugin Options
+### 插件选项
 
-Both `remark_plugins` and `rehype_plugins` accept a heterogeneous list of `plugin`
-or tuple of `(plugin, options)` in case the plugin requires some kind of special
-configuration.
+`remark_plugins` 和 `rehype_plugins` 都接受一个混合列表，包含 `plugin` 或 `(plugin, options)` 元组，用于插件需要某种特殊配置的情况。
 
-For example, `rehype-slug` is a simple plugin that adds ID attributes to the
-headings, but the `rehype-autolink-headings` plugin accepts options to specify
-how to render the links to those anchors.
+例如，`rehype-slug` 是一个简单的插件，为标题添加 ID 属性，但 `rehype-autolink-headings` 插件接受选项来指定如何渲染指向这些锚点的链接。
 
 ```python demo
 rx.markdown(
@@ -152,16 +147,14 @@ rx.markdown(
 )
 ```
 
-## Component Map
+## 组件映射
 
-You can specify which components to use for rendering markdown elements using the
-`component_map` prop.
+你可以使用 `component_map` prop 来指定用于渲染 Markdown 元素的组件。
 
-Each key in the `component_map` prop is a markdown element, and the value is
-a function that takes the text of the element as input and returns a Reflex component.
+`component_map` prop 中的每个键是一个 Markdown 元素，值是一个函数，接受该元素的文本作为输入并返回一个 Reflex 组件。
 
 ```md alert
-The `pre` and `a` tags are special cases. In addition to the `text`, they also receive a `props` argument containing additional props for the component.
+`pre` 和 `a` 标签是特殊情况。除了 `text` 之外，它们还接收一个包含组件额外 props 的 `props` 参数。
 ```
 
 ````python demo exec

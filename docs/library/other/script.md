@@ -7,25 +7,25 @@ components:
 import reflex as rx
 ```
 
-# Script
+# Script（脚本）
 
-The Script component can be used to include inline javascript or javascript files by URL.
+Script 组件可用于引入内联 JavaScript 或通过 URL 引入 JavaScript 文件。
 
-It uses the [`next/script` component](https://nextjs.org/docs/app/api-reference/components/script) to inject the script and can be safely used with conditional rendering to allow script side effects to be controlled by the state.
+它使用 [`next/script` 组件](https://nextjs.org/docs/app/api-reference/components/script)来注入脚本，可以安全地与条件渲染配合使用，从而通过状态控制脚本的副作用。
 
 ```python
 rx.script("console.log('inline javascript')")
 ```
 
-Complex inline scripting should be avoided.
-If the code to be included is more than a couple lines, it is more maintainable to implement it in a separate javascript file in the `assets` directory and include it via the `src` prop.
+应避免复杂的内联脚本。
+如果要包含的代码超过几行，更易于维护的做法是将其实现为 `assets` 目录中的独立 JavaScript 文件，然后通过 `src` prop 引入。
 
 ```python
 rx.script(src="/my-custom.js")
 ```
 
-This component is particularly helpful for including tracking and social scripts.
-Any additional attrs needed for the script tag can be supplied via `custom_attrs` prop.
+此组件对于引入统计追踪和社交脚本特别有用。
+脚本标签所需的额外属性可以通过 `custom_attrs` prop 提供。
 
 ```python
 rx.script(
@@ -34,7 +34,7 @@ rx.script(
 )
 ```
 
-This code renders to something like the following to enable stat counting with a third party service.
+此代码会渲染为类似以下内容，以启用第三方服务的统计计数。
 
 ```jsx
 <script

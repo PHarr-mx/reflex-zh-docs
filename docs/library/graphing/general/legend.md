@@ -3,15 +3,15 @@ components:
   - rx.recharts.Legend
 ---
 
-# Legend
+# 图例（Legend）
 
 ```python exec
 import reflex as rx
 ```
 
-A legend tells what each plot represents. Just like on a map, the legend helps the reader understand what they are looking at. For a line graph for example it tells us what each line represents.
+图例说明每个图形代表什么。就像地图上的图例一样，它帮助读者理解所看到的内容。例如，对于折线图，图例告诉我们每条线代表什么。
 
-## Simple Example
+## 简单示例
 
 ```python demo graphing
 data = [
@@ -39,9 +39,9 @@ def legend_simple():
     )
 ```
 
-## Example with Props
+## 属性示例
 
-The style and layout of the legend can be customized using a set of props. `width` and `height` set the dimensions of the container that wraps the legend, and `layout` can set the legend to display vertically or horizontally. `align` and `vertical_align` set the position relative to the chart container. The type and size of icons can be set using `icon_size` and `icon_type`.
+图例的样式和布局可以使用一组属性进行自定义。`width` 和 `height` 设置包裹图例的容器的尺寸，`layout` 可以将图例设置为垂直或水平显示。`align` 和 `vertical_align` 设置相对于图表容器的位置。图标的类型和大小可以使用 `icon_size` 和 `icon_type` 来设置。
 
 ```python demo graphing
 data = [

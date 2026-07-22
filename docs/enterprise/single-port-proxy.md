@@ -1,8 +1,8 @@
-# Single Port Proxy
+# 单端口代理（Single Port Proxy）
 
-Enable single-port deployment by proxying the backend to the frontend port.
+通过将后端代理到前端端口来启用单端口部署。
 
-## Configuration
+## 配置
 
 ```python
 import reflex_enterprise as rxe
@@ -12,4 +12,4 @@ config = rxe.Config(
 )
 ```
 
-This allows your application to run on a single port, which is useful for deployment scenarios where you can only expose one port.
+这允许你的应用在单个端口上运行，适用于只能暴露一个端口的部署场景。

@@ -6,16 +6,16 @@ title: Pie Chart
 meta_description: "Build interactive pie and donut charts in Python with Reflex. Create Recharts pie charts with custom colors, labels, legends, and tooltips — all in pure Python, no JavaScript required."
 ---
 
-# Pie Chart
+# 饼图（Pie Chart）
 
 ```python exec
 import reflex as rx
 ```
 
-Pie charts in Reflex are built on [Recharts](https://recharts.org/), a React charting library, and created in pure Python. A pie chart — or a donut chart when the center is hollow — is a circular statistical graphic which is divided into slices to illustrate numerical proportion.
+Reflex 中的饼图基于 [Recharts](https://recharts.org/)（一个 React 图表库）构建，使用纯 Python 创建。饼图——当中心为空心时也称为环形图（Donut Chart）——是一种圆形统计图形，被分割成多个扇形区域来说明数值比例。
 
-For a pie chart we must define an `rx.recharts.pie()` component for each set of values we wish to plot. Each `rx.recharts.pie()` component has a `data`, a `data_key` and a `name_key` which clearly states which data and which variables in our data we are tracking. In this simple example we plot `value` column as our `data_key` against the `name` column which we set as our `name_key`.
-We also use the `fill` prop to set the color of the pie slices.
+对于饼图，我们必须为每组要绘制的值定义一个 `rx.recharts.pie()` 组件。每个 `rx.recharts.pie()` 组件都有一个 `data`、一个 `data_key` 和一个 `name_key`，用于明确指出我们正在跟踪哪些数据以及数据中的哪些变量。在这个简单示例中，我们将 `value` 列作为 `data_key` 进行绘制，并将 `name` 列设置为 `name_key`。
+我们还使用 `fill` 属性来设置饼图扇形的颜色。
 
 ```python demo graphing
 data01 = [
@@ -42,9 +42,9 @@ def pie_simple():
     )
 ```
 
-We can also add two pies on one chart by using two `rx.recharts.pie` components.
+我们还可以通过使用两个 `rx.recharts.pie` 组件在同一个图表上添加两个饼图。
 
-In this example `inner_radius` and `outer_radius` props are used. They define the doughnut shape of a pie chart: `inner_radius` creates the hollow center (use "0%" for a full pie), while `outer_radius` sets the overall size. The `padding_angle` prop, used on the green pie below, adds space between pie slices, enhancing visibility of individual segments.
+在这个示例中使用了 `inner_radius` 和 `outer_radius` 属性。它们定义了饼图的环形形状：`inner_radius` 创建空心中心（使用 "0%" 表示完整饼图），而 `outer_radius` 设置整体大小。`padding_angle` 属性（用于下面的绿色饼图）在饼图扇形之间添加间距，增强各个分段的可见性。
 
 ```python demo graphing
 data01 = [
@@ -88,12 +88,9 @@ def pie_double():
     )
 ```
 
-## Dynamic Data
+## 动态数据
 
-Chart data tied to a State var causes the chart to automatically update when the
-state changes, providing a nice way to visualize data in response to user
-interface elements. View the "Data" tab to see the substate driving this
-half-pie chart.
+绑定到 State 变量的图表数据会在状态变化时自动更新，提供了一种根据用户界面元素可视化数据的好方法。查看 "Data" 选项卡以了解驱动此半饼图的子状态。
 
 ```python demo exec
 from typing import Any
@@ -157,10 +154,10 @@ def dynamic_pie_example():
     )
 ```
 
-## Related Charts
+## 相关图表
 
-Explore more chart types you can build with Reflex and Recharts in pure Python:
+探索更多可以使用 Reflex 和 Recharts 以纯 Python 构建的图表类型：
 
-- [Radial Bar Chart](/docs/library/graphing/charts/radialbarchart)
-- [Funnel Chart](/docs/library/graphing/charts/funnelchart)
-- [Bar Chart](/docs/library/graphing/charts/barchart)
+- [径向柱状图](/docs/library/graphing/charts/radialbarchart)
+- [漏斗图](/docs/library/graphing/charts/funnelchart)
+- [柱状图](/docs/library/graphing/charts/barchart)

@@ -148,13 +148,13 @@ class Customer(rx.Model, table=True):
     address: str
 ```
 
-# Table
+# Table（表格）
 
-The Reflex table component (`rx.table`) is a semantic, composable table for presenting tabular data in pure Python. It renders a standard React/HTML table with headers, rows, and cells that you compose yourself.
+Reflex 表格组件（`rx.table`）是一个语义化的、可组合的表格，用于在纯 Python 中展示表格数据。它渲染一个标准的 React/HTML 表格，包含你自己组合的表头、行和单元格。
 
-If you just want to [represent static data](/docs/library/tables-and-data-grids/data-table) then the [`rx.data_table`](/docs/library/tables-and-data-grids/data-table) might be a better fit for your use case as it comes with in-built pagination, search and sorting.
+如果你只是想[展示静态数据](/docs/library/tables-and-data-grids/data-table)，那么 [`rx.data_table`](/docs/library/tables-and-data-grids/data-table) 可能更适合你的用例，因为它内置了分页、搜索和排序功能。
 
-## Basic Example
+## 基本示例
 
 ```python demo
 rx.table.root(
@@ -187,14 +187,14 @@ rx.table.root(
 ```
 
 ```md alert info
-# Set the table `width` to fit within its container and prevent it from overflowing.
+# 设置表格的 `width` 使其适应容器，防止溢出。
 ```
 
-## Showing State data (using foreach)
+## 显示 State 数据（使用 foreach）
 
-Many times there is a need for the data we represent in our table to be dynamic. Dynamic data must be in `State`. Later we will show an example of how to access data from a database and how to load data from a source file.
+很多时候我们需要表格中展示的数据是动态的。动态数据必须放在 `State` 中。稍后我们将展示如何从数据库访问数据以及如何从源文件加载数据的示例。
 
-In this example there is a `people` data structure in `State` that is [iterated through using `rx.foreach`](/docs/components/rendering-iterables).
+在此示例中，`State` 中有一个 `people` 数据结构，通过 [`rx.foreach` 进行迭代](/docs/components/rendering-iterables)。
 
 ```python demo exec
 class TableForEachState(rx.State):
@@ -228,7 +228,7 @@ def foreach_table_example():
     )
 ```
 
-It is also possible to define a `class` such as `Person` below and then iterate through this data structure, as a `list[Person]`.
+也可以定义一个 `class`（如下面的 `Person`），然后以 `list[Person]` 的形式迭代此数据结构。
 
 ```python
 import dataclasses
@@ -241,23 +241,23 @@ class Person:
     group: str
 ```
 
-## Sorting and Filtering (Searching)
+## 排序和筛选（搜索）
 
-In this example we show two approaches to sort and filter data:
+在此示例中，我们展示了两种排序和筛选数据的方法：
 
-1. Using SQL-like operations for database-backed models (simulated)
-2. Using Python operations for in-memory data
+1. 对数据库支持的模型使用类 SQL 操作（模拟）
+2. 对内存中的数据使用 Python 操作
 
-Both approaches use the same UI components: `rx.select` for sorting and `rx.input` for filtering.
+两种方法使用相同的 UI 组件：`rx.select` 用于排序，`rx.input` 用于筛选。
 
-### Approach 1: Database Filtering and Sorting
+### 方法 1：数据库筛选和排序
 
-For database-backed models, we typically use SQL queries with `select`, `where`, and `order_by`. In this example, we'll simulate this behavior with mock data.
+对于数据库支持的模型，我们通常使用带有 `select`、`where` 和 `order_by` 的 SQL 查询。在此示例中，我们将使用模拟数据来模拟此行为。
 
 ```python demo exec
-# Simulating database operations with mock data
+# 使用模拟数据模拟数据库操作
 class DatabaseTableState(rx.State):
-    # Mock data to simulate database records
+    # 模拟数据库记录的模拟数据
     users: list = [
         {
             "name": "John Doe",
@@ -291,10 +291,10 @@ class DatabaseTableState(rx.State):
     @rx.event
     def load_entries(self):
         """Simulate querying the database with filter and sort."""
-        # Start with all users
+        # 从所有用户开始
         result = self.users.copy()
 
-        # Apply filtering if search value exists
+        # 如果存在搜索值则应用筛选
         if self.search_value != "":
             search_term = self.search_value.lower()
             result = [
@@ -303,7 +303,7 @@ class DatabaseTableState(rx.State):
                 if any(search_term in str(value).lower() for value in user.values())
             ]
 
-        # Apply sorting if sort column is selected
+        # 如果选择了排序列则应用排序
         if self.sort_value != "":
             result = sorted(result, key=lambda x: x[self.sort_value])
 
@@ -361,15 +361,15 @@ def database_table_example():
     )
 ```
 
-### Approach 2: In-Memory Filtering and Sorting
+### 方法 2：内存中筛选和排序
 
-For in-memory data, we use Python operations like `sorted()` and list comprehensions.
+对于内存中的数据，我们使用 `sorted()` 和列表推导式等 Python 操作。
 
-The state variable `_people` is set to be a backend-only variable. This is done in case the variable is very large in order to reduce network traffic and improve performance.
+状态变量 `_people` 被设置为仅后端变量。这样做是为了在变量非常大时减少网络流量并提高性能。
 
-When a `select` item is selected, the `on_change` event trigger is hooked up to the `set_sort_value` event handler, which updates the `sort_value` state var.
+当选择 `select` 项时，`on_change` 事件触发器连接到 `set_sort_value` 事件处理器，该处理器更新 `sort_value` 状态变量。
 
-`current_people` is an `rx.var(cache=True)`. It is a var that is only recomputed when the other state vars it depends on change. This ensures that the `People` shown in the table are always up to date whenever they are searched or sorted.
+`current_people` 是一个 `rx.var(cache=True)`。它是一个仅在其依赖的其他状态变量发生变化时才重新计算的 var。这确保了表格中显示的 `People` 在搜索或排序时始终是最新的。
 
 ```python demo exec
 import dataclasses
@@ -458,26 +458,26 @@ def in_memory_table_example():
     )
 ```
 
-### When to Use Each Approach
+### 何时使用哪种方法
 
-- **Database Approach**: Best for large datasets or when the data already exists in a database
-- **In-Memory Approach**: Best for smaller datasets, prototyping, or when the data is static or loaded from an API
+- **数据库方法**：最适合大型数据集或数据已存在于数据库中的情况
+- **内存方法**：最适合较小的数据集、原型开发，或数据是静态的或从 API 加载的情况
 
-Both approaches provide the same user experience with filtering and sorting functionality.
+两种方法都提供相同的用户体验，具有筛选和排序功能。
 
-## Database
+## 数据库
 
-The more common use case for building an `rx.table` is to use data from a database.
+构建 `rx.table` 更常见的用例是使用数据库中的数据。
 
-The code below shows how to load data from a database and place it in an `rx.table`.
+下面的代码展示了如何从数据库加载数据并将其放入 `rx.table` 中。
 
-## Loading data into table
+## 将数据加载到表格中
 
-A `Customer` [model](/docs/database/tables) is defined that inherits from `rx.Model`.
+定义了一个继承自 `rx.Model` 的 `Customer` [模型](/docs/database/tables)。
 
-The `load_entries` event handler executes a [query](/docs/database/queries) that is used to request information from a database table. This `load_entries` event handler is called on the `on_mount` event trigger of the `rx.table.root`.
+`load_entries` 事件处理器执行一个[查询](/docs/database/queries)，用于从数据库表中请求信息。此 `load_entries` 事件处理器在 `rx.table.root` 的 `on_mount` 事件触发器上被调用。
 
-If you want to load the data when the page in the app loads you can set `on_load` in `app.add_page()` to equal this event handler, like `app.add_page(page_name, on_load=State.load_entries)`.
+如果你想在应用页面加载时加载数据，可以将 `app.add_page()` 中的 `on_load` 设置为此事件处理器，例如 `app.add_page(page_name, on_load=State.load_entries)`。
 
 ```python
 class Customer(rx.Model, table=True):
@@ -595,17 +595,17 @@ def loading_data_table_example():
     )
 ```
 
-## Filtering (Searching) and Sorting
+## 筛选（搜索）和排序
 
-In this example we sort and filter the data.
+在此示例中，我们对数据进行排序和筛选。
 
-For sorting the `rx.select` component is used. The data is sorted based on the attributes of the `Customer` class. When a select item is selected, as the `on_change` event trigger is hooked up to the `sort_values` event handler, the data is sorted based on the state variable `sort_value` attribute selected.
+排序使用 `rx.select` 组件。数据根据 `Customer` 类的属性进行排序。当选择某个 select 项时，由于 `on_change` 事件触发器连接到 `sort_values` 事件处理器，数据会根据所选的状态变量 `sort_value` 属性进行排序。
 
-The sorting query gets the `sort_column` based on the state variable `sort_value`, it gets the order using the `asc` function from sql and finally uses the `order_by` function.
+排序查询根据状态变量 `sort_value` 获取 `sort_column`，使用 sql 的 `asc` 函数获取排序顺序，最后使用 `order_by` 函数。
 
-For filtering the `rx.input` component is used. The data is filtered based on the search query entered into the `rx.input` component. When a search query is entered, as the `on_change` event trigger is hooked up to the `filter_values` event handler, the data is filtered based on if the state variable `search_value` is present in any of the data in that specific `Customer`.
+筛选使用 `rx.input` 组件。数据根据输入到 `rx.input` 组件中的搜索查询进行筛选。当输入搜索查询时，由于 `on_change` 事件触发器连接到 `filter_values` 事件处理器，数据会根据状态变量 `search_value` 是否存在于该特定 `Customer` 的任何数据中进行筛选。
 
-The `%` character before and after `search_value` makes it a wildcard pattern that matches any sequence of characters before or after the `search_value`. `query.where(...)` modifies the existing query to include a filtering condition. The `or_` operator is a logical OR operator that combines multiple conditions. The query will return results that match any of these conditions. `Customer.name.ilike(search_value)` checks if the `name` column of the `Customer` table matches the `search_value` pattern in a case-insensitive manner (`ilike` stands for "case-insensitive like").
+`search_value` 前后的 `%` 字符使其成为通配符模式，匹配 `search_value` 前后的任何字符序列。`query.where(...)` 修改现有查询以包含筛选条件。`or_` 运算符是逻辑 OR 运算符，用于组合多个条件。查询将返回匹配任何这些条件的结果。`Customer.name.ilike(search_value)` 检查 `Customer` 表的 `name` 列是否以不区分大小写的方式匹配 `search_value` 模式（`ilike` 代表"不区分大小写的 like"）。
 
 ```python
 class Customer(rx.Model, table=True):
@@ -619,7 +619,7 @@ class Customer(rx.Model, table=True):
 
 ```python exec
 class DatabaseTableState2(rx.State):
-    # Mock data to simulate database records
+    # 模拟数据库记录的模拟数据
     _users: list[dict] = [
         {
             "name": "John Doe",
@@ -665,10 +665,10 @@ class DatabaseTableState2(rx.State):
 
     @rx.event
     def load_entries(self):
-        # Start with all users
+        # 从所有用户开始
         result = self._users.copy()
 
-        # Apply filtering if search value exists
+        # 如果存在搜索值则应用筛选
         if self.search_value != "":
             search_term = self.search_value.lower()
             result = [
@@ -677,7 +677,7 @@ class DatabaseTableState2(rx.State):
                 if any(search_term in str(value).lower() for value in user.values())
             ]
 
-        # Apply sorting if sort column is selected
+        # 如果选择了排序列则应用排序
         if self.sort_value != "":
             result = sorted(result, key=lambda x: x[self.sort_value])
 
@@ -821,15 +821,15 @@ def loading_data_table_example2():
     )
 ```
 
-## Pagination
+## 分页
 
-Pagination is an important part of database management, especially when working with large datasets. It helps in enabling efficient data retrieval by breaking down results into manageable loads.
+分页是数据库管理的重要组成部分，尤其是在处理大型数据集时。它通过将结果分解为可管理的负载来实现高效的数据检索。
 
-The purpose of this code is to retrieve a specific subset of rows from the `Customer` table based on the specified pagination parameters `offset` and `limit`.
+此代码的目的是根据指定的分页参数 `offset` 和 `limit` 从 `Customer` 表中检索特定的行子集。
 
-`query.offset(self.offset)` modifies the query to skip a certain number of rows before returning the results. The number of rows to skip is specified by `self.offset`.
+`query.offset(self.offset)` 修改查询以在返回结果之前跳过一定数量的行。要跳过的行数由 `self.offset` 指定。
 
-`query.limit(self.limit)` modifies the query to limit the number of rows returned. The maximum number of rows to return is specified by `self.limit`.
+`query.limit(self.limit)` 修改查询以限制返回的行数。要返回的最大行数由 `self.limit` 指定。
 
 ```python exec
 class DatabaseTableState3(rx.State):
@@ -995,7 +995,7 @@ class DatabaseTableState3(rx.State):
         with rx.session() as session:
             query = select(Customer)
 
-            # Apply pagination
+            # 应用分页
             query = query.offset(self.offset).limit(self.limit)
 
             self.users = session.exec(query).all()
@@ -1044,19 +1044,19 @@ def loading_data_table_example3():
     )
 ```
 
-## More advanced examples
+## 更高级的示例
 
-The real power of the `rx.table` comes where you are able to visualise, add and edit data live in your app. Check out these apps and code to see how this is done: app: https://customer-data-app.reflex.run code: https://github.com/reflex-dev/templates/tree/main/customer_data_app and code: https://github.com/reflex-dev/templates/tree/main/sales.
+`rx.table` 的真正强大之处在于你可以在应用中实时可视化、添加和编辑数据。查看这些应用和代码以了解如何实现：应用：https://customer-data-app.reflex.run 代码：https://github.com/reflex-dev/templates/tree/main/customer_data_app 以及代码：https://github.com/reflex-dev/templates/tree/main/sales。
 
-## Download
+## 下载
 
-Most users will want to download their data after they have got the subset that they would like in their table.
+大多数用户在获得表格中所需的子集后会想要下载数据。
 
-In this example there are buttons to download the data as a `json` and as a `csv`.
+在此示例中，有按钮可以将数据下载为 `json` 和 `csv` 格式。
 
-For the `json` download the `rx.download` is in the frontend code attached to the `on_click` event trigger for the button. This works because if the `Var` is not already a string, it will be converted to a string using `JSON.stringify`.
+对于 `json` 下载，`rx.download` 位于前端代码中，附加到按钮的 `on_click` 事件触发器上。这之所以有效，是因为如果 `Var` 还不是字符串，它将使用 `JSON.stringify` 转换为字符串。
 
-For the `csv` download the `rx.download` is in the backend code as an event_handler `download_csv_data`. There is also a helper function `_convert_to_csv` that converts the data in `self.users` to `csv` format.
+对于 `csv` 下载，`rx.download` 位于后端代码中，作为事件处理器 `download_csv_data`。还有一个辅助函数 `_convert_to_csv`，将 `self.users` 中的数据转换为 `csv` 格式。
 
 ```python exec
 import io
@@ -1189,21 +1189,21 @@ class TableDownloadState(rx.State):
     def _convert_to_csv(self) -> str:
         """Convert the users data to CSV format."""
 
-        # Make sure to load the entries first
+        # 确保先加载数据
         if not self.users:
             self.load_entries()
 
-        # Define the CSV file header based on the Customer model's attributes
+        # 根据 Customer 模型的属性定义 CSV 文件头
         fieldnames = list(Customer.__fields__)
 
-        # Create a string buffer to hold the CSV data
+        # 创建字符串缓冲区来保存 CSV 数据
         output = io.StringIO()
         writer = csv.DictWriter(output, fieldnames=fieldnames)
         writer.writeheader()
         for user in self.users:
             writer.writerow(user.dict())
 
-        # Get the CSV data as a string
+        # 获取 CSV 数据字符串
         csv_data = output.getvalue()
         output.close()
         return csv_data
@@ -1261,7 +1261,7 @@ def download_data_table_example():
     )
 ```
 
-## Real World Example UI
+## 真实场景 UI 示例
 
 ```python demo
 rx.flex(
@@ -1305,10 +1305,10 @@ rx.flex(
 )
 ```
 
-## Related
+## 相关内容
 
-Explore the other ways to work with tabular data in Reflex, all in pure Python:
+探索在 Reflex 中处理表格数据的其他方法，全部使用纯 Python：
 
 - [Data Table](/docs/library/tables-and-data-grids/data-table)
 - [Data Editor](/docs/library/tables-and-data-grids/data-editor)
-- [Tables and Data Grids](/docs/library/tables-and-data-grids/)
+- [表格和数据网格](/docs/library/tables-and-data-grids/)

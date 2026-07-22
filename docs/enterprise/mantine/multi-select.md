@@ -2,9 +2,9 @@
 title: MultiSelect
 ---
 
-# MultiSelect component
+# MultiSelect 组件
 
-`rxe.mantine.multi_select` is a component for selecting multiple options from a list. It allows users to choose one or more items, making it suitable for scenarios where multiple selections are required.
+`rxe.mantine.multi_select` 是一个用于从列表中选择多个选项的组件。它允许用户选择一个或多个项目，适用于需要多选的场景。
 
 ```python demo exec
 import reflex as rx

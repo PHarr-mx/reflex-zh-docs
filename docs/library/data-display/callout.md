@@ -17,9 +17,9 @@ CalloutRoot: |
 import reflex as rx
 ```
 
-# Callout
+# 标注（Callout）
 
-A `callout` is a short message to attract user's attention.
+`callout` 是一条用于吸引用户注意力的简短消息。
 
 ```python demo
 rx.callout(
@@ -28,9 +28,9 @@ rx.callout(
 )
 ```
 
-The `icon` prop allows an icon to be passed to the `callout` component. See the [**icon** component for all icons that are available.](/docs/library/data-display/icon)
+`icon` 属性允许向 `callout` 组件传入一个图标。请参阅[**图标**组件以查看所有可用图标。](/docs/library/data-display/icon)
 
-## As alert
+## 作为警告
 
 ```python demo
 rx.callout(
@@ -41,11 +41,11 @@ rx.callout(
 )
 ```
 
-## Style
+## 样式
 
-### Size
+### 尺寸
 
-Use the `size` prop to control the size.
+使用 `size` 属性控制大小。
 
 ```python demo
 rx.flex(
@@ -70,9 +70,9 @@ rx.flex(
 )
 ```
 
-### Variant
+### 变体
 
-Use the `variant` prop to control the visual style. It is set to `soft` by default.
+使用 `variant` 属性控制视觉样式。默认设置为 `soft`。
 
 ```python demo
 rx.flex(
@@ -96,9 +96,9 @@ rx.flex(
 )
 ```
 
-### Color
+### 颜色
 
-Use the `color_scheme` prop to assign a specific color, ignoring the global theme.
+使用 `color_scheme` 属性指定特定颜色，忽略全局主题。
 
 ```python demo
 rx.flex(
@@ -122,9 +122,9 @@ rx.flex(
 )
 ```
 
-### High Contrast
+### 高对比度
 
-Use the `high_contrast` prop to add additional contrast.
+使用 `high_contrast` 属性增加额外的对比度。
 
 ```python demo
 rx.flex(

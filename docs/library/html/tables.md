@@ -12,6 +12,6 @@ components:
   - rx.el.tr
 ---
 
-# HTML Table Elements
+# HTML 表格元素
 
-Table HTML elements are available through the `rx.el` namespace.
+表格 HTML 元素可通过 `rx.el` 命名空间使用。

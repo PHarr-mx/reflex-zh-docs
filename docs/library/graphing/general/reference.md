@@ -5,17 +5,17 @@ components:
   - rx.recharts.ReferenceArea
 ---
 
-# Reference
+# 参考线（Reference）
 
 ```python exec
 import reflex as rx
 ```
 
-The Reference components in Recharts, including ReferenceLine, ReferenceArea, and ReferenceDot, are used to add visual aids and annotations to the chart, helping to highlight specific data points, ranges, or thresholds for better data interpretation and analysis.
+Recharts 中的参考组件，包括 ReferenceLine、ReferenceArea 和 ReferenceDot，用于向图表添加视觉辅助和注释，帮助突出显示特定的数据点、范围或阈值，以便更好地解读和分析数据。
 
-## Reference Area
+## 参考区域（Reference Area）
 
-The `rx.recharts.reference_area` component in Recharts is used to highlight a specific area or range on the chart by drawing a rectangular region. It is defined by specifying the coordinates (x1, x2, y1, y2) and can be used to emphasize important data ranges or intervals on the chart.
+Recharts 中的 `rx.recharts.reference_area` 组件用于通过绘制矩形区域来突出显示图表上的特定区域或范围。它通过指定坐标（x1、x2、y1、y2）来定义，可用于强调图表上重要的数据范围或区间。
 
 ```python demo graphing
 data = [
@@ -43,9 +43,9 @@ def reference():
     )
 ```
 
-## Reference Line
+## 参考线（Reference Line）
 
-The `rx.recharts.reference_line` component in rx.recharts is used to draw a horizontal or vertical line on the chart at a specified position. It helps to highlight important values, thresholds, or ranges on the axis, providing visual reference points for better data interpretation.
+`rx.recharts.reference_line` 组件用于在图表的指定位置绘制一条水平线或垂直线。它有助于突出显示轴上的重要值、阈值或范围，提供视觉参考点以便更好地解读数据。
 
 ```python demo graphing
 data_2 = [
@@ -83,9 +83,9 @@ def reference_line():
     )
 ```
 
-## Reference Dot
+## 参考点（Reference Dot）
 
-The `rx.recharts.reference_dot` component in Recharts is used to mark a specific data point on the chart with a customizable dot. It allows you to highlight important values, outliers, or thresholds by providing a visual reference marker at the specified coordinates (x, y) on the chart.
+Recharts 中的 `rx.recharts.reference_dot` 组件用于在图表上用可自定义的圆点标记特定数据点。它允许你通过在图表上指定的坐标（x、y）处提供视觉参考标记来突出显示重要值、异常值或阈值。
 
 ```python demo graphing
 data_3 = [

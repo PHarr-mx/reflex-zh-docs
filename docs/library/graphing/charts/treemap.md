@@ -5,17 +5,17 @@ title: Treemap
 meta_description: "Create treemap charts in Python with Reflex. Build interactive Recharts treemaps to visualize hierarchical, part-to-whole data as nested rectangles — all in pure Python, no JavaScript."
 ---
 
-# Treemap
+# 矩形树图（Treemap）
 
 ```python exec
 import reflex as rx
 ```
 
-Treemap charts in Reflex are built on [Recharts](https://recharts.org/), a React charting library, and created in pure Python. A treemap displays hierarchical, part-to-whole data as a set of nested rectangles, where the area of each rectangle is proportional to its value. Treemaps are a space-efficient way to compare many categories at once.
+Reflex 中的矩形树图基于 [Recharts](https://recharts.org/)（一个 React 图表库）构建，使用纯 Python 创建。矩形树图将层次化的部分与整体数据以一组嵌套矩形的方式展示，每个矩形的面积与其值成正比。矩形树图是一种空间高效的方式，可以同时比较多个类别。
 
-## Simple Example
+## 简单示例
 
-An `rx.recharts.treemap()` takes a list of dictionaries as its `data` and a `data_key` naming the field that determines each rectangle's size. Use `name_key` to set the label shown on each tile.
+`rx.recharts.treemap()` 接收一个字典列表作为其 `data`，以及一个 `data_key` 来命名决定每个矩形大小的字段。使用 `name_key` 设置显示在每个图块上的标签。
 
 ```python demo graphing
 data = [
@@ -38,9 +38,9 @@ def treemap_simple():
     )
 ```
 
-## Aspect Ratio
+## 宽高比
 
-The `aspect_ratio` prop controls the target width-to-height ratio the treemap uses when laying out each rectangle. Lower values produce taller tiles; higher values produce wider ones.
+`aspect_ratio` 属性控制矩形树图在布局每个矩形时使用的目标宽高比。较低的值产生较高的图块；较高的值产生较宽的图块。
 
 ```python demo graphing
 data = [
@@ -63,10 +63,10 @@ def treemap_aspect():
     )
 ```
 
-## Related Charts
+## 相关图表
 
-Explore more chart types you can build with Reflex and Recharts in pure Python:
+探索更多可以使用 Reflex 和 Recharts 以纯 Python 构建的图表类型：
 
-- [Pie Chart](/docs/library/graphing/charts/piechart)
-- [Bar Chart](/docs/library/graphing/charts/barchart)
-- [Funnel Chart](/docs/library/graphing/charts/funnelchart)
+- [饼图](/docs/library/graphing/charts/piechart)
+- [柱状图](/docs/library/graphing/charts/barchart)
+- [漏斗图](/docs/library/graphing/charts/funnelchart)

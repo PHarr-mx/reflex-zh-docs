@@ -4,9 +4,9 @@ title: JSON Input
 
 # JSON Input
 
-`rxe.mantine.json_input` is a component that allows you to input JSON data in a user-friendly way. It provides validation and formatting features to ensure that the JSON data is correctly structured.
+`rxe.mantine.json_input` 是一个允许你以用户友好的方式输入 JSON 数据的组件。它提供验证和格式化功能，以确保 JSON 数据结构正确。
 
-## Example
+## 示例
 
 ```python demo exec
 import reflex as rx

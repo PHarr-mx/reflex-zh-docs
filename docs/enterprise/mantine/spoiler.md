@@ -2,9 +2,9 @@
 title: Spoiler
 ---
 
-# Spoiler component
+# Spoiler 组件
 
-`rxe.mantine.spoiler` is a component that allows you to hide or reveal content. It is useful for displaying additional information or details that may not be immediately relevant to the user.
+`rxe.mantine.spoiler` 是一个允许你隐藏或显示内容的组件。它适用于显示可能不会立即与用户相关的附加信息或详细信息。
 
 ```python demo exec
 import reflex as rx

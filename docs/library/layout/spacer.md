@@ -7,9 +7,9 @@ components:
 import reflex as rx
 ```
 
-# Spacer
+# 间隔（Spacer）
 
-Creates an adjustable, empty space that can be used to tune the spacing between child elements within `flex`.
+创建一个可调节的空白区域，可用于调整 `flex` 中子元素之间的间距。
 
 ```python demo
 rx.flex(
@@ -22,4 +22,4 @@ rx.flex(
 )
 ```
 
-As `stack`, `vstack` and `hstack` are all built from `flex`, it is possible to also use `spacer` inside of these components.
+由于 `stack`、`vstack` 和 `hstack` 都是基于 `flex` 构建的，因此也可以在这些组件内部使用 `spacer`。

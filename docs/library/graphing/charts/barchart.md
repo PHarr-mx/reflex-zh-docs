@@ -6,18 +6,18 @@ title: Bar Chart
 meta_description: "Create interactive bar charts in Python with Reflex. Build grouped, stacked, and horizontal Recharts bar charts with custom colors, axes, tooltips, and legends — all in pure Python, no JavaScript."
 ---
 
-# Bar Chart
+# 柱状图（Bar Chart）
 
 ```python exec
 import reflex as rx
 import random
 ```
 
-Bar charts in Reflex are built on [Recharts](https://recharts.org/), a React charting library, and let you visualize categorical data in pure Python. A bar chart presents categorical data with rectangular bars whose heights or lengths are proportional to the values that they represent.
+Reflex 中的柱状图基于 [Recharts](https://recharts.org/)（一个 React 图表库）构建，让你能够以纯 Python 可视化分类数据。柱状图使用矩形条来呈现分类数据，条的高度或长度与其所代表的值成正比。
 
-For a bar chart we must define an `rx.recharts.bar()` component for each set of values we wish to plot. Each `rx.recharts.bar()` component has a `data_key` which clearly states which variable in our data we are tracking. In this simple example we plot `uv` as a bar against the `name` column which we set as the `data_key` in `rx.recharts.x_axis`.
+对于柱状图，我们必须为每组要绘制的值定义一个 `rx.recharts.bar()` 组件。每个 `rx.recharts.bar()` 组件都有一个 `data_key`，用于明确指出我们正在跟踪数据中的哪个变量。在这个简单示例中，我们将 `uv` 绘制为柱形，并将 `name` 列设置为 `rx.recharts.x_axis` 中的 `data_key`。
 
-## Simple Example
+## 简单示例
 
 ```python demo graphing
 data = [
@@ -46,9 +46,9 @@ def bar_simple():
     )
 ```
 
-## Multiple Bars
+## 多个柱形
 
-Multiple bars can be placed on the same `bar_chart`, using multiple `rx.recharts.bar()` components. Drawn side by side like this, they form a grouped (or clustered) bar chart.
+可以在同一个 `bar_chart` 上放置多个柱形，使用多个 `rx.recharts.bar()` 组件即可。像这样并排绘制时，它们形成一个分组（或聚类）柱状图。
 
 ```python demo graphing
 data = [
@@ -82,9 +82,9 @@ def bar_double():
     )
 ```
 
-## Stacked Bar Chart
+## 堆叠柱状图（Stacked Bar Chart）
 
-To build a stacked bar chart, give each `rx.recharts.bar()` the same `stack_id`. Instead of being drawn side by side, the bars are stacked on top of one another, which is ideal for showing part-to-whole composition (also called a segmented bar chart). Set `stack_offset="expand"` on the `bar_chart` to turn it into a 100% stacked bar chart.
+要构建堆叠柱状图，给每个 `rx.recharts.bar()` 相同的 `stack_id`。柱形不再并排绘制，而是堆叠在一起，非常适合展示部分与整体的构成关系（也称为分段柱状图）。在 `bar_chart` 上设置 `stack_offset="expand"` 可将其变为 100% 堆叠柱状图。
 
 ```python demo graphing
 data = [
@@ -119,9 +119,9 @@ def bar_stacked():
     )
 ```
 
-## Ranged Charts
+## 范围图表
 
-You can also assign a range in the bar by assigning the data_key in the `rx.recharts.bar` to a list with two elements, i.e. here a range of two temperatures for each date.
+你也可以通过将 `rx.recharts.bar` 中的 data_key 赋值为包含两个元素的列表来为柱形指定范围，例如下面每个日期对应两个温度值的范围。
 
 ```python demo graphing
 range_data = [
@@ -152,9 +152,9 @@ def bar_range():
     )
 ```
 
-## Stateful Charts
+## 带状态的图表
 
-Here is an example of a bar graph with a `State`. Here we have defined a function `randomize_data`, which randomly changes the data for both graphs when the first defined `bar` is clicked on using `on_click=BarState.randomize_data`.
+下面是一个使用 `State` 的柱状图示例。我们定义了一个 `randomize_data` 函数，当使用 `on_click=BarState.randomize_data` 点击第一个定义的 `bar` 时，该函数会随机更改两个图表的数据。
 
 ```python demo exec
 class BarState(rx.State):
@@ -193,9 +193,9 @@ def bar_with_state():
     )
 ```
 
-## Example with Props
+## 属性示例
 
-Here's an example demonstrates how to customize the appearance and layout of bars using the `bar_category_gap`, `bar_gap`, `bar_size`, and `max_bar_size` props. These props accept values in pixels to control the spacing and size of the bars.
+以下示例演示了如何使用 `bar_category_gap`、`bar_gap`、`bar_size` 和 `max_bar_size` 属性来自定义柱形的外观和布局。这些属性接受像素值，用于控制柱形的间距和大小。
 
 ```python demo graphing
 data = [
@@ -226,12 +226,12 @@ def bar_features():
     )
 ```
 
-## Vertical Example
+## 垂直示例
 
-The `layout` prop allows you to set the orientation of the graph to be vertical or horizontal, it is set horizontally by default. Setting `layout="vertical"` makes the bars run left-to-right, which is how you create a horizontal bar chart in Reflex.
+`layout` 属性允许你将图表的方向设置为垂直或水平，默认为水平。设置 `layout="vertical"` 会使柱形从左到右延伸，这就是在 Reflex 中创建水平柱状图的方式。
 
 ```md alert info
-# Include margins around your graph to ensure proper spacing and enhance readability. By default, provide margins on all sides of the chart to create a visually appealing and functional representation of your data.
+# 在图表周围添加边距以确保适当的间距并提高可读性。默认情况下，在图表的所有侧面提供边距，以创建美观且实用的数据展示效果。
 ```
 
 ```python demo graphing
@@ -263,12 +263,12 @@ def bar_vertical():
     )
 ```
 
-To learn how to use the `sync_id`, `stack_id`,`x_axis_id` and `y_axis_id` props check out the of the area chart [documentation](/docs/library/graphing/charts/areachart), where these props are all described with examples.
+要了解如何使用 `sync_id`、`stack_id`、`x_axis_id` 和 `y_axis_id` 属性，请查看面积图的[文档](/docs/library/graphing/charts/areachart)，其中对这些属性都有详细的示例说明。
 
-## Related Charts
+## 相关图表
 
-Explore more chart types you can build with Reflex and Recharts in pure Python:
+探索更多可以使用 Reflex 和 Recharts 以纯 Python 构建的图表类型：
 
-- [Line Chart](/docs/library/graphing/charts/linechart)
-- [Area Chart](/docs/library/graphing/charts/areachart)
-- [Composed Chart](/docs/library/graphing/charts/composedchart)
+- [折线图](/docs/library/graphing/charts/linechart)
+- [面积图](/docs/library/graphing/charts/areachart)
+- [组合图](/docs/library/graphing/charts/composedchart)

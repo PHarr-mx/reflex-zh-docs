@@ -5,9 +5,9 @@ order: 4
 
 # Mantine
 
-Mantine is a React component library that provides a set of high-quality components and hooks for building modern web applications. It is designed to be flexible, customizable, and easy to use, making it a popular choice among developers.
+Mantine 是一个 React 组件库，提供了一组高质量的组件和钩子（Hooks），用于构建现代 Web 应用程序。它设计灵活、可定制且易于使用，是开发者中的热门选择。
 
-Some of those components have been integrated into Reflex Enterprise, allowing you to use them in your Reflex applications. The following components are available:
+其中一些组件已集成到 Reflex Enterprise 中，允许你在 Reflex 应用程序中使用它们。以下组件可用：
 - JsonInput
 - Autocomplete
 - ComboBox
@@ -23,4 +23,3 @@ Some of those components have been integrated into Reflex Enterprise, allowing y
 - Spoiler
 - Timeline
 - Collapse
-

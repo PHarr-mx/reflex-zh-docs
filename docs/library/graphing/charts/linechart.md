@@ -6,7 +6,7 @@ title: Line Chart
 meta_description: "Build interactive line charts in pure Python with Reflex. Plot single or multi-line Recharts time series with custom axes, tooltips, legends, and styling — no JavaScript needed."
 ---
 
-# Line Chart
+# 折线图（Line Chart）
 
 ```python exec
 import random
@@ -14,11 +14,11 @@ from typing import Any
 import reflex as rx
 ```
 
-Line charts in Reflex are built on [Recharts](https://recharts.org/), a React charting library, and are created in pure Python. A line chart is a type of chart used to show information that changes over time. Line charts are created by plotting a series of several points and connecting them with a straight line.
+Reflex 中的折线图基于 [Recharts](https://recharts.org/)（一个 React 图表库）构建，使用纯 Python 创建。折线图是一种用于展示随时间变化的信息的图表类型。折线图通过绘制一系列数据点并用直线将它们连接起来而创建。
 
-## Simple Example
+## 简单示例
 
-For a line chart we must define an `rx.recharts.line()` component for each set of values we wish to plot. Each `rx.recharts.line()` component has a `data_key` which clearly states which variable in our data we are tracking. In this simple example we plot `pv` and `uv` as separate lines against the `name` column which we set as the `data_key` in `rx.recharts.x_axis`. Plotting more than one line like this creates a multi-line chart.
+对于折线图，我们必须为每组要绘制的值定义一个 `rx.recharts.line()` 组件。每个 `rx.recharts.line()` 组件都有一个 `data_key`，用于明确指出我们正在跟踪数据中的哪个变量。在这个简单示例中，我们将 `pv` 和 `uv` 绘制为独立的折线，并将 `name` 列设置为 `rx.recharts.x_axis` 中的 `data_key`。像这样绘制多条折线会创建一个多系列折线图。
 
 ```python demo graphing
 data = [
@@ -48,9 +48,9 @@ def line_simple():
     )
 ```
 
-## Example with Props
+## 属性示例
 
-Our second example uses exactly the same data as our first example, except now we add some extra features to our line graphs. We add a `type_` prop to `rx.recharts.line` to style the lines differently. In addition, we add an `rx.recharts.cartesian_grid` to get a grid in the background, an `rx.recharts.legend` to give us a legend for our graphs and an `rx.recharts.graphing_tooltip` to add a box with text that appears when you pause the mouse pointer on an element in the graph.
+第二个示例使用与第一个示例完全相同的数据，但现在我们为折线图添加了一些额外功能。我们为 `rx.recharts.line` 添加了 `type_` 属性来设置不同的折线样式。此外，我们添加了 `rx.recharts.cartesian_grid` 以获得背景网格，添加了 `rx.recharts.legend` 以获得图例，还添加了 `rx.recharts.graphing_tooltip` 以在鼠标悬停在图表元素上时显示带有文本的提示框。
 
 ```python demo graphing
 data = [
@@ -87,12 +87,12 @@ def line_features():
     )
 ```
 
-## Layout
+## 布局
 
-The `layout` prop allows you to set the orientation of the graph to be vertical or horizontal. The `margin` prop defines the spacing around the graph,
+`layout` 属性允许你将图表的方向设置为垂直或水平。`margin` 属性定义图表周围的间距。
 
 ```md alert info
-# Include margins around your graph to ensure proper spacing and enhance readability. By default, provide margins on all sides of the chart to create a visually appealing and functional representation of your data.
+# 在图表周围添加边距以确保适当的间距并提高可读性。默认情况下，在图表的所有侧面提供边距，以创建美观且实用的数据展示效果。
 ```
 
 ```python demo graphing
@@ -127,13 +127,9 @@ def line_vertical():
     )
 ```
 
-## Dynamic Data
+## 动态数据
 
-Chart data can be modified by tying the `data` prop to a State var. Most other
-props, such as `type_`, can be controlled dynamically as well. In the following
-example the "Munge Data" button can be used to randomly modify the data, and the
-two `select` elements change the line `type_`. Since the data and style is saved
-in the per-browser-tab State, the changes will not be visible to other visitors.
+通过将 `data` 属性绑定到 State 变量，可以修改图表数据。大多数其他属性（如 `type_`）也可以动态控制。在下面的示例中，"Munge Data" 按钮可用于随机修改数据，两个 `select` 元素用于更改折线的 `type_`。由于数据和样式保存在每个浏览器标签页的 State 中，因此更改对其他访问者不可见。
 
 ```python demo exec
 initial_data = data
@@ -196,12 +192,12 @@ def line_dynamic():
     )
 ```
 
-To learn how to use the `sync_id`, `x_axis_id` and `y_axis_id` props check out the of the area chart [documentation](/docs/library/graphing/charts/areachart), where these props are all described with examples.
+要了解如何使用 `sync_id`、`x_axis_id` 和 `y_axis_id` 属性，请查看面积图的[文档](/docs/library/graphing/charts/areachart)，其中对这些属性都有详细的示例说明。
 
-## Related Charts
+## 相关图表
 
-Explore more chart types you can build with Reflex and Recharts in pure Python:
+探索更多可以使用 Reflex 和 Recharts 以纯 Python 构建的图表类型：
 
-- [Area Chart](/docs/library/graphing/charts/areachart)
-- [Bar Chart](/docs/library/graphing/charts/barchart)
-- [Scatter Chart](/docs/library/graphing/charts/scatterchart)
+- [面积图](/docs/library/graphing/charts/areachart)
+- [柱状图](/docs/library/graphing/charts/barchart)
+- [散点图](/docs/library/graphing/charts/scatterchart)

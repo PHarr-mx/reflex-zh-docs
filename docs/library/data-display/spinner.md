@@ -3,9 +3,9 @@ components:
   - rx.spinner
 ---
 
-# Spinner
+# 加载指示器（Spinner）
 
-Spinner is used to display an animated loading indicator when a task is in progress.
+加载指示器（Spinner）用于在任务进行中显示动画加载指示。
 
 ```python exec
 import reflex as rx
@@ -15,9 +15,9 @@ import reflex as rx
 rx.spinner()
 ```
 
-## Basic Examples
+## 基本示例
 
-Spinner can have different sizes.
+加载指示器可以有不同的尺寸。
 
 ```python demo
 rx.vstack(
@@ -31,17 +31,17 @@ rx.vstack(
 )
 ```
 
-## Demo with buttons
+## 与按钮配合使用
 
-Buttons have their own loading prop that automatically composes a spinner.
+按钮有自己的 loading 属性，会自动组合一个加载指示器。
 
 ```python demo
 rx.button("Bookmark", loading=True)
 ```
 
-## Spinner inside a button
+## 按钮内的加载指示器
 
-If you have an icon inside the button, you can use the button's disabled state and wrap the icon in a standalone rx.spinner to achieve a more sophisticated design.
+如果按钮内有图标，你可以使用按钮的禁用状态，并将图标包裹在独立的 rx.spinner 中，以实现更精致的设计。
 
 ```python demo
 rx.button(rx.spinner(loading=True), "Bookmark", disabled=True)

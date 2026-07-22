@@ -7,17 +7,17 @@ components:
 import reflex as rx
 ```
 
-# rx.text.kbd (Keyboard)
+# rx.text.kbd（键盘输入）
 
-Represents keyboard input or a hotkey.
+表示键盘输入或快捷键。
 
 ```python demo
 rx.text.kbd("Shift + Tab")
 ```
 
-## Size
+## 尺寸
 
-Use the `size` prop to control text size. This prop also provides correct line height and corrective letter spacing—as text size increases, the relative line height and letter spacing decrease.
+使用 `size` prop 来控制文本大小。该 prop 还提供正确的行高和修正的字间距——随着文本尺寸增大，相对行高和字间距会减小。
 
 ```python demo
 rx.flex(

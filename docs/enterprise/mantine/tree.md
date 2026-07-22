@@ -2,12 +2,12 @@
 title: Tree
 ---
 
-# Tree component
+# Tree 组件
 
-`rxe.mantine.tree` is a component for displaying hierarchical data in a tree structure. It allows users to expand and collapse nodes, making it easy to navigate through large datasets.
+`rxe.mantine.tree` 是一个以树形结构显示层级数据的组件。它允许用户展开和折叠节点，便于浏览大型数据集。
 
 ```md alert warning
-# Due to some technical limitations(pydantic), the tree component only supports 5 levels of depths for the `data` props.
+# 由于一些技术限制（pydantic），tree 组件的 `data` 属性仅支持 5 层深度。
 ```
 
 ```python demo exec

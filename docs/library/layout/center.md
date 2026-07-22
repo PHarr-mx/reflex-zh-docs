@@ -19,9 +19,9 @@ Center: |
 import reflex as rx
 ```
 
-# Center
+# 居中（Center）
 
-`Center` is a component that centers its children within itself. It is based on the `flex` component and therefore inherits all of its props.
+`Center` 是一个将其子元素在自身内部居中的组件。它基于 `flex` 组件，因此继承了其所有属性。
 
 ```python demo
 rx.center(

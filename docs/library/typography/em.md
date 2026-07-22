@@ -7,9 +7,9 @@ components:
 import reflex as rx
 ```
 
-# Em (Emphasis)
+# Em（强调）
 
-Marks text to stress emphasis.
+标记文本以表示语气强调。
 
 ```python demo
 rx.text("We ", rx.text.em("had"), " to do something about it.")

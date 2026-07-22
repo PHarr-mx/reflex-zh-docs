@@ -9,11 +9,11 @@ import reflex as rx
 
 # Box
 
-Box is a generic container component that can be used to group other components.
+Box 是一个通用容器组件，可用于将其他组件组合在一起。
 
-By default, the Box component is based on the `div` and rendered as a block element. It's primary use is for applying styles.
+默认情况下，Box 组件基于 `div`，渲染为块级元素。它的主要用途是应用样式。
 
-## Basic Example
+## 基本示例
 
 ```python demo
 rx.box(
@@ -62,11 +62,9 @@ rx.box(
 )
 ```
 
-## Background
+## 背景
 
-To set a background [image](https://developer.mozilla.org/en-US/docs/Web/CSS/CSS_images) or
-[gradient](https://developer.mozilla.org/en-US/docs/Web/CSS/CSS_images/Using_CSS_gradients),
-use the [`background` CSS prop](https://developer.mozilla.org/en-US/docs/Web/CSS/background).
+要设置背景[图片](https://developer.mozilla.org/en-US/docs/Web/CSS/CSS_images)或[渐变](https://developer.mozilla.org/en-US/docs/Web/CSS/CSS_images/Using_CSS_gradients)，请使用 [`background` CSS 属性](https://developer.mozilla.org/en-US/docs/Web/CSS/background)。
 
 ```python demo
 rx.flex(

@@ -7,14 +7,14 @@ components:
 import reflex as rx
 ```
 
-# Quote
+# Quote（引用）
 
-A short inline quotation.
+简短的行内引用。
 
 ```python demo
 rx.text(
     "His famous quote, ",
     rx.text.quote("Styles come and go. Good design is a language, not a style"),
-    ", elegantly sums up Massimo’s philosophy of design.",
+    ", elegantly sums up Massimo's philosophy of design.",
 )
 ```

@@ -190,19 +190,19 @@ ContextMenuItem: |
 import reflex as rx
 ```
 
-# Context Menu
+# Context Menu（上下文菜单）
 
-A Context Menu is a popup menu that appears upon user interaction, such as a right-click or a hover.
+上下文菜单（Context Menu）是一种在用户交互（如右键单击或悬停）时弹出的菜单。
 
-## Basic Usage
+## 基本用法
 
-A Context Menu is composed of a `context_menu.root`, a `context_menu.trigger` and a `context_menu.content`. The `context_menu_root` contains all the parts of a context menu. The `context_menu.trigger` is the element that the user interacts with to open the menu. It wraps the element that will open the context menu. The `context_menu.content` is the component that pops out when the context menu is open.
+上下文菜单由 `context_menu.root`、`context_menu.trigger` 和 `context_menu.content` 组成。`context_menu_root` 包含上下文菜单的所有部分。`context_menu.trigger` 是用户与之交互以打开菜单的元素。它包裹用于打开上下文菜单的元素。`context_menu.content` 是上下文菜单打开时弹出的组件。
 
-The `context_menu.item` contains the actual context menu items and sits under the `context_menu.content`.
+`context_menu.item` 包含实际的上下文菜单项，位于 `context_menu.content` 之下。
 
-The `context_menu.sub` contains all the parts of a submenu. There is a `context_menu.sub_trigger`, which is an item that opens a submenu. It must be rendered inside a `context_menu.sub` component. The `context_menu.sub_content` is the component that pops out when a submenu is open. It must also be rendered inside a `context_menu.sub` component.
+`context_menu.sub` 包含子菜单的所有部分。其中有一个 `context_menu.sub_trigger`，它是用于打开子菜单的项。它必须渲染在 `context_menu.sub` 组件内部。`context_menu.sub_content` 是子菜单打开时弹出的组件。它也必须渲染在 `context_menu.sub` 组件内部。
 
-The `context_menu.separator` is used to visually separate items in a context menu.
+`context_menu.separator` 用于在视觉上分隔上下文菜单中的项。
 
 ```python demo
 rx.context_menu.root(
@@ -233,9 +233,9 @@ rx.context_menu.root(
 ```
 
 ````md alert warning
-# `rx.context_menu.item` must be a DIRECT child of `rx.context_menu.content`
+# `rx.context_menu.item` 必须是 `rx.context_menu.content` 的直接子元素
 
-The code below for example is not allowed:
+例如下面的代码是不允许的：
 
 ```python
 rx.context_menu.root(
@@ -261,11 +261,11 @@ rx.context_menu.root(
 ```
 ````
 
-## Opening a Dialog from Context Menu using State
+## 使用 State 从上下文菜单打开对话框
 
-Accessing an overlay component from within another overlay component is a common use case but does not always work exactly as expected.
+从一个覆盖层组件内部访问另一个覆盖层组件是常见的用例，但并不总是能按预期工作。
 
-The code below will not work as expected as because the dialog is within the menu and the dialog will only be open when the menu is open, rendering the dialog unusable.
+下面的代码不会按预期工作，因为对话框位于菜单内部，对话框只有在菜单打开时才能打开，这使得对话框无法使用。
 
 ```python
 rx.context_menu.root(
@@ -282,7 +282,7 @@ rx.context_menu.root(
 )
 ```
 
-In this example, we will show how to open a dialog box from a context menu, where the menu will close and the dialog will open and be functional.
+在此示例中，我们将展示如何从上下文菜单打开对话框，菜单会关闭，对话框会打开并正常工作。
 
 ```python demo exec
 class ContextMenuState(rx.State):

@@ -4,15 +4,15 @@ title: "Cell Selection"
 order: 8
 ---
 
-# Cell Selection
+# 单元格选择（Cell Selection）
 
-AG Grid provides powerful cell selection capabilities that allow users to select individual cells or ranges of cells. This feature is essential for data manipulation, copying, and advanced interactions like fill handle operations.
+AG Grid 提供了强大的单元格选择功能，允许用户选择单个单元格或单元格范围。此功能对于数据操作、复制以及填充手柄操作等高级交互至关重要。
 
-## Range Selection
+## 范围选择（Range Selection）
 
-To enable cell selection in your AG Grid, set the `cell_selection` prop to `True`. This automatically enables both single cell selection and range selection capabilities.
+要在 AG Grid 中启用单元格选择，将 `cell_selection` 属性设置为 `True`。这会自动启用单单元格选择和范围选择功能。
 
-### Basic Selection Example
+### 基本选择示例
 
 ```python demo exec
 import reflex as rx
@@ -66,9 +66,9 @@ def basic_cell_selection():
     )
 ```
 
-### Advanced Selection Event Handling
+### 高级选择事件处理
 
-For more sophisticated selection handling, you can process the selection ranges to calculate detailed information:
+对于更复杂的选择处理，你可以处理选择范围来计算详细信息：
 
 ```python demo exec
 import reflex as rx
@@ -128,25 +128,25 @@ def advanced_selection_example():
     )
 ```
 
-## Fill Handle
+## 填充手柄（Fill Handle）
 
-The fill handle is a powerful feature that allows users to quickly fill cells by dragging from a selected cell or range. When enabled, a small square appears at the bottom-right corner of the selection that users can drag to fill adjacent cells.
+填充手柄是一个强大的功能，允许用户通过从选中的单元格或范围拖动来快速填充单元格。启用后，选择区域的右下角会出现一个小方块，用户可以拖动它来填充相邻单元格。
 
-### Enabling Fill Handle
+### 启用填充手柄
 
-To enable the fill handle, configure the `cell_selection` prop with a dictionary containing the handle configuration:
+要启用填充手柄，使用包含手柄配置的字典来配置 `cell_selection` 属性：
 
 ```python
 cell_selection = {
     "handle": {
-        "mode": "fill",  # Enable fill handle
+        "mode": "fill",  # 启用填充手柄
     }
 }
 ```
 
-### Fill Handle Events
+### 填充手柄事件
 
-When using the fill handle, it will trigger `on_cell_value_changed` for each cell receiving a fill value. This allows your backend to handle the data changes appropriately.
+使用填充手柄时，它会为每个接收填充值的单元格触发 `on_cell_value_changed`。这允许你的后端适当处理数据更改。
 
 ```python demo exec
 import reflex as rx
@@ -176,9 +176,9 @@ class FillHandleState(rx.State):
         old_value = data.get("oldValue", "")
 
         change_msg = f"Row {row_index + 1}, {field}: '{old_value}' → '{new_value}'"
-        self.change_log = [change_msg] + self.change_log[:9]  # Keep last 10 changes
+        self.change_log = [change_msg] + self.change_log[:9]  # 保留最近 10 条更改
 
-        # Update the data
+        # 更新数据
         if 0 <= row_index < len(self.data):
             self.data[row_index][field] = new_value
 
@@ -203,7 +203,7 @@ def fill_handle_example():
             row_data=FillHandleState.data,
             cell_selection={
                 "handle": {
-                    "mode": "fill",  # Enable fill handle
+                    "mode": "fill",  # 启用填充手柄
                 }
             },
             on_cell_value_changed=FillHandleState.handle_cell_change,
@@ -229,9 +229,9 @@ def fill_handle_example():
     )
 ```
 
-## Advanced Configuration Options
+## 高级配置选项
 
-You can further customize cell selection behavior using additional configuration options:
+你可以使用额外的配置选项进一步自定义单元格选择行为：
 
 ```python demo exec
 import reflex as rx
@@ -291,8 +291,8 @@ def configuration_example():
                     "mode": "fill",
                 }
             },
-            enable_cell_text_selection=True,  # Allow text selection within cells
-            suppress_cell_focus=False,  # Allow cell focus
+            enable_cell_text_selection=True,  # 允许单元格内文本选择
+            suppress_cell_focus=False,  # 允许单元格聚焦
             width="100%",
             height="350px",
         ),
@@ -301,22 +301,22 @@ def configuration_example():
     )
 ```
 
-## Key Features
+## 主要功能
 
-- **Cell Selection**: Enable with `cell_selection=True` for both single cell and range selection capabilities
-- **Fill Handle**: Configure with `cell_selection={"handle": {"mode": "fill"}}` for drag-to-fill functionality
-- **Event Handling**: Use `on_cell_selection_changed` to respond to selection changes
-- **Value Changes**: Use `on_cell_value_changed` to handle individual cell edits and fill operations
-- **Text Selection**: Enable `enable_cell_text_selection=True` to allow text selection within cells
+- **单元格选择**：使用 `cell_selection=True` 启用单单元格和范围选择功能
+- **填充手柄**：使用 `cell_selection={"handle": {"mode": "fill"}}` 配置拖动填充功能
+- **事件处理**：使用 `on_cell_selection_changed` 响应选择变化
+- **值更改**：使用 `on_cell_value_changed` 处理单个单元格编辑和填充操作
+- **文本选择**：启用 `enable_cell_text_selection=True` 允许单元格内文本选择
 
-## Best Practices
+## 最佳实践
 
-1. **Use cell_selection configuration**: Both single cell and range selection are automatically enabled with `cell_selection=True`, providing all necessary selection capabilities for fill operations.
+1. **使用 cell_selection 配置**：`cell_selection=True` 会自动启用单单元格和范围选择，为填充操作提供所有必要的选择功能。
 
-2. **Handle cell value changes**: When using fill handle, implement `on_cell_value_changed` to process the data updates in your backend.
+2. **处理单元格值更改**：使用填充手柄时，实现 `on_cell_value_changed` 以在后端处理数据更新。
 
-3. **Provide user feedback**: Use toasts or other UI elements to confirm selection actions and data changes.
+3. **提供用户反馈**：使用 toast 或其他 UI 元素来确认选择操作和数据更改。
 
-4. **Consider performance**: For large datasets, be mindful of the performance impact of frequent cell value change events.
+4. **考虑性能**：对于大型数据集，注意频繁的单元格值更改事件对性能的影响。
 
-5. **Validate fill operations**: Implement validation logic in your `on_cell_value_changed` handler to ensure data integrity.
+5. **验证填充操作**：在 `on_cell_value_changed` 处理器中实现验证逻辑以确保数据完整性。

@@ -8,13 +8,13 @@ components:
 import reflex as rx
 ```
 
-# File Upload
+# 文件上传（File Upload）
 
-Reflex makes it simple to add file upload functionality to your app. You can let users select files, store them on your server, and display or process them as needed. Below is a minimal example that demonstrates how to upload files, save them to disk, and display uploaded images using application state.
+Reflex 让添加文件上传功能变得简单。你可以让用户选择文件、将文件存储在服务器上，并根据需要显示或处理它们。下面是一个最小示例，演示如何上传文件、将其保存到磁盘，以及使用应用状态显示已上传的图片。
 
-## Basic File Upload Example
+## 基本文件上传示例
 
-You can let users upload files and keep track of them in your app’s state. The example below allows users to upload files, saves them using the backend, and then displays the uploaded files as images.
+你可以让用户上传文件并在应用状态中跟踪它们。下面的示例允许用户上传文件，使用后端保存它们，然后将上传的文件显示为图片。
 
 ```python
 import reflex as rx
@@ -44,49 +44,45 @@ def upload_component():
     )
 ```
 
-## How File Upload Works
+## 文件上传的工作原理
 
-Selecting a file will add it to the browser file list, which can be rendered
-on the frontend using the `rx.selected_files(id)` special Var. To clear the
-selected files, you can use another special Var `rx.clear_selected_files(id)` as
-an event handler.
+选择文件会将其添加到浏览器文件列表中，可以使用 `rx.selected_files(id)` 特殊 Var 在前端渲染。要清除已选择的文件，可以使用另一个特殊 Var `rx.clear_selected_files(id)` 作为事件处理函数。
 
-To upload the file(s), bind an event handler and pass one of these special
-event args:
+要上传文件，绑定一个事件处理函数并传入以下特殊事件参数之一：
 
-- `rx.upload_files(upload_id=id)` for uploads
-- `rx.upload_files_chunk(upload_id=id)` for larger files that should be processed incrementally
+- `rx.upload_files(upload_id=id)` 用于上传
+- `rx.upload_files_chunk(upload_id=id)` 用于需要增量处理的较大文件
 
-The `id` links the upload component to these special Vars and event args, so they must all reference the same value. Pass it as a string literal or module-level constant — a state var cannot be used as an upload `id`.
+`id` 将上传组件与这些特殊 Var 和事件参数关联起来，因此它们必须引用相同的值。将其作为字符串字面量或模块级常量传入——状态变量不能用作上传 `id`。
 
-## File Storage Functions
+## 文件存储函数
 
-Reflex provides two key functions for handling uploaded files:
+Reflex 提供了两个处理上传文件的关键函数：
 
 ### rx.get_upload_dir()
 
-- **Purpose**: Returns a `Path` object pointing to the server-side directory where uploaded files should be saved
-- **Usage**: Used in backend event handlers to determine where to save uploaded files
-- **Default Location**: `./uploaded_files` (can be customized via `REFLEX_UPLOADED_FILES_DIR` environment variable)
-- **Type**: Returns `pathlib.Path`
+- **用途**：返回一个指向服务器端目录的 `Path` 对象，上传的文件应保存在该目录中
+- **用法**：在后端事件处理函数中使用，确定上传文件的保存位置
+- **默认位置**：`./uploaded_files`（可通过 `REFLEX_UPLOADED_FILES_DIR` 环境变量自定义）
+- **类型**：返回 `pathlib.Path`
 
 ### rx.get_upload_url(filename)
 
-- **Purpose**: Returns the URL that can be used in frontend components to access uploaded files
-- **Usage**: Used in frontend components (like `rx.image`, `rx.video`) to display uploaded files
-- **URL Format**: `/_upload/filename`
-- **Type**: Returns a frontend `Var` (a JavaScript expression), not a Python `str`
+- **用途**：返回可在前端组件中用于访问上传文件的 URL
+- **用法**：在前端组件（如 `rx.image`、`rx.video`）中使用，显示上传的文件
+- **URL 格式**：`/_upload/filename`
+- **类型**：返回前端 `Var`（一个 JavaScript 表达式），而不是 Python `str`
 
-Because it returns a frontend Var, `rx.get_upload_url` is frontend-only: use it in component code and event triggers, not in backend event handlers or computed vars, where the value would not resolve to a usable string. If you genuinely need the upload URL as a plain string on the backend, build it from the configured upload endpoint — `Endpoint.UPLOAD.get_url()` (from `reflex.constants`) joined with the filename — which accounts for the scheme, any `backend_path` prefix, and split frontend/backend deployments.
+因为它返回的是前端 Var，所以 `rx.get_upload_url` 仅用于前端：在组件代码和事件触发器中使用它，而不是在后端事件处理函数或计算变量中使用，因为在那些地方该值不会解析为可用的字符串。如果你确实需要在后端以纯字符串形式获取上传 URL，可以从配置的上传端点构建——`Endpoint.UPLOAD.get_url()`（来自 `reflex.constants`）与文件名拼接——这会考虑协议、任何 `backend_path` 前缀以及前后端分离部署的情况。
 
-### Key Differences
+### 主要区别
 
-- **rx.get_upload_dir()** -> Backend file path for saving files
-- **rx.get_upload_url()** -> Frontend URL for displaying files
+- **rx.get_upload_dir()** -> 用于保存文件的后端文件路径
+- **rx.get_upload_url()** -> 用于显示文件的前端 URL
 
-### Basic Upload Pattern
+### 基本上传模式
 
-Here is the standard pattern for handling file uploads:
+以下是处理文件上传的标准模式：
 
 ```python
 import reflex as rx
@@ -105,28 +101,28 @@ class State(rx.State):
 
     @rx.event
     async def handle_upload(self, files: list[rx.UploadFile]):
-        """Handle file upload with proper directory management."""
+        """处理文件上传并进行适当的目录管理。"""
         for file in files:
-            # Read the file data
+            # 读取文件数据
             upload_data = await file.read()
 
-            # Get the upload directory (backend path)
+            # 获取上传目录（后端路径）
             upload_dir = rx.get_upload_dir()
 
-            # Ensure the directory exists
+            # 确保目录存在
             upload_dir.mkdir(parents=True, exist_ok=True)
 
-            # Create unique filename to prevent conflicts
+            # 创建唯一文件名以防止冲突
             unique_filename = create_unique_filename(file.name)
 
-            # Create full file path
+            # 创建完整文件路径
             file_path = upload_dir / unique_filename
 
-            # Save the file
+            # 保存文件
             with file_path.open("wb") as f:
                 f.write(upload_data)
 
-            # Store filename for frontend display
+            # 存储文件名用于前端显示
             self.uploaded_files.append(unique_filename)
 
 
@@ -142,7 +138,7 @@ def upload_component():
             "Upload Files",
             on_click=State.handle_upload(rx.upload_files(upload_id="file_upload")),
         ),
-        # Display uploaded files using rx.get_upload_url()
+        # 使用 rx.get_upload_url() 显示上传的文件
         rx.foreach(
             State.uploaded_files,
             lambda filename: rx.image(
@@ -152,9 +148,9 @@ def upload_component():
     )
 ```
 
-### Multiple File Upload
+### 多文件上传
 
-Below is an example of how to allow multiple file uploads (in this case images).
+下面是一个允许多文件上传的示例（本例中为图片）。
 
 ```python demo box
 rx.image(
@@ -165,27 +161,27 @@ rx.image(
 
 ```python
 class State(rx.State):
-    """The app state."""
+    """应用状态。"""
 
-    # The images to show.
+    # 要显示的图片。
     img: list[str]
 
     @rx.event
     async def handle_upload(self, files: list[rx.UploadFile]):
-        """Handle the upload of file(s).
+        """处理文件上传。
 
         Args:
-            files: The uploaded files.
+            files: 上传的文件。
         """
         for file in files:
             upload_data = await file.read()
             outfile = rx.get_upload_dir() / file.name
 
-            # Save the file.
+            # 保存文件。
             with outfile.open("wb") as file_object:
                 file_object.write(upload_data)
 
-            # Update the img var.
+            # 更新 img 变量。
             self.img.append(file.name)
 
 
@@ -193,7 +189,7 @@ color = "rgb(107,99,246)"
 
 
 def index():
-    """The main view."""
+    """主视图。"""
     return rx.vstack(
         rx.upload(
             rx.vstack(
@@ -225,9 +221,9 @@ def index():
     )
 ```
 
-### Uploading a Single File (Video)
+### 上传单个文件（视频）
 
-Below is an example of how to allow only a single file upload and render (in this case a video).
+下面是一个只允许上传单个文件并渲染的示例（本例中为视频）。
 
 ```python demo box
 rx.el.video(
@@ -240,27 +236,27 @@ rx.el.video(
 
 ```python
 class State(rx.State):
-    """The app state."""
+    """应用状态。"""
 
-    # The video to show.
+    # 要显示的视频。
     video: str
 
     @rx.event
     async def handle_upload(self, files: list[rx.UploadFile]):
-        """Handle the upload of file(s).
+        """处理文件上传。
 
         Args:
-            files: The uploaded files.
+            files: 上传的文件。
         """
         current_file = files[0]
         upload_data = await current_file.read()
         outfile = rx.get_upload_dir() / current_file.name
 
-        # Save the file.
+        # 保存文件。
         with outfile.open("wb") as file_object:
             file_object.write(upload_data)
 
-        # Update the video var.
+        # 更新 video 变量。
         self.video = current_file.name
 
 
@@ -268,7 +264,7 @@ color = "rgb(107,99,246)"
 
 
 def index():
-    """The main view."""
+    """主视图。"""
     return rx.vstack(
         rx.upload(
             rx.vstack(
@@ -302,36 +298,34 @@ def index():
     )
 ```
 
-### Customizing the Upload
+### 自定义上传
 
-In the example below, the upload component accepts a maximum number of 5 files of specific types.
-It also disables the use of the space or enter key in uploading files.
+在下面的示例中，上传组件接受最多 5 个特定类型的文件。它还禁用了使用空格键或回车键上传文件。
 
-To use a one-step upload, bind the event handler to the `rx.upload` component's
-`on_drop` trigger.
+要使用一步上传，将事件处理函数绑定到 `rx.upload` 组件的 `on_drop` 触发器。
 
 ```python
 class State(rx.State):
-    """The app state."""
+    """应用状态。"""
 
-    # The images to show.
+    # 要显示的图片。
     img: list[str]
 
     async def handle_upload(self, files: list[rx.UploadFile]):
-        """Handle the upload of file(s).
+        """处理文件上传。
 
         Args:
-            files: The uploaded files.
+            files: 上传的文件。
         """
         for file in files:
             upload_data = await file.read()
             outfile = rx.get_upload_dir() / file.name
 
-            # Save the file.
+            # 保存文件。
             with outfile.open("wb") as file_object:
                 file_object.write(upload_data)
 
-            # Update the img var.
+            # 更新 img 变量。
             self.img.append(file.name)
 
 
@@ -339,7 +333,7 @@ color = "rgb(107,99,246)"
 
 
 def index():
-    """The main view."""
+    """主视图。"""
     return rx.vstack(
         rx.upload(
             rx.vstack(
@@ -380,9 +374,9 @@ def index():
     )
 ```
 
-### Unstyled Upload Component
+### 无样式上传组件
 
-To use a completely unstyled upload component and apply your own customization, use `rx.upload.root` instead:
+要使用完全无样式的上传组件并应用自己的自定义样式，请改用 `rx.upload.root`：
 
 ```python
 rx.upload.root(
@@ -437,77 +431,75 @@ rx.upload.root(
 )
 ```
 
-## Handling the Upload
+## 处理上传
 
-For uploads, your event handler should be an async function that accepts a single argument, `files: list[UploadFile]`, which will contain [Starlette UploadFile](https://www.starlette.io/requests/#request-files) instances. Each file exposes its original filename as `file.name`. You can read the files and save them anywhere as shown in the example.
-
-```md alert warning
-# Upload handlers are regular event handlers.
-Do not declare a standard upload handler with `@rx.event(background=True)`, and do not use `async with self` inside it — those apply only to chunked upload handlers (see below). A standard handler is a plain `@rx.event` async function.
-```
-
-In your UI, you can bind the event handler to a trigger, such as a button
-`on_click` event or upload `on_drop` event, and pass in the files using
-`rx.upload_files()`.
+对于上传，你的事件处理函数应该是一个异步函数，接受单个参数 `files: list[UploadFile]`，其中包含 [Starlette UploadFile](https://www.starlette.io/requests/#request-files) 实例。每个文件通过 `file.name` 暴露其原始文件名。你可以读取文件并将它们保存到任何位置，如示例所示。
 
 ```md alert warning
-# Keep the upload trigger button outside the upload component.
-The dropzone treats any click inside `rx.upload` / `rx.upload.root` as a request to open the file picker. If the button that triggers the upload event is placed inside, each click both opens the picker and starts the upload. Buttons inside the dropzone (like "Select File" in the examples above) should be purely visual.
+# 上传处理函数是普通的事件处理函数。
+不要使用 `@rx.event(background=True)` 声明标准上传处理函数，也不要在其中使用 `async with self`——这些仅适用于分块上传处理函数（见下文）。标准处理函数是一个普通的 `@rx.event` 异步函数。
 ```
 
-### Uploading from a Form
+在你的 UI 中，你可以将事件处理函数绑定到触发器，例如按钮的 `on_click` 事件或上传的 `on_drop` 事件，并使用 `rx.upload_files()` 传入文件。
 
-A form's `on_submit` event never includes uploaded file data. When an upload component lives inside a form, trigger the upload from a separate button with `type="button"` (or from the dropzone's `on_drop` trigger) using `rx.upload_files()`, and handle the remaining form fields in `on_submit` as usual.
+```md alert warning
+# 将上传触发按钮放在上传组件外部。
+拖放区域会将 `rx.upload` / `rx.upload.root` 内部的任何点击视为打开文件选择器的请求。如果触发上传事件的按钮放在内部，每次点击都会同时打开选择器并开始上传。拖放区域内部的按钮（如上面示例中的 "Select File"）应该纯粹是视觉性的。
+```
 
-### Saving the File
+### 从表单上传
 
-By convention, Reflex provides the function `rx.get_upload_dir()` to get the directory where uploaded files may be saved. The upload dir comes from the environment variable `REFLEX_UPLOADED_FILES_DIR`, or `./uploaded_files` if not specified.
+表单的 `on_submit` 事件永远不会包含上传的文件数据。当上传组件位于表单内部时，使用带有 `type="button"` 的单独按钮（或从拖放区域的 `on_drop` 触发器）通过 `rx.upload_files()` 触发上传，并在 `on_submit` 中像往常一样处理其余表单字段。
 
-The backend of your app will mount this uploaded files directory on `/_upload` without restriction. Any files uploaded via this mechanism will automatically be publicly accessible. To get the URL for a file inside the upload dir, use the `rx.get_upload_url(filename)` function in a frontend component.
+### 保存文件
+
+按照惯例，Reflex 提供了 `rx.get_upload_dir()` 函数来获取上传文件可以保存的目录。上传目录来自环境变量 `REFLEX_UPLOADED_FILES_DIR`，如果未指定则为 `./uploaded_files`。
+
+你的应用后端会将此上传文件目录挂载到 `/_upload` 上，没有任何限制。通过此机制上传的任何文件都会自动公开访问。要获取上传目录中文件的 URL，在前端组件中使用 `rx.get_upload_url(filename)` 函数。
 
 ```md alert info
-# When using the Reflex hosting service, the uploaded files directory is not persistent and will be cleared on every deployment. For persistent storage of uploaded files, it is recommended to use an external service, such as S3.
+# 使用 Reflex 托管服务时，上传文件目录不是持久化的，每次部署时都会被清除。对于上传文件的持久存储，建议使用外部服务，如 S3。
 ```
 
-### Directory Structure and URLs
+### 目录结构和 URL
 
-By default, Reflex creates the following structure:
+默认情况下，Reflex 创建以下结构：
 
 ```text
 your_project/
-├── uploaded_files/          # rx.get_upload_dir() points here
+├── uploaded_files/          # rx.get_upload_dir() 指向此处
 │   ├── image1.png
 │   ├── document.pdf
 │   └── video.mp4
 └── ...
 ```
 
-The files are automatically served at:
+文件自动在以下路径提供服务：
 
 - `/_upload/image1.png` ← `rx.get_upload_url("image1.png")`
 - `/_upload/document.pdf` ← `rx.get_upload_url("document.pdf")`
 - `/_upload/video.mp4` ← `rx.get_upload_url("video.mp4")`
 
-These paths are an implementation detail — avoid hardcoding `/upload/` or `/_upload/` in your app. Go through `rx.get_upload_url(filename)` so URLs remain correct when the frontend and backend are served from different hosts or ports.
+这些路径是实现细节——避免在你的应用中硬编码 `/upload/` 或 `/_upload/`。通过 `rx.get_upload_url(filename)` 获取 URL，这样当前端和后端从不同的主机或端口提供服务时，URL 仍然正确。
 
-### Chunked Uploads for Large Files
+### 大文件的分块上传
 
-Use `rx.upload_files_chunk(...)` when files may be large or when you want the backend to write data incrementally. Standard uploads spool files to disk before the handler starts, but calling `await file.read()` in the handler loads the entire file into memory at once, which can cause high memory consumption for large files.
+当文件可能很大或你希望后端增量写入数据时，使用 `rx.upload_files_chunk(...)`。标准上传在处理函数启动前会将文件假脱机到磁盘，但在处理函数中调用 `await file.read()` 会一次性将整个文件加载到内存中，这可能导致大文件的高内存消耗。
 
-Chunked upload handlers:
+分块上传处理函数：
 
-- must be declared with `@rx.event(background=True)`
-- must accept `chunk_iter: rx.UploadChunkIterator`
-- must fully consume `chunk_iter`
+- 必须使用 `@rx.event(background=True)` 声明
+- 必须接受 `chunk_iter: rx.UploadChunkIterator`
+- 必须完全消费 `chunk_iter`
 
-To use chunked uploads in your own app:
+要在你自己的应用中使用分块上传：
 
-1. Create an `@rx.event(background=True)` handler.
-2. Accept `chunk_iter: rx.UploadChunkIterator`.
-3. Iterate over the chunks and write `chunk.data` at `chunk.offset`.
-4. Trigger the handler with `rx.upload_files_chunk(upload_id=...)`.
+1. 创建一个 `@rx.event(background=True)` 处理函数。
+2. 接受 `chunk_iter: rx.UploadChunkIterator`。
+3. 遍历块并在 `chunk.offset` 处写入 `chunk.data`。
+4. 使用 `rx.upload_files_chunk(upload_id=...)` 触发处理函数。
 
-Each chunk includes:
+每个块包含：
 
 - `chunk.filename`
 - `chunk.offset`
@@ -572,23 +564,17 @@ def chunked_upload_component():
     )
 ```
 
-Returning early from the handler will fail the upload because the remaining
-chunks were not consumed.
+从处理函数提前返回会导致上传失败，因为剩余的块没有被消费。
 
-If you want a progress bar or a cancel button, `rx.upload_files_chunk(...)`
-supports the same `on_upload_progress` callback as uploads, and
-you can stop the upload with `rx.cancel_upload(upload_id)`.
+如果你想要进度条或取消按钮，`rx.upload_files_chunk(...)` 支持与上传相同的 `on_upload_progress` 回调，你可以使用 `rx.cancel_upload(upload_id)` 停止上传。
 
-## Cancellation
+## 取消上传
 
-The `id` provided to the `rx.upload` component can be passed to the special event handler `rx.cancel_upload(id)` to stop uploading on demand. Cancellation can be triggered directly by a frontend event trigger, or it can be returned from a backend event handler.
+提供给 `rx.upload` 组件的 `id` 可以传递给特殊事件处理函数 `rx.cancel_upload(id)` 来按需停止上传。取消可以由前端事件触发器直接触发，也可以从后端事件处理函数返回。
 
-## Progress
+## 进度
 
-Both `rx.upload_files` and `rx.upload_files_chunk` accept an
-`on_upload_progress` event trigger which will be fired during the upload
-operation to report the progress of the upload. This can be used to update a
-progress bar or other UI elements to show the user the progress of the upload.
+`rx.upload_files` 和 `rx.upload_files_chunk` 都接受一个 `on_upload_progress` 事件触发器，该触发器会在上传操作期间触发以报告上传进度。这可以用于更新进度条或其他 UI 元素，向用户显示上传进度。
 
 ```python
 class UploadExample(rx.State):
@@ -642,7 +628,7 @@ def upload_form():
     )
 ```
 
-The `progress` dictionary contains the following keys:
+`progress` 字典包含以下键：
 
 ```python
 {

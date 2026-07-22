@@ -60,22 +60,22 @@ def lucide_icons() -> rx.Component:
     )
 ```
 
-# Icon
+# 图标（Icon）
 
-The Icon component is used to display an icon from a library of icons. This implementation is based on the [Lucide Icons](https://lucide.dev/icons) where you can find a list of all available icons.
+图标（Icon）组件用于从图标库中显示图标。此实现基于 [Lucide Icons](https://lucide.dev/icons)，你可以在该网站找到所有可用图标的列表。
 
-## Icons List
+## 图标列表
 
 ```python eval
 lucide_icons()
 ```
 
-## Basic Example
+## 基本示例
 
-To display an icon, specify the `tag` prop from the list of available icons.
-Passing the tag as the first children is also supported and will be assigned to the `tag` prop.
+要显示图标，请从可用图标列表中指定 `tag` 属性。
+也支持将 tag 作为第一个子元素传入，它会被赋值给 `tag` 属性。
 
-The `tag` is expected to be in `snake_case` format, but `kebab-case` is also supported to allow copy-paste from [https://lucide.dev/icons](https://lucide.dev/icons).
+`tag` 预期为 `snake_case` 格式，但也支持 `kebab-case` 格式，以便从 [https://lucide.dev/icons](https://lucide.dev/icons) 直接复制粘贴。
 
 ```python demo
 rx.flex(
@@ -85,13 +85,13 @@ rx.flex(
 )
 ```
 
-## Dynamic Icons
+## 动态图标
 
-There are two ways to use dynamic icons in Reflex:
+在 Reflex 中有两种使用动态图标的方式：
 
-### Using rx.match
+### 使用 rx.match
 
-If you have a specific subset of icons you want to use dynamically, you can define an `rx.match` with them:
+如果你有一组特定的图标想要动态使用，可以用 `rx.match` 来定义它们：
 
 ```python
 def dynamic_icon_with_match(icon_name):
@@ -113,9 +113,9 @@ def dynamic_icon_with_match(icon_name):
     )
 ```
 
-### Using Dynamic Icon Tags
+### 使用动态图标标签
 
-Reflex also supports using dynamic values directly as the `tag` prop in `rx.icon()`. This allows you to use any icon from the Lucide library dynamically at runtime.
+Reflex 还支持直接在 `rx.icon()` 中使用动态值作为 `tag` 属性。这允许你在运行时动态使用 Lucide 库中的任何图标。
 
 ```python exec
 class DynamicIconState(rx.State):
@@ -138,17 +138,17 @@ rx.vstack(
 )
 ```
 
-Under the hood, when a dynamic value is passed as the `tag` prop to `rx.icon()`, Reflex automatically uses a special `DynamicIcon` component that can load icons at runtime.
+在底层实现中，当动态值作为 `tag` 属性传入 `rx.icon()` 时，Reflex 会自动使用一个特殊的 `DynamicIcon` 组件，该组件可以在运行时加载图标。
 
 ```md alert
-When using dynamic icons, make sure the icon names are valid. Invalid icon names will cause runtime errors.
+使用动态图标时，请确保图标名称有效。无效的图标名称会导致运行时错误。
 ```
 
-## Styling
+## 样式
 
-Icon from Lucide can be customized with the following props `stroke_width`, `size` and `color`.
+Lucide 图标可以通过 `stroke_width`、`size` 和 `color` 属性进行自定义。
 
-### Stroke Width
+### 描边宽度
 
 ```python demo
 rx.flex(
@@ -160,7 +160,7 @@ rx.flex(
 )
 ```
 
-### Size
+### 尺寸
 
 ```python demo
 rx.flex(
@@ -173,9 +173,9 @@ rx.flex(
 )
 ```
 
-### Color
+### 颜色
 
-Here is an example using basic colors in icons.
+以下是在图标中使用基本颜色的示例。
 
 ```python demo
 rx.flex(
@@ -187,7 +187,7 @@ rx.flex(
 )
 ```
 
-A radix color with a scale may also be specified using `rx.color()` as seen below.
+也可以使用 `rx.color()` 指定带有色阶的 Radix 颜色，如下所示。
 
 ```python demo
 rx.flex(
@@ -207,7 +207,7 @@ rx.flex(
 )
 ```
 
-Here is another example using the `accent` color with scales. The `accent` is the most dominant color in your theme.
+以下是另一个使用带色阶的 `accent` 颜色的示例。`accent` 是主题中最主要的颜色。
 
 ```python demo
 rx.flex(
@@ -227,9 +227,9 @@ rx.flex(
 )
 ```
 
-## Final Example
+## 综合示例
 
-Icons can be used as child components of many other components. For example, adding a magnifying glass icon to a search bar.
+图标可以作为许多其他组件的子组件使用。例如，在搜索栏中添加一个放大镜图标。
 
 ```python demo
 rx.badge(

@@ -1,33 +1,33 @@
-# Hooks (API)
+# 钩子（Hooks）（API）
 
-The `rxe.flow.api` module provides hooks to interact with the Flow instance. These hooks are wrappers around the `useReactFlow` hook from React Flow.
+`rxe.flow.api` 模块提供了与流程图（Flow）实例进行交互的钩子。这些钩子是 React Flow 中 `useReactFlow` 钩子的封装。
 
-## Node Hooks
+## 节点钩子（Node Hooks）
 
-- `get_nodes()`: Returns an array of all nodes in the flow.
-- `set_nodes(nodes)`: Sets the nodes in the flow.
-- `add_nodes(nodes)`: Adds nodes to the flow.
-- `get_node(id)`: Returns a node by its ID.
-- `update_node(id, node_update, replace=False)`: Updates a node in the flow.
-- `update_node_data(id, data_update, replace=False)`: Updates a node's data in the flow.
+- `get_nodes()`：返回流程图中所有节点的数组。
+- `set_nodes(nodes)`：设置流程图中的节点。
+- `add_nodes(nodes)`：向流程图添加节点。
+- `get_node(id)`：根据 ID 返回节点。
+- `update_node(id, node_update, replace=False)`：更新流程图中的某个节点。
+- `update_node_data(id, data_update, replace=False)`：更新流程图中某个节点的数据。
 
-## Edge Hooks
+## 边钩子（Edge Hooks）
 
-- `get_edges()`: Returns an array of all edges in the flow.
-- `set_edges(edges)`: Sets the edges in the flow.
-- `add_edges(edges)`: Adds edges to the flow.
-- `get_edge(id)`: Returns an edge by its ID.
-- `update_edge(id, edge_update, replace=False)`: Updates an edge in the flow.
-- `update_edge_data(id, data_update, replace=False)`: Updates an edge's data in the flow.
+- `get_edges()`：返回流程图中所有边的数组。
+- `set_edges(edges)`：设置流程图中的边。
+- `add_edges(edges)`：向流程图添加边。
+- `get_edge(id)`：根据 ID 返回边。
+- `update_edge(id, edge_update, replace=False)`：更新流程图中的某条边。
+- `update_edge_data(id, data_update, replace=False)`：更新流程图中某条边的数据。
 
-## Viewport Hooks
+## 视口钩子（Viewport Hooks）
 
-- `screen_to_flow_position(x, y, snap_to_grid=False)`: Translates a screen pixel position to a flow position.
-- `flow_to_screen_position(x, y)`: Translates a position inside the flow’s canvas to a screen pixel position.
+- `screen_to_flow_position(x, y, snap_to_grid=False)`：将屏幕像素位置转换为流程图内的位置。
+- `flow_to_screen_position(x, y)`：将流程图画布内的位置转换为屏幕像素位置。
 
-## Other Hooks
+## 其他钩子
 
-- `to_object()`: Converts the React Flow state to a JSON object.
-- `get_intersecting_nodes(node, partially=True, nodes=None)`: Find all the nodes currently intersecting with a given node or rectangle.
-- `get_node_connections(id=None, handle_type=None, handle_id=None)`: This hook returns an array of connections on a specific node, handle type ("source", "target") or handle ID.
-- `get_connection()`: Returns the current connection state when there is an active connection interaction.
+- `to_object()`：将 React Flow 状态转换为 JSON 对象。
+- `get_intersecting_nodes(node, partially=True, nodes=None)`：查找当前与给定节点或矩形相交的所有节点。
+- `get_node_connections(id=None, handle_type=None, handle_id=None)`：此钩子返回特定节点、连接点类型（"source"、"target"）或连接点 ID 上的连接数组。
+- `get_connection()`：当存在活动的连接交互时，返回当前的连接状态。

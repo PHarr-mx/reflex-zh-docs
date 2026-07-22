@@ -16,13 +16,13 @@ Inset: |
 import reflex as rx
 ```
 
-# Inset
+# 内嵌（Inset）
 
-Applies a negative margin to allow content to bleed into the surrounding container.
+应用负外边距，使内容延伸到周围容器的边缘。
 
-## Basic Example
+## 基本示例
 
-Nesting an Inset component inside a Card will render the content from edge to edge of the card.
+将 Inset 组件嵌套在 Card 内部，会使内容从卡片的一边渲染到另一边。
 
 ```python demo
 rx.card(
@@ -43,11 +43,9 @@ rx.card(
 )
 ```
 
-## Other Directions
+## 其他方向
 
-The `side` prop controls which side the negative margin is applied to. When using a specific side,
-it is helpful to set the padding for the opposite side to `current` to retain the same padding the
-content would have had if it went to the edge of the parent component.
+`side` 属性控制负外边距应用于哪一侧。使用特定侧时，将相对侧的内边距设置为 `current` 很有帮助，这样可以保持内容延伸到父组件边缘时本应具有的相同内边距。
 
 ```python demo
 rx.card(

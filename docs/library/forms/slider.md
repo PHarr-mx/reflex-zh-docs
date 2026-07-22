@@ -10,13 +10,13 @@ Slider: |
 import reflex as rx
 ```
 
-# Slider
+# 滑块（Slider）
 
-Provides user selection from a range of values. The
+提供从一系列值中进行选择的功能。
 
-## Basic Example
+## 基本示例
 
-The slider can be controlled by a single value or a range of values. Slider can be hooked to state to control its value. Passing a list of two values creates a range slider.
+滑块可以通过单个值或一个值范围来控制。滑块可以与状态（State）绑定来控制其值。传入包含两个值的列表会创建一个范围滑块。
 
 ```python demo exec
 class SliderState(rx.State):
@@ -35,9 +35,9 @@ def slider_intro():
     )
 ```
 
-## Range Slider
+## 范围滑块
 
-Range slider is created by passing a list of two values to the `default_value` prop. The list should contain two values that are in the range of the slider.
+通过向 `default_value` 属性传入包含两个值的列表来创建范围滑块。列表应包含两个在滑块范围内的值。
 
 ```python demo exec
 class RangeSliderState(rx.State):
@@ -67,11 +67,11 @@ def range_slider_intro():
     )
 ```
 
-## Live Updating Slider
+## 实时更新滑块
 
-You can use the `on_change` prop to update the slider value as you interact with it. The `on_change` prop takes a function that will be called with the new value of the slider.
+你可以使用 `on_change` 属性在交互时实时更新滑块的值。`on_change` 属性接受一个函数，该函数会在滑块值变化时被调用。
 
-Here we use the `throttle` method to limit the rate at which the function is called, which is useful to prevent excessive updates. In this example, the slider value is updated every 100ms.
+这里我们使用 `throttle` 方法来限制函数的调用频率，这对于防止过多的更新很有用。在此示例中，滑块的值每 100 毫秒更新一次。
 
 ```python demo exec
 class LiveSliderState(rx.State):
@@ -95,9 +95,9 @@ def live_slider_intro():
     )
 ```
 
-## Slider in forms
+## 在表单中使用滑块
 
-Here we show how to use a slider in a form. We use the `name` prop to identify the slider in the form data. The form data is then passed to the `handle_submit` method to be processed.
+这里展示了如何在表单中使用滑块。我们使用 `name` 属性来标识表单数据中的滑块。表单数据随后会传递给 `handle_submit` 方法进行处理。
 
 ```python demo exec
 class FormSliderState(rx.State):
@@ -105,7 +105,7 @@ class FormSliderState(rx.State):
 
     @rx.event
     def handle_submit(self, form_data: dict):
-        """Handle the form submit."""
+        """处理表单提交。"""
         self.form_data = form_data
 
 

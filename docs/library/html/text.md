@@ -28,6 +28,6 @@ components:
   - rx.el.wbr
 ---
 
-# HTML Text Elements
+# HTML 文本元素
 
-Text-level HTML elements are available through the `rx.el` namespace.
+文本级 HTML 元素可通过 `rx.el` 命名空间使用。

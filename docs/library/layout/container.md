@@ -7,14 +7,13 @@ components:
 import reflex as rx
 ```
 
-# Container
+# 容器（Container）
 
-Constrains the maximum width of page content, while keeping flexible margins
-for responsive layouts.
+限制页面内容的最大宽度，同时保持灵活的外边距以实现响应式布局。
 
-A Container is generally used to wrap the main content for a page.
+Container 通常用于包裹页面的主要内容。
 
-## Basic Example
+## 基本示例
 
 ```python demo
 rx.box(

@@ -62,25 +62,25 @@ AlertDialogContent: |
 import reflex as rx
 ```
 
-# Alert Dialog
+# Alert Dialog（警告对话框）
 
-An alert dialog is a modal confirmation dialog that interrupts the user and expects a response.
+警告对话框（Alert Dialog）是一种模态确认对话框，它会中断用户操作并期望用户做出响应。
 
-The `alert_dialog.root` contains all the parts of the dialog.
+`alert_dialog.root` 包含对话框的所有部分。
 
-The `alert_dialog.trigger` wraps the control that will open the dialog.
+`alert_dialog.trigger` 包裹用于打开对话框的控件。
 
-The `alert_dialog.content` contains the content of the dialog.
+`alert_dialog.content` 包含对话框的内容。
 
-The `alert_dialog.title` is the title that is announced when the dialog is opened.
+`alert_dialog.title` 是对话框打开时播报的标题。
 
-The `alert_dialog.description` is an optional description that is announced when the dialog is opened.
+`alert_dialog.description` 是对话框打开时播报的可选描述。
 
-The `alert_dialog.action` wraps the control that will close the dialog. This should be distinguished visually from the `alert_dialog.cancel` control.
+`alert_dialog.action` 包裹用于关闭对话框的控件。它应在视觉上与 `alert_dialog.cancel` 控件区分开来。
 
-The `alert_dialog.cancel` wraps the control that will close the dialog. This should be distinguished visually from the `alert_dialog.action` control.
+`alert_dialog.cancel` 包裹用于关闭对话框的控件。它应在视觉上与 `alert_dialog.action` 控件区分开来。
 
-## Basic Example
+## 基本示例
 
 ```python demo
 rx.alert_dialog.root(
@@ -105,7 +105,7 @@ rx.alert_dialog.root(
 )
 ```
 
-This example has a different color scheme and the `cancel` and `action` buttons are right aligned.
+此示例使用了不同的配色方案，并且 `cancel` 和 `action` 按钮右对齐。
 
 ```python demo
 rx.alert_dialog.root(
@@ -134,7 +134,7 @@ rx.alert_dialog.root(
 )
 ```
 
-Use the `inset` component to align content flush with the sides of the dialog.
+使用 `inset` 组件可以使内容与对话框的边缘齐平对齐。
 
 ```python demo
 rx.alert_dialog.root(
@@ -188,9 +188,9 @@ rx.alert_dialog.root(
 )
 ```
 
-## Events when the Alert Dialog opens or closes
+## 警告对话框打开或关闭时的事件
 
-The `on_open_change` event is called when the `open` state of the dialog changes. It is used in conjunction with the `open` prop.
+当对话框的 `open` 状态发生变化时，会调用 `on_open_change` 事件。它与 `open` prop 配合使用。
 
 ```python demo exec
 class AlertDialogState(rx.State):
@@ -240,13 +240,13 @@ def alert_dialog():
     )
 ```
 
-## Controlling Alert Dialog with State
+## 通过 State 控制警告对话框
 
-This example shows how to control whether the dialog is open or not with state. This is an easy way to show the dialog without needing to use the `rx.alert_dialog.trigger`.
+此示例展示了如何通过状态控制对话框是否打开。这是一种无需使用 `rx.alert_dialog.trigger` 即可显示对话框的简便方式。
 
-`rx.alert_dialog.root` has a prop `open` that can be set to a boolean value to control whether the dialog is open or not.
+`rx.alert_dialog.root` 有一个 `open` prop，可以设置为布尔值来控制对话框是否打开。
 
-We toggle this `open` prop with a button outside of the dialog and the `rx.alert_dialog.cancel` and `rx.alert_dialog.action` buttons inside the dialog.
+我们通过对话框外部的按钮以及对话框内部的 `rx.alert_dialog.cancel` 和 `rx.alert_dialog.action` 按钮来切换此 `open` prop。
 
 ```python demo exec
 class AlertDialogState2(rx.State):
@@ -283,19 +283,19 @@ def alert_dialog2():
     )
 ```
 
-## Form Submission to a Database from an Alert Dialog
+## 从警告对话框提交表单到数据库
 
-This example adds new users to a database from an alert dialog using a form.
+此示例使用表单从警告对话框向数据库添加新用户。
 
-1. It defines a User1 model with name and email fields.
-2. The `add_user_to_db` method adds a new user to the database, checking for existing emails.
-3. On form submission, it calls the `add_user_to_db` method.
-4. The UI component has:
+1. 它定义了一个包含 name 和 email 字段的 User1 模型。
+2. `add_user_to_db` 方法向数据库添加新用户，并检查邮箱是否已存在。
+3. 表单提交时，调用 `add_user_to_db` 方法。
+4. UI 组件包含：
 
-- A button to open an alert dialog
-- An alert dialog containing a form to add a new user
-- Input fields for name and email
-- Submit and Cancel buttons
+- 一个用于打开警告对话框的按钮
+- 一个包含添加新用户表单的警告对话框
+- 姓名和邮箱输入框
+- 提交和取消按钮
 
 ```python demo exec
 class User1(rx.Model, table=True):

@@ -1,10 +1,10 @@
-# Example React Flow Components
+# React Flow 组件示例
 
-This section showcases examples of interactive flow components built with Reflex and Reflex Enterprise. Learn how to create dynamic nodes, edges, and custom behaviors for building flow diagrams in your React apps.
+本节展示使用 Reflex 和 Reflex Enterprise 构建的交互式流程图组件示例。学习如何创建动态节点、边和自定义行为，从而在你的 React 应用中构建流程图。
 
-## Add Node on Edge Drop
+## 在边释放时添加节点
 
-In this example, we demonstrate how to dynamically add nodes to a flow when a connection is dropped onto the canvas. When the user drops a connection, a new node is created at the drop point, and an edge is added between the source node and the new node.
+在此示例中，我们演示了如何在连接被释放到画布上时动态地向流程图添加节点。当用户释放一个连接时，会在释放点创建一个新节点，并在源节点和新节点之间添加一条边。
 
 
 ```python demo exec
@@ -122,9 +122,9 @@ def add_node_on_edge_drop():
     )
 ```
 
-## Connection Limit on Custom Node
+## 自定义节点的连接限制
 
-This example demonstrates how to create a custom node with a connection limit on its handle. The handle can be configured to allow a specific number of connections, or no connections at all, using the isConnectable property. This is useful when you want to restrict the number of connections a node can have.
+此示例演示了如何创建一个对其连接点设置连接限制的自定义节点。可以使用 isConnectable 属性将连接点配置为允许特定数量的连接，或者完全不允许连接。当你想要限制某个节点可拥有的连接数量时，这非常有用。
 
 ```python demo exec
 import reflex as rx

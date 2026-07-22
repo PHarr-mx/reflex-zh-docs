@@ -7,11 +7,11 @@ components:
 import reflex as rx
 ```
 
-# Auto Scroll
+# 自动滚动（Auto Scroll）
 
-The `rx.auto_scroll` component is a div that automatically scrolls to the bottom when new content is added. This is useful for chat interfaces, logs, or any container where new content is dynamically added and you want to ensure the most recent content is visible.
+`rx.auto_scroll` 组件是一个 div，当新内容添加时会自动滚动到底部。这对于聊天界面、日志或任何动态添加新内容且你希望确保最新内容可见的容器非常有用。
 
-## Basic Usage
+## 基本用法
 
 ```python demo exec
 import reflex as rx
@@ -47,31 +47,31 @@ def auto_scroll_example():
     )
 ```
 
-The `auto_scroll` component automatically scrolls to show the newest content when it's added. In this example, each time you click "Add Message", a new message is added to the list and the container automatically scrolls to display it.
+`auto_scroll` 组件在新内容添加时会自动滚动以显示最新内容。在此示例中，每次点击"Add Message"时，都会向列表添加一条新消息，容器会自动滚动以显示它。
 
-## When to Use Auto Scroll
+## 何时使用自动滚动
 
-- **Chat applications**: Keep the chat window scrolled to the most recent messages.
-- **Log viewers**: Automatically follow new log entries as they appear.
-- **Feed interfaces**: Keep the newest content visible in dynamically updating feeds.
+- **聊天应用**：保持聊天窗口滚动到最新消息。
+- **日志查看器**：自动跟踪新出现的日志条目。
+- **信息流界面**：在动态更新的信息流中保持最新内容可见。
 
-## Props
+## 属性
 
-`rx.auto_scroll` is based on the `rx.div` component and inherits all of its props. By default, it sets `overflow="auto"` to enable scrolling.
+`rx.auto_scroll` 基于 `rx.div` 组件，继承了其所有属性。默认情况下，它设置 `overflow="auto"` 以启用滚动。
 
-Some common props you might use with `auto_scroll`:
+一些你可能与 `auto_scroll` 配合使用的常用属性：
 
-- `height`: Set the height of the scrollable container.
-- `width`: Set the width of the scrollable container.
-- `padding`: Add padding inside the container.
-- `border`: Add a border around the container.
-- `border_radius`: Round the corners of the container.
+- `height`：设置可滚动容器的高度。
+- `width`：设置可滚动容器的宽度。
+- `padding`：在容器内添加内边距。
+- `border`：在容器周围添加边框。
+- `border_radius`：将容器的角设为圆角。
 
-## How It Works
+## 工作原理
 
-The component tracks when new content is added and maintains the scroll position in two scenarios:
+该组件会跟踪新内容的添加，并在两种情况下维护滚动位置：
 
-1. When the user is already near the bottom of the content (within 50 pixels), it will scroll to the bottom when new content is added.
-2. When the container didn't have a scrollbar before but does now (due to new content), it will automatically scroll to the bottom.
+1. 当用户已经接近内容底部时（50 像素以内），新内容添加时会滚动到底部。
+2. 当容器之前没有滚动条但现在有了（由于新内容），它会自动滚动到底部。
 
-This behavior ensures that users can scroll up to view older content without being forced back to the bottom, while still automatically following new content in most cases.
+这种行为确保用户可以向上滚动查看旧内容而不会被强制拉回底部，同时在大多数情况下仍然自动跟随新内容。

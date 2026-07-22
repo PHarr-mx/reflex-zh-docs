@@ -9,11 +9,11 @@ components:
 import reflex as rx
 ```
 
-# List
+# 列表（List）
 
-A `list` is a component that is used to display a list of items, stacked vertically by default. A `list` can be either `ordered` or `unordered`. It is based on the `flex` component and therefore inherits all of its props.
+`list` 是一个用于显示项目列表的组件，默认垂直堆叠。`list` 可以是 `ordered`（有序）或 `unordered`（无序）的。它基于 `flex` 组件，因此继承了其所有属性。
 
-`list.unordered` has bullet points to display the list items.
+`list.unordered` 使用项目符号来显示列表项。
 
 ```python demo
 rx.list.unordered(
@@ -23,7 +23,7 @@ rx.list.unordered(
 )
 ```
 
-`list.ordered` has numbers to display the list items.
+`list.ordered` 使用数字来显示列表项。
 
 ```python demo
 rx.list.ordered(
@@ -33,8 +33,8 @@ rx.list.ordered(
 )
 ```
 
-`list.unordered()` and `list.ordered()` can have no bullet points or numbers by setting the `list_style_type` prop to `none`.
-This is effectively the same as using the `list()` component.
+通过将 `list_style_type` 属性设置为 `none`，`list.unordered()` 和 `list.ordered()` 可以不显示项目符号或数字。
+这实际上与使用 `list()` 组件效果相同。
 
 ```python demo
 rx.hstack(
@@ -52,7 +52,7 @@ rx.hstack(
 )
 ```
 
-Lists can also be used with icons.
+列表也可以与图标一起使用。
 
 ```python demo
 rx.list(

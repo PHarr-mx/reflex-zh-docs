@@ -7,12 +7,12 @@ components:
 import reflex as rx
 ```
 
-# Cond
+# 条件渲染（Cond）
 
-This component is used to conditionally render components.
+此组件用于有条件地渲染组件。
 
-The cond component takes a condition and two components.
-If the condition is `True`, the first component is rendered, otherwise the second component is rendered.
+cond 组件接受一个条件和两个组件。
+如果条件为 `True`，则渲染第一个组件，否则渲染第二个组件。
 
 ```python demo exec
 class CondState(rx.State):
@@ -34,8 +34,8 @@ def cond_example():
     )
 ```
 
-The second component is optional and can be omitted.
-If it is omitted, nothing is rendered if the condition is `False`.
+第二个组件是可选的，可以省略。
+如果省略了，当条件为 `False` 时不会渲染任何内容。
 
 ```python demo exec
 class CondOptionalState(rx.State):
@@ -57,13 +57,13 @@ def cond_optional_example():
     )
 ```
 
-```md video https://youtube.com/embed/ITOZkzjtjUA?start=6040&end=6463
-# Video: Conditional Rendering
+```md video https://youtube.com/embed/ITOZKzjtjUA?start=6040&end=6463
+# 视频：条件渲染
 ```
 
-## Negation
+## 取反
 
-You can use the logical operator `~` to negate a condition.
+你可以使用逻辑运算符 `~` 来取反一个条件。
 
 ```python
 rx.vstack(
@@ -77,13 +77,13 @@ rx.vstack(
 )
 ```
 
-## Multiple Conditions
+## 多条件
 
-It is also possible to make up complex conditions using the `logical or` (|) and `logical and` (&) operators.
+也可以使用`逻辑或`（|）和`逻辑与`（&）运算符来构建复杂条件。
 
-Here we have an example using the var operators `>=`, `<=`, `&`. We define a condition that if a person has an age between 18 and 65, including those ages, they are able to work, otherwise they cannot.
+这里有一个使用变量运算符 `>=`、`<=`、`&` 的示例。我们定义了一个条件：如果一个人的年龄在 18 到 65 岁之间（包括这两个年龄），他们可以工作，否则不能。
 
-We could equally use the operator `|` to represent a `logical or` in one of our conditions.
+我们同样可以在条件中使用运算符 `|` 来表示`逻辑或`。
 
 ```python demo exec
 import random
@@ -109,11 +109,11 @@ def cond_complex_example():
     )
 ```
 
-## Nested Conditional
+## 嵌套条件
 
-We can also nest `cond` components within each other to create more complex logic. In python we can have an `if` statement that then has several `elif` statements before finishing with an `else`. This is also possible in reflex using nested `cond` components. In this example we check whether a number is positive, negative or zero.
+我们还可以将 `cond` 组件相互嵌套以创建更复杂的逻辑。在 Python 中，我们可以有一个 `if` 语句，后面跟着多个 `elif` 语句，最后以 `else` 结尾。在 Reflex 中使用嵌套的 `cond` 组件也可以实现同样的效果。在此示例中，我们检查一个数是正数、负数还是零。
 
-Here is the python logic using `if` statements:
+以下是使用 `if` 语句的 Python 逻辑：
 
 ```python
 number = 0
@@ -127,7 +127,7 @@ else:
     print("Negative number")
 ```
 
-This reflex code that is logically identical:
+以下是在逻辑上完全相同的 Reflex 代码：
 
 ```python demo exec
 import random
@@ -155,9 +155,9 @@ def cond_nested_example():
     )
 ```
 
-Here is a more advanced example where we have three numbers and we are checking which of the three is the largest. If any two of them are equal then we return that `Some of the numbers are equal!`.
+下面是一个更高级的示例，我们有三个数字，正在检查哪个是最大的。如果其中任意两个相等，则返回 `Some of the numbers are equal!`。
 
-The reflex code that follows is logically identical to doing the following in python:
+以下 Reflex 代码在逻辑上等同于在 Python 中执行以下操作：
 
 ```python
 a = 8

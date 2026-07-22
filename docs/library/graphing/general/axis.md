@@ -9,11 +9,11 @@ components:
 import reflex as rx
 ```
 
-# Axis
+# 坐标轴（Axis）
 
-The Axis component in Recharts is a powerful tool for customizing and configuring the axes of your charts. It provides a wide range of props that allow you to control the appearance, behavior, and formatting of the axis. Whether you're working with an AreaChart, LineChart, or any other chart type, the Axis component enables you to create precise and informative visualizations.
+Recharts 中的坐标轴组件是一个强大的工具，用于自定义和配置图表的坐标轴。它提供了丰富的属性，允许你控制坐标轴的外观、行为和格式。无论你使用的是 AreaChart、LineChart 还是任何其他图表类型，坐标轴组件都能帮助你创建精确且信息丰富的可视化效果。
 
-## Basic Example
+## 基本示例
 
 ```python demo graphing
 data = [
@@ -53,9 +53,9 @@ def axis_simple():
     )
 ```
 
-## Multiple Axes
+## 多坐标轴
 
-Multiple axes can be used for displaying different data series with varying scales or units on the same chart. This allows for a more comprehensive comparison and analysis of the data.
+可以使用多个坐标轴在同一图表上显示具有不同比例或单位的数据系列。这样可以更全面地比较和分析数据。
 
 ```python demo graphing
 data = [
@@ -95,9 +95,9 @@ def multi_axis():
     )
 ```
 
-## Choosing Location of Labels for Axes
+## 选择坐标轴标签的位置
 
-The axes `label` can take several positions. The example below allows you to try out different locations for the x and y axis labels.
+坐标轴的 `label` 可以设置多个位置。下面的示例允许你尝试 x 轴和 y 轴标签的不同位置。
 
 ```python demo graphing
 class AxisState(rx.State):

@@ -5,7 +5,7 @@ title: Plotly
 meta_description: "Use Plotly in Python with Reflex. The rx.plotly component renders interactive Plotly and Plotly Express figures — line charts, scatter plots, heatmaps, and histograms — in your web app, all in pure Python."
 ---
 
-# Plotly in Python: Interactive Charts with Reflex
+# 在 Python 中使用 Plotly：用 Reflex 创建交互式图表
 
 ```python exec
 import reflex as rx
@@ -14,15 +14,15 @@ import plotly.express as px
 import plotly.graph_objects as go
 ```
 
-[Plotly](https://plotly.com/graphing-libraries/) is a popular Python graphing library for creating interactive, publication-quality charts. Reflex wraps it with the `rx.plotly` component so you can embed any Plotly or Plotly Express figure — line charts, scatter plots, histograms, heatmaps, or 3D surface plots — directly into a Python web app with no JavaScript. Because Reflex compiles to a full-stack web app, these charts stay interactive in the browser and can update live from your app state.
+[Plotly](https://plotly.com/graphing-libraries/) 是一个流行的 Python 图表库，用于创建交互式、出版级质量的图表。Reflex 通过 `rx.plotly` 组件对其进行封装，让你可以将任何 Plotly 或 Plotly Express 图形——折线图、散点图、直方图、热力图或 3D 曲面图——直接嵌入到 Python Web 应用中，无需 JavaScript。由于 Reflex 编译为全栈 Web 应用，这些图表在浏览器中保持交互性，并且可以从应用状态实时更新。
 
 ```md alert info
-# When integrating Plotly graphs into your UI code, note that the method for displaying the graph differs from a regular Python script. Instead of using `fig.show()`, use `rx.plotly(data=fig)` within your UI code to ensure the graph is properly rendered and displayed within the user interface
+# 在将 Plotly 图形集成到 UI 代码中时，请注意显示图形的方法与普通 Python 脚本不同。不要使用 `fig.show()`，而是在 UI 代码中使用 `rx.plotly(data=fig)` 以确保图形在用户界面中正确渲染和显示。
 ```
 
-## Basic Example
+## 基本示例
 
-Let's create a line graph of life expectancy in Canada.
+让我们创建一个加拿大预期寿命的折线图。
 
 ```python demo exec
 import plotly.express as px
@@ -37,13 +37,13 @@ def line_chart():
     )
 ```
 
-## Plotly Express Chart Types
+## Plotly Express 图表类型
 
-[Plotly Express](https://plotly.com/python/plotly-express/) (`plotly.express`, imported as `px`) builds common chart types in a single line of Python, and every figure renders in Reflex with `rx.plotly`.
+[Plotly Express](https://plotly.com/python/plotly-express/)（`plotly.express`，导入为 `px`）可以用一行 Python 代码构建常见的图表类型，每个图形都可以通过 `rx.plotly` 在 Reflex 中渲染。
 
-### Bar Chart
+### 柱状图（Bar Chart）
 
-Create a Plotly Express bar chart with `px.bar`:
+使用 `px.bar` 创建 Plotly Express 柱状图：
 
 ```python demo exec
 oceania = px.data.gapminder().query("continent == 'Oceania'")
@@ -56,9 +56,9 @@ def plotly_bar_chart():
     return rx.center(rx.plotly(data=bar_fig))
 ```
 
-### Scatter Plot
+### 散点图（Scatter Plot）
 
-Create a Plotly scatter plot with `px.scatter`:
+使用 `px.scatter` 创建 Plotly 散点图：
 
 ```python demo exec
 iris = px.data.iris()
@@ -75,9 +75,9 @@ def plotly_scatter_plot():
     return rx.center(rx.plotly(data=scatter_fig))
 ```
 
-### Pie Chart
+### 饼图（Pie Chart）
 
-Create a Plotly pie chart with `px.pie`:
+使用 `px.pie` 创建 Plotly 饼图：
 
 ```python demo exec
 tips = px.data.tips()
@@ -88,9 +88,9 @@ def plotly_pie_chart():
     return rx.center(rx.plotly(data=pie_fig))
 ```
 
-### Heatmap
+### 热力图（Heatmap）
 
-Create a Plotly heatmap with `px.density_heatmap`:
+使用 `px.density_heatmap` 创建 Plotly 热力图：
 
 ```python demo exec
 tips_data = px.data.tips()
@@ -103,9 +103,9 @@ def plotly_heatmap():
     return rx.center(rx.plotly(data=heatmap_fig))
 ```
 
-### Histogram
+### 直方图（Histogram）
 
-Create a Plotly histogram with `px.histogram`:
+使用 `px.histogram` 创建 Plotly 直方图：
 
 ```python demo exec
 hist_data = px.data.tips()
@@ -118,9 +118,9 @@ def plotly_histogram():
     return rx.center(rx.plotly(data=histogram_fig))
 ```
 
-### Box Plot
+### 箱线图（Box Plot）
 
-Create a Plotly box plot with `px.box`:
+使用 `px.box` 创建 Plotly 箱线图：
 
 ```python demo exec
 box_data = px.data.tips()
@@ -131,9 +131,9 @@ def plotly_box_plot():
     return rx.center(rx.plotly(data=box_fig))
 ```
 
-## Locale Configuration
+## 区域设置
 
-Use `locale` to localize Plotly number/date formatting and modebar labels:
+使用 `locale` 来本地化 Plotly 的数字/日期格式和模式栏标签：
 
 ```python demo exec
 df = px.data.gapminder().query("country=='Canada'")
@@ -149,17 +149,17 @@ def localized_line_chart():
     )
 ```
 
-You can still pass `config`; when both are provided, `locale=` is applied as the final locale value.
+你仍然可以传递 `config`；当两者都提供时，`locale=` 将作为最终的 locale 值应用。
 
-## 3D graphing example
+## 3D 图表示例
 
-Let's create a 3D surface plot of Mount Bruno. This is a slightly more complicated example, but it wraps in Reflex using the same method. In fact, you can wrap any figure using the same approach.
+让我们创建一个 Mount Bruno 的 3D 曲面图。这是一个稍微复杂一些的示例，但它使用相同的方法封装在 Reflex 中。实际上，你可以使用相同的方法封装任何图形。
 
 ```python demo exec
 import plotly.graph_objects as go
 import pandas as pd
 
-# Read data from a csv
+# 从 csv 读取数据
 z_data = pd.read_csv("data/mt_bruno_elevation.csv")
 
 fig = go.Figure(data=[go.Surface(z=z_data.values)])
@@ -179,11 +179,11 @@ def mountain_surface():
     )
 ```
 
-📊 **Dataset source:** [mt_bruno_elevation.csv](https://raw.githubusercontent.com/plotly/datasets/master/api_docs/mt_bruno_elevation.csv)
+📊 **数据集来源：** [mt_bruno_elevation.csv](https://raw.githubusercontent.com/plotly/datasets/master/api_docs/mt_bruno_elevation.csv)
 
-## Plot as State Var
+## 将图形作为 State 变量
 
-If the figure is set as a state var, it can be updated during run time.
+如果将图形设置为 state 变量，则可以在运行时更新它。
 
 ```python demo exec
 import plotly.express as px
@@ -230,12 +230,12 @@ def line_chart_with_state():
     )
 ```
 
-## Adding Styles and Layouts
+## 添加样式和布局
 
-Use `update_layout()` method to update the layout of your chart. Checkout [Plotly Layouts](https://plotly.com/python/reference/layout/) for all layouts props.
+使用 `update_layout()` 方法来更新图表的布局。查看 [Plotly Layouts](https://plotly.com/python/reference/layout/) 了解所有布局属性。
 
 ```md alert info
-Note that the width and height props are not recommended to ensure the plot remains size responsive to its container. The size of plot will be determined by it's outer container.
+注意，不建议设置 width 和 height 属性，以确保图表对其容器保持尺寸响应。图表的大小将由其外部容器决定。
 ```
 
 ```python demo exec

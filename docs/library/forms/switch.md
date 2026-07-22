@@ -10,13 +10,13 @@ Switch: |
 import reflex as rx
 ```
 
-# Switch
+# 开关（Switch）
 
-A toggle switch alternative to the checkbox.
+开关（Switch）是复选框的替代切换控件。
 
-## Basic Example
+## 基本示例
 
-Here is a basic example of a switch. We use the `on_change` trigger to toggle the value in the state.
+这是一个开关的基本示例。我们使用 `on_change` 触发器来切换状态中的值。
 
 ```python demo exec
 class SwitchState(rx.State):
@@ -34,11 +34,11 @@ def switch_intro():
     )
 ```
 
-## Control the value
+## 控制值
 
-The `checked` prop is used to control the state of the switch. The event `on_change` is called when the state of the switch changes, when the `change_checked` event handler is called.
+`checked` 属性用于控制开关的状态。当开关状态改变时，会调用 `on_change` 事件，即调用 `change_checked` 事件处理函数。
 
-The `disabled` prop when `True`, prevents the user from interacting with the switch. In our example below, even though the second switch is `disabled` we are still able to change whether it is checked or not using the `checked` prop.
+当 `disabled` 属性为 `True` 时，会阻止用户与开关交互。在下面的示例中，即使第二个开关是 `disabled` 的，我们仍然可以通过 `checked` 属性来改变它是否被选中。
 
 ```python demo exec
 class ControlSwitchState(rx.State):
@@ -46,7 +46,7 @@ class ControlSwitchState(rx.State):
 
     @rx.event
     def change_checked(self, checked: bool):
-        """Change the switch checked var."""
+        """改变开关的选中状态变量。"""
         self.checked = checked
 
 
@@ -64,11 +64,11 @@ def control_switch_example():
     )
 ```
 
-## Switch in forms
+## 在表单中使用开关
 
-The `name` of the switch is needed to submit with its owning form as part of a name/value pair. When the `required` prop is `True`, it indicates that the user must check the switch before the owning form can be submitted.
+开关的 `name` 是提交表单时作为名称/值对的一部分所必需的。当 `required` 属性为 `True` 时，表示用户必须在提交表单之前选中该开关。
 
-The `value` prop is only used for form submission, use the `checked` prop to control state of the `switch`.
+`value` 属性仅用于表单提交，使用 `checked` 属性来控制 `switch` 的状态。
 
 ```python demo exec
 class FormSwitchState(rx.State):
@@ -76,7 +76,7 @@ class FormSwitchState(rx.State):
 
     @rx.event
     def handle_submit(self, form_data: dict):
-        """Handle the form submit."""
+        """处理表单提交。"""
         self.form_data = form_data
 
 

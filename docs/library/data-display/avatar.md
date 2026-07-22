@@ -5,34 +5,34 @@ Avatar: |
   lambda **props: rx.hstack(rx.avatar(src="https://web.reflex-assets.dev/other/logo.jpg", **props), rx.avatar(fallback="RX", **props), spacing="3")
 ---
 
-# Avatar
+# 头像（Avatar）
 
 ```python exec
 import reflex as rx
 ```
 
-The Avatar component is used to represent a user, and display their profile pictures or fallback texts such as initials.
+头像（Avatar）组件用于表示用户，并显示其个人资料图片或后备文本（如姓名首字母）。
 
-## Basic Example
+## 基本示例
 
-To create an avatar component with an image, pass the image URL as the `src` prop.
+要创建带有图片的头像组件，请将图片 URL 作为 `src` 属性传入。
 
 ```python demo
 rx.avatar(src="https://web.reflex-assets.dev/other/logo.jpg")
 ```
 
-To display a text such as initials, set the `fallback` prop without passing the `src` prop.
+要显示文本（如姓名首字母），请设置 `fallback` 属性而不传入 `src` 属性。
 
 ```python demo
 rx.avatar(fallback="RX")
 ```
 
-## Styling
+## 样式
 
 
-### Size
+### 尺寸
 
-The `size` prop controls the size and spacing of the avatar. The acceptable size is from `"1"` to `"9"`, with `"3"` being the default.
+`size` 属性控制头像的大小和间距。可接受的尺寸范围为 `"1"` 到 `"9"`，默认值为 `"3"`。
 
 ```python demo
 rx.flex(
@@ -65,9 +65,9 @@ rx.flex(
 )
 ```
 
-### Variant
+### 变体
 
-The `variant` prop controls the visual style of the avatar fallback text. The variant can be `"solid"` or `"soft"`. The default is `"soft"`.
+`variant` 属性控制头像后备文本的视觉样式。变体可以是 `"solid"` 或 `"soft"`。默认值为 `"soft"`。
 
 ```python demo
 rx.flex(
@@ -78,9 +78,9 @@ rx.flex(
 )
 ```
 
-### Color Scheme
+### 配色方案
 
-The `color_scheme` prop sets a specific color to the fallback text, ignoring the global theme.
+`color_scheme` 属性为后备文本设置特定颜色，忽略全局主题。
 
 ```python demo
 rx.flex(
@@ -92,9 +92,9 @@ rx.flex(
 )
 ```
 
-### High Contrast
+### 高对比度
 
-The `high_contrast` prop increases color contrast of the fallback text with the background.
+`high_contrast` 属性增加后备文本与背景之间的颜色对比度。
 
 ```python demo
 rx.grid(
@@ -108,9 +108,9 @@ rx.grid(
 )
 ```
 
-### Radius
+### 圆角
 
-The `radius` prop sets specific radius value, ignoring the global theme. It can take values `"none" | "small" | "medium" | "large" | "full"`.
+`radius` 属性设置特定的圆角值，忽略全局主题。可取值为 `"none" | "small" | "medium" | "large" | "full"`。
 
 ```python demo
 rx.grid(
@@ -146,9 +146,9 @@ rx.grid(
 )
 ```
 
-### Fallback
+### 后备文本
 
-The `fallback` prop indicates the rendered text when the `src` cannot be loaded.
+`fallback` 属性指定当 `src` 无法加载时渲染的文本。
 
 ```python demo
 rx.flex(
@@ -158,9 +158,9 @@ rx.flex(
 )
 ```
 
-## Final Example
+## 综合示例
 
-As part of a user profile page, the Avatar component is used to display the user's profile picture, with the fallback text showing the user's initials. Text components displays the user's full name and username handle and a Button component shows the edit profile button.
+作为用户个人资料页面的一部分，头像组件用于显示用户的个人资料图片，后备文本显示用户的姓名首字母。文本组件显示用户的全名和用户名，按钮组件显示编辑资料按钮。
 
 ```python demo
 rx.flex(

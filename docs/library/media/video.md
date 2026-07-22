@@ -3,22 +3,22 @@ components:
   - rx.video
 ---
 
-# Video
+# 视频（Video）
 
 ```python exec
 import reflex as rx
 ```
 
-The video component can display a video given an src path as an argument. This could either be a local path from the assets folder or an external link.
+视频组件（Video）可以通过传入 src 路径作为参数来显示视频。该路径可以是 assets 文件夹中的本地路径，也可以是外部链接。
 
 ```python demo
 rx.video(src="https://www.youtube.com/embed/9bZkp7q19f0", width="400px", height="auto")
 ```
 
-If we had a local file in the `assets` folder named `test.mp4` we could set `url="/test.mp4"` to view the video.
+如果我们在 `assets` 文件夹中有一个名为 `test.mp4` 的本地文件，可以设置 `url="/test.mp4"` 来查看该视频。
 
 ```md alert info
-# How to let your user upload a video
+# 如何让用户上传视频
 
-To let a user upload a video to your app check out the [upload docs](/docs/library/forms/upload).
+要让用户向你的应用上传视频，请查看[上传文档](/docs/library/forms/upload)。
 ```

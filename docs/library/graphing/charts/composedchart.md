@@ -9,12 +9,12 @@ meta_description: "Build composed charts in Python with Reflex. Combine bars, li
 import reflex as rx
 ```
 
-# Composed Chart
+# 组合图（Composed Chart）
 
-Composed charts in Reflex are built on [Recharts](https://recharts.org/), a React charting library, and created in pure Python. A `composed_chart` (also called a combo chart) is a higher-level component chart that is composed of multiple charts, where other charts are the children of the `composed_chart`. The charts are placed on top of each other in the order they are provided in the `composed_chart` function.
+Reflex 中的组合图基于 [Recharts](https://recharts.org/)（一个 React 图表库）构建，使用纯 Python 创建。`composed_chart`（也称为混合图表）是一种高级组件图表，由多个图表组合而成，其他图表作为 `composed_chart` 的子组件。图表按照在 `composed_chart` 函数中提供的顺序依次叠放。
 
 ```md alert info
-# To learn more about individual charts, checkout: **[area_chart](/docs/library/graphing/charts/areachart)**, **[line_chart](/docs/library/graphing/charts/linechart)**, or **[bar_chart](/docs/library/graphing/charts/barchart)**.
+# 要了解更多关于各个图表的信息，请查看：**[area_chart](/docs/library/graphing/charts/areachart)**、**[line_chart](/docs/library/graphing/charts/linechart)** 或 **[bar_chart](/docs/library/graphing/charts/barchart)**。
 ```
 
 ```python demo graphing
@@ -44,13 +44,13 @@ def composed():
     )
 ```
 
-## When to Use a Composed Chart
+## 何时使用组合图
 
-A composed chart is useful whenever a single chart type can't tell the whole story. Common combinations include overlaying a trend `line` on top of `bar` totals, drawing an `area` for a range with a `line` for the actual value, or comparing a cumulative measure against a per-period one. Because each series — `rx.recharts.bar()`, `rx.recharts.line()`, and `rx.recharts.area()` — is a child of `rx.recharts.composed_chart()`, they all share the same `data`, x-axis, tooltip, and legend. Series are drawn in the order you list them, so later children render on top of earlier ones.
+当单一图表类型无法完整讲述数据故事时，组合图非常有用。常见的组合包括：在 `bar` 总量上叠加趋势 `line`、用 `area` 表示范围并用 `line` 表示实际值，或者将累计指标与分期指标进行对比。由于每个系列——`rx.recharts.bar()`、`rx.recharts.line()` 和 `rx.recharts.area()`——都是 `rx.recharts.composed_chart()` 的子组件，它们共享相同的 `data`、x 轴、工具提示和图例。系列按照你列出的顺序绘制，因此后面的子组件会渲染在前面的之上。
 
-## Composed Chart with a Dual Axis
+## 双轴组合图
 
-When two series use very different scales (for example, a count and a dollar amount), a single y-axis makes the smaller series unreadable. Add a second y-axis and point each series at one with the `y_axis_id` prop: here the `orders` bars use the left axis and the `revenue` line uses the right axis.
+当两个系列使用差异很大的比例（例如，计数和金额）时，单个 y 轴会使较小的系列难以阅读。添加第二个 y 轴，并使用 `y_axis_id` 属性将每个系列指向其中一个轴：这里 `orders` 柱形使用左轴，`revenue` 折线使用右轴。
 
 ```python demo graphing
 data = [
@@ -90,10 +90,10 @@ def composed_dual_axis():
     )
 ```
 
-## Related Charts
+## 相关图表
 
-Explore more chart types you can build with Reflex and Recharts in pure Python:
+探索更多可以使用 Reflex 和 Recharts 以纯 Python 构建的图表类型：
 
-- [Bar Chart](/docs/library/graphing/charts/barchart)
-- [Line Chart](/docs/library/graphing/charts/linechart)
-- [Area Chart](/docs/library/graphing/charts/areachart)
+- [柱状图](/docs/library/graphing/charts/barchart)
+- [折线图](/docs/library/graphing/charts/linechart)
+- [面积图](/docs/library/graphing/charts/areachart)

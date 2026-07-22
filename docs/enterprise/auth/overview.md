@@ -2,31 +2,24 @@
 title: Authentication Overview
 ---
 
-_New in reflex-enterprise v0.9.1._
+_reflex-enterprise v0.9.1 新增。_
 
-# Authentication Overview
+# 认证概述（Authentication Overview）
 
-`rxe.AuthPlugin` adds [OIDC](https://openid.net/developers/how-connect-works/)
-(OpenID Connect) authentication to Reflex apps. Add the plugin to
-`rxe.Config(plugins=[...])`, set the provider environment variables, and use
-`rxe.App()`.
+`rxe.AuthPlugin` 为 Reflex 应用添加 [OIDC](https://openid.net/developers/how-connect-works/)（OpenID Connect）认证。将插件添加到 `rxe.Config(plugins=[...])`，设置提供商环境变量，然后使用 `rxe.App()` 即可。
 
-By default, every page, event handler, base field, and computed var requires an
-authenticated user. Use `auth=False` for surfaces that should be public.
+默认情况下，每个页面、事件处理器（Event Handler）、基础字段（Base Field）和计算变量（Computed Var）都需要已认证的用户。对于需要公开访问的界面，使用 `auth=False`。
 
-The plugin runs the OIDC Authorization Code + PKCE flow against your identity
-provider (IdP) and registers `/login`, `/logout`, `/callback`, and `/forbidden`
-routes.
+该插件针对你的身份提供商（Identity Provider，IdP）运行 OIDC 授权码 + PKCE 流程，并注册 `/login`、`/logout`、`/callback` 和 `/forbidden` 路由。
 
 ```md alert warning
-# Requirements
-The auth plugin ships with `reflex-enterprise` (v0.9.1+). Your app **must** use `rxe.App()` (not `rx.App()`), and you must configure an OIDC identity provider via environment variables. Using a plain `rx.App()` with the plugin raises a `ConfigError` at startup.
+# 前提条件
+认证插件随 `reflex-enterprise`（v0.9.1+）一起提供。你的应用**必须**使用 `rxe.App()`（而非 `rx.App()`），并且必须通过环境变量配置一个 OIDC 身份提供商。在插件中使用普通的 `rx.App()` 会在启动时抛出 `ConfigError`。
 ```
 
-## Quickstart
+## 快速开始
 
-**1. Add `rxe.AuthPlugin()` to `rxconfig.py`** and configure your OIDC provider
-through the `OIDC_*` environment variables:
+**1. 将 `rxe.AuthPlugin()` 添加到 `rxconfig.py`**，并通过 `OIDC_*` 环境变量配置你的 OIDC 提供商：
 
 ```python
 import os
@@ -36,7 +29,7 @@ import reflex_enterprise as rxe
 
 os.environ.setdefault("OIDC_ISSUER_URI", "https://your-idp.example.com")
 os.environ.setdefault("OIDC_CLIENT_ID", "your-client-id")
-os.environ.setdefault("OIDC_CLIENT_SECRET", "your-client-secret")  # optional with PKCE
+os.environ.setdefault("OIDC_CLIENT_SECRET", "your-client-secret")  # 使用 PKCE 时可选
 
 config = rxe.Config(
     app_name="my_app",
@@ -46,11 +39,9 @@ config = rxe.Config(
 )
 ```
 
-With the `OIDC_*` variables set, the app imports and compiles before the IdP is
-reachable. OIDC discovery runs only when a user logs in. Placeholder values are
-enough for local builds and CI.
+设置好 `OIDC_*` 变量后，应用在 IdP 可达之前就能导入和编译。OIDC 发现仅在用户登录时运行。占位符值足以满足本地构建和 CI 的需求。
 
-**2. Use `rxe.App()`** (not `rx.App()`) in your app module:
+**2. 在应用模块中使用 `rxe.App()`**（而非 `rx.App()`）：
 
 ```python
 import reflex_enterprise as rxe
@@ -58,32 +49,22 @@ import reflex_enterprise as rxe
 app = rxe.App()
 ```
 
-**3. Register the redirect URI with your IdP.** Add the plugin's
-`auth_callback_endpoint` (`/callback` by default) as an allowed redirect URI in
-your identity provider's client settings. Register the **full** URL (scheme,
-host, and path) for each environment. A mismatched value produces
-`redirect_uri_mismatch`; see
-[deploying to production](/docs/enterprise/auth/deployment/) for the exact
-callback URL.
+**3. 在 IdP 中注册重定向 URI。** 将插件的 `auth_callback_endpoint`（默认为 `/callback`）作为允许的重定向 URI 添加到身份提供商的客户端设置中。为每个环境注册**完整的** URL（协议、主机和路径）。值不匹配会产生 `redirect_uri_mismatch` 错误；请参阅[部署到生产环境](/docs/enterprise/auth/deployment/)了解确切的回调 URL。
 
-You don't need to write a provider class. The plugin uses the built-in
-`GenericOIDCAuthState`, which reads those variables. See
-[providers](/docs/enterprise/auth/providers/) for named and multi-provider
-setups.
+你无需编写提供商类。插件使用内置的 `GenericOIDCAuthState`，它会读取这些环境变量。有关命名提供商和多提供商配置，请参阅[提供商](/docs/enterprise/auth/providers/)。
 
-## The four protected surfaces
+## 四种受保护的界面
 
-Once active, the plugin protects four kinds of surface by default:
+激活后，插件默认保护四种界面：
 
-| Surface | Default | How it's withheld | Opt out / gate |
+| 界面 | 默认行为 | 如何限制 | 退出方式 |
 | --- | --- | --- | --- |
-| Pages (`@rxe.page` / `@rx.page` / `app.add_page`) | login required | redirect to `/login` | `auth=False`, or `@rxe.page(auth=True)` to force login |
-| Event handlers (`@rxe.event`) | login required | block + redirect/toast | `@rxe.event(auth=False)` or `auth=<check>` |
-| Base fields (`rxe.field` / plain `rx.field`) | withheld until login | replaced with its declared default | `rxe.field(default, auth=False)` or `auth=<check>` |
-| Computed vars (`@rxe.var`) | withheld until login | replaced with its `initial_value` (dropped if it has none) | `@rxe.var(auth=False)` or `auth=<check>` |
+| 页面（`@rxe.page` / `@rx.page` / `app.add_page`） | 需要登录 | 重定向到 `/login` | `auth=False`，或使用 `@rxe.page(auth=True)` 强制登录 |
+| 事件处理器（`@rxe.event`） | 需要登录 | 阻止 + 重定向/提示 | `@rxe.event(auth=False)` 或 `auth=<check>` |
+| 基础字段（`rxe.field` / 普通 `rx.field`） | 登录前隐藏 | 替换为声明的默认值 | `rxe.field(default, auth=False)` 或 `auth=<check>` |
+| 计算变量（`@rxe.var`） | 登录前隐藏 | 替换为 `initial_value`（如果没有则丢弃） | `@rxe.var(auth=False)` 或 `auth=<check>` |
 
-`auth=True` is the default everywhere, so a plain `rx.field(...)` or bare
-`@rxe.var` is already protected. Set `auth=False` to make a surface public.
+`auth=True` 是所有界面的默认值，因此普通的 `rx.field(...)` 或裸 `@rxe.var` 已经受到保护。设置 `auth=False` 可使界面公开。
 
 ```python
 import reflex as rx
@@ -91,28 +72,25 @@ import reflex_enterprise as rxe
 
 
 class DashboardState(rx.State):
-    # Protected by default; withheld from the client until login.
+    # 默认受保护；登录前不会发送到客户端。
     revenue: rx.Field[float] = rx.field(0.0)
 
-    # Public; always sent to the client.
+    # 公开；始终发送到客户端。
     theme: rx.Field[str] = rxe.field("light", auth=False)
 
-    @rxe.event  # default auth=True: anonymous callers are redirected to /login
+    @rxe.event  # 默认 auth=True：匿名调用者会被重定向到 /login
     async def refresh(self): ...
 
-    @rxe.event(auth=False)  # public handler anyone may call
+    @rxe.event(auth=False)  # 公开处理器，任何人都可以调用
     def toggle_theme(self):
         self.theme = "dark" if self.theme == "light" else "light"
 ```
 
-See [secure by default](/docs/enterprise/auth/secure-by-default/) for the full
-enforcement model, the four `auth=` wrappers, and authorization check functions.
+有关完整的执行模型、四种 `auth=` 包装器和授权检查函数，请参阅[默认安全](/docs/enterprise/auth/secure-by-default/)。
 
-## Reading the current user
+## 读取当前用户
 
-`reflex_enterprise.auth.User` is an alias of
-`reflex_enterprise.auth.AuthUserState`. Use its class-level Vars directly in
-components. They are populated by the provider that authenticated the user:
+`reflex_enterprise.auth.User` 是 `reflex_enterprise.auth.AuthUserState` 的别名。直接在组件中使用其类级别的 Var。它们由认证用户的提供商填充：
 
 ```python
 import reflex as rx
@@ -129,8 +107,7 @@ def profile() -> rx.Component:
     )
 ```
 
-Inside an event handler, `await User.current()` returns the user's
-`OIDCUserInfo` claims dict (or `None` when anonymous):
+在事件处理器中，`await User.current()` 返回用户的 `OIDCUserInfo` 声明字典（匿名时返回 `None`）：
 
 ```python
 import reflex as rx
@@ -139,36 +116,32 @@ from reflex_enterprise.auth import User
 
 
 class GreetState(rx.State):
-    @rxe.event  # default auth=True
+    @rxe.event  # 默认 auth=True
     async def greet(self):
         user = await User.current() or {}
         return rx.toast(f"Hello {user.get('name') or user.get('sub')}!")
 ```
 
-See [reading the current user](/docs/enterprise/auth/secure-by-default/#reading-the-current-user)
-for the full `User` API, including frontend Vars, `current()`, and
-`current_provider()`.
+有关完整的 `User` API（包括前端 Var、`current()` 和 `current_provider()`），请参阅[读取当前用户](/docs/enterprise/auth/secure-by-default/#reading-the-current-user)。
 
-## Signing out
+## 退出登录
 
-Sign the user out by linking to `/logout` or by binding the `User.logout` event:
+通过链接到 `/logout` 或绑定 `User.logout` 事件来让用户退出登录：
 
 ```python
 import reflex as rx
 from reflex_enterprise.auth import User
 
-# Either link to the logout route.
+# 方式一：链接到退出登录路由。
 rx.link("Sign out", href="/logout")
 
-# Or bind the logout event to any component.
+# 方式二：将退出登录事件绑定到任意组件。
 rx.button("Sign out", on_click=User.logout)
 ```
 
-`User.logout` signs out whichever provider the user logged in with, so it works
-with multiple providers. If no one is signed in there's nothing to sign out, so
-it just sends them back to the home page (`/`).
+`User.logout` 会退出用户登录时使用的提供商，因此它支持多提供商。如果没有人登录，则无需退出，只会将用户送回首页（`/`）。
 
-Example header:
+页头示例：
 
 ```python
 import reflex as rx
@@ -186,33 +159,19 @@ def header() -> rx.Component:
     )
 ```
 
-## How a login flows end to end
+## 登录流程端到端解析
 
-1. An anonymous visitor hits a protected page (or calls a protected handler) and
-   is redirected to `/login`, with the requested page preserved as a
-   `redirect_to` query parameter.
-2. `/login` renders a button per configured provider. The visitor clicks one and
-   is sent to the IdP's authorization endpoint (Authorization Code + PKCE).
-3. The IdP authenticates the user and redirects back to `/callback`, which
-   validates the OAuth `state` (CSRF), exchanges the code for tokens, and stores
-   them in secure cookies.
-4. The user is redirected back to `redirect_to`. Protected fields, vars, pages,
-   and handlers now resolve against the authenticated user.
-5. `/logout` clears tokens, resets the protected surface of every state, and
-   chains the provider's logout. A CSRF guard blocks cross-site logout requests
-   (see
-   [secure by default](/docs/enterprise/auth/secure-by-default/#logout-is-protected-against-csrf)).
+1. 匿名访客访问受保护的页面（或调用受保护的处理器），被重定向到 `/login`，请求的页面作为 `redirect_to` 查询参数保留。
+2. `/login` 为每个已配置的提供商渲染一个按钮。访客点击其中一个，被发送到 IdP 的授权端点（授权码 + PKCE）。
+3. IdP 认证用户并重定向回 `/callback`，该端点验证 OAuth `state`（CSRF），用授权码交换令牌，并将其存储在安全 Cookie 中。
+4. 用户被重定向回 `redirect_to`。受保护的字段、变量、页面和处理器现在针对已认证的用户进行解析。
+5. `/logout` 清除令牌，重置每个状态的受保护界面，并链接提供商的退出登录。CSRF 防护会阻止跨站退出登录请求（参阅[默认安全](/docs/enterprise/auth/secure-by-default/#logout-is-protected-against-csrf)）。
 
-## Related
+## 相关内容
 
-- [Secure by default](/docs/enterprise/auth/secure-by-default/): enforcement,
-  `auth=`, authorization checks, and the `User` facade.
-- [Providers](/docs/enterprise/auth/providers/): provider classes, environment
-  variables, scopes, and multi-provider setups.
-- [Custom pages](/docs/enterprise/auth/custom-pages/): custom `/login`,
-  `/callback`, `/logout`, and `/forbidden` components.
-- [Testing](/docs/enterprise/auth/testing/): authorization checks and mock-IdP
-  integration tests.
-- [Deploying to production](/docs/enterprise/auth/deployment/): HTTPS, callback
-  URLs, reverse proxies, and troubleshooting.
-- [Enterprise overview](/docs/enterprise/overview/): other Enterprise features.
+- [默认安全](/docs/enterprise/auth/secure-by-default/)：执行机制、`auth=`、授权检查和 `User` 门面。
+- [提供商](/docs/enterprise/auth/providers/)：提供商类、环境变量、作用域和多提供商配置。
+- [自定义页面](/docs/enterprise/auth/custom-pages/)：自定义 `/login`、`/callback`、`/logout` 和 `/forbidden` 组件。
+- [测试](/docs/enterprise/auth/testing/)：授权检查和模拟 IdP 集成测试。
+- [部署到生产环境](/docs/enterprise/auth/deployment/)：HTTPS、回调 URL、反向代理和故障排除。
+- [企业版概述](/docs/enterprise/overview/)：其他企业版功能。

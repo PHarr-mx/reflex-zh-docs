@@ -2,29 +2,29 @@
 title: Interactive Maps
 ---
 
-# Interactive Maps
+# 交互式地图
 
 ```python exec
 import reflex as rx
 import reflex_enterprise as rxe
 ```
 
-The map components in Reflex Enterprise provide interactive mapping capabilities built on top of **Leaflet**, one of the most popular open-source JavaScript mapping libraries. These components enable you to create rich, interactive maps with markers, layers, controls, and event handling.
+Reflex Enterprise 中的地图组件提供了基于 **Leaflet**（最流行的开源 JavaScript 地图库之一）构建的交互式地图功能。这些组件使你能够创建包含标记、图层、控件和事件处理的丰富交互式地图。
 
 ```md alert info
-# All map components are built using Leaflet and react-leaflet, providing a familiar and powerful mapping experience.
-For advanced Leaflet features, refer to the [Leaflet documentation](https://leafletjs.com/reference.html).
+# 所有地图组件均基于 Leaflet 和 react-leaflet 构建，提供熟悉且强大的地图体验。
+如需了解高级 Leaflet 功能，请参阅 [Leaflet 文档](https://leafletjs.com/reference.html)。
 ```
 
-🌍 **[View Live Demo](https://map.reflex.run)** - See the map components in action with interactive examples.
+🌍 **[查看在线演示](https://map.reflex.run)** - 通过交互式示例查看地图组件的实际效果。
 
-## Installation & Setup
+## 安装与配置
 
-Map components are included with `reflex-enterprise`. No additional installation is required.
+地图组件已包含在 `reflex-enterprise` 中，无需额外安装。
 
-## Basic Usage
+## 基本用法
 
-Here's a simple example of creating a map with a marker:
+以下是创建带标记地图的简单示例：
 
 ```python demo exec
 import reflex as rx
@@ -54,15 +54,15 @@ def basic_map():
     )
 ```
 
-## Core Components
+## 核心组件
 
-### Map Container
+### 地图容器
 
-The `rxe.map()` component is the primary container that holds all other map elements:
+`rxe.map()` 组件是容纳所有其他地图元素的主容器：
 
 ```python
 rxe.map(
-    # Child components (markers, layers, controls)
+    # 子组件（标记、图层、控件）
     id="my-map",
     center=rxe.map.latlng(lat=51.505, lng=-0.09),
     zoom=13,
@@ -71,15 +71,15 @@ rxe.map(
 )
 ```
 
-**Key Properties:**
-- `center`: Initial map center coordinates
-- `zoom`: Initial zoom level (0-18+ depending on tile provider)
-- `bounds`: Alternative to center/zoom, fits map to bounds
-- `height`/`width`: Map container dimensions
+**关键属性：**
+- `center`：初始地图中心坐标
+- `zoom`：初始缩放级别（0-18+，取决于瓦片提供商）
+- `bounds`：center/zoom 的替代方案，将地图适配到边界范围
+- `height`/`width`：地图容器尺寸
 
-### Tile Layers
+### 瓦片图层（Tile Layers）
 
-Tile layers provide the base map imagery. The most common is OpenStreetMap:
+瓦片图层提供底图图像。最常用的是 OpenStreetMap：
 
 ```python
 rxe.map.tile_layer(
@@ -89,9 +89,9 @@ rxe.map.tile_layer(
 ```
 
 
-### Markers
+### 标记（Markers）
 
-Add point markers to specific locations:
+在特定位置添加点标记：
 
 ```python demo exec
 import reflex as rx
@@ -126,9 +126,9 @@ def markers_example():
     )
 ```
 
-### Vector Layers
+### 矢量图层（Vector Layers）
 
-Draw shapes and areas on the map:
+在地图上绘制形状和区域：
 
 ```python demo exec
 import reflex as rx
@@ -141,7 +141,7 @@ def vectors_example():
             url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png",
             attribution="&copy; OpenStreetMap contributors",
         ),
-        # Circle (radius in meters)
+        # 圆形（半径单位为米）
         rxe.map.circle(
             center=rxe.map.latlng(lat=51.505, lng=-0.09),
             radius=500,
@@ -149,7 +149,7 @@ def vectors_example():
                 color="#ff0000", fill_color="#ff3333", fill_opacity=0.3, weight=2
             ),
         ),
-        # Polygon
+        # 多边形
         rxe.map.polygon(
             positions=[
                 rxe.map.latlng(lat=51.515, lng=-0.08),
@@ -161,7 +161,7 @@ def vectors_example():
                 color="#0000ff", fill_color="#3333ff", fill_opacity=0.3
             ),
         ),
-        # Polyline
+        # 折线
         rxe.map.polyline(
             positions=[
                 rxe.map.latlng(lat=51.500, lng=-0.095),
@@ -178,11 +178,11 @@ def vectors_example():
     )
 ```
 
-## Interactive Features
+## 交互功能
 
-### Event Handling
+### 事件处理
 
-Maps support comprehensive event handling for user interactions:
+地图支持全面的用户交互事件处理：
 
 ```python demo exec
 import reflex as rx
@@ -223,9 +223,9 @@ def interactive_example():
     )
 ```
 
-### Map Controls
+### 地图控件
 
-Add UI controls for enhanced user interaction:
+添加 UI 控件以增强用户交互：
 
 ```python demo exec
 import reflex as rx
@@ -249,35 +249,35 @@ def controls_example():
     )
 ```
 
-## Helper Functions
+## 辅助函数
 
-### Coordinate Creation
+### 坐标创建
 
 ```python
-# Create latitude/longitude coordinates
+# 创建经纬度坐标
 center = rxe.map.latlng(lat=51.505, lng=-0.09, nround=4)
 
-# Create bounds
+# 创建边界
 bounds = rxe.map.latlng_bounds(
     corner1_lat=51.49, corner1_lng=-0.11, corner2_lat=51.52, corner2_lng=-0.07
 )
 ```
 
-## Map API
+## 地图 API
 
-The Map API provides programmatic control over your maps, allowing you to manipulate the map programmatically from your Reflex state methods.
+地图 API 提供对地图的编程控制，允许你从 Reflex 状态方法中以编程方式操作地图。
 
-### Getting the API Reference
+### 获取 API 引用
 
-To access the Map API, you need to get a reference to your map using its ID:
+要访问地图 API，你需要使用地图的 ID 获取对地图的引用：
 
 ```python
 map_api = rxe.map.api("my-map-id")
 ```
 
-### Interactive Demo
+### 交互式演示
 
-Here are some commonly used API methods demonstrated in action:
+以下是一些常用 API 方法的实际演示：
 
 ```python demo exec
 import reflex as rx
@@ -325,46 +325,46 @@ def map_api_example():
     )
 ```
 
-### Common API Methods
+### 常用 API 方法
 
-**View Control:**
-- `fly_to(latlng, zoom, options)` - Smooth animated movement to location
-- `set_view(latlng, zoom, options)` - Instant movement to location
-- `set_zoom(zoom)` - Change zoom level
-- `zoom_in()` / `zoom_out()` - Zoom by one level
-- `fit_bounds(bounds, options)` - Fit map to specific bounds
+**视图控制：**
+- `fly_to(latlng, zoom, options)` - 平滑动画移动到指定位置
+- `set_view(latlng, zoom, options)` - 即时移动到指定位置
+- `set_zoom(zoom)` - 更改缩放级别
+- `zoom_in()` / `zoom_out()` - 缩放一个级别
+- `fit_bounds(bounds, options)` - 将地图适配到指定边界
 
-**Location Services:**
-- `locate(options)` - Get user's current location
-- `stop_locate()` - Stop location tracking
+**定位服务：**
+- `locate(options)` - 获取用户当前位置
+- `stop_locate()` - 停止位置追踪
 
-**Information Retrieval:**
-- `get_center(callback)` - Get current map center
-- `get_zoom(callback)` - Get current zoom level
-- `get_bounds(callback)` - Get current map bounds
-- `get_size(callback)` - Get map container size
+**信息获取：**
+- `get_center(callback)` - 获取当前地图中心
+- `get_zoom(callback)` - 获取当前缩放级别
+- `get_bounds(callback)` - 获取当前地图边界
+- `get_size(callback)` - 获取地图容器尺寸
 
-**Layer Management:**
-- `add_layer(layer)` - Add a layer to the map
-- `remove_layer(layer)` - Remove a layer from the map
-- `has_layer(layer)` - Check if layer exists on map
+**图层管理：**
+- `add_layer(layer)` - 向地图添加图层
+- `remove_layer(layer)` - 从地图移除图层
+- `has_layer(layer)` - 检查地图上是否存在某图层
 
-### Full Leaflet API Access
+### 完整 Leaflet API 访问
 
 ```md alert info
-# The Map API provides access to the complete Leaflet map API. Any method available on a Leaflet map instance can be called through the MapAPI instance.
-Function names are automatically converted from snake_case (Python) to camelCase (JavaScript).
+# 地图 API 提供对完整 Leaflet 地图 API 的访问。Leaflet 地图实例上可用的任何方法都可以通过 MapAPI 实例调用。
+函数名会自动从 snake_case（Python）转换为 camelCase（JavaScript）。
 ```
 
-This means you can use any method from the [Leaflet Map documentation](https://leafletjs.com/reference.html#map). For example:
+这意味着你可以使用 [Leaflet Map 文档](https://leafletjs.com/reference.html#map)中的任何方法。例如：
 
-**Python (snake_case) → JavaScript (camelCase):**
+**Python (snake_case) → JavaScript (camelCase)：**
 - `map_api.pan_to(latlng)` → `map.panTo(latlng)`
 - `map_api.set_max_bounds(bounds)` → `map.setMaxBounds(bounds)`
 - `map_api.get_pixel_bounds()` → `map.getPixelBounds()`
 - `map_api.container_point_to_lat_lng(point)` → `map.containerPointToLatLng(point)`
 
-### Advanced Example
+### 高级示例
 
 ```python demo exec
 import reflex as rx
@@ -382,17 +382,17 @@ class AdvancedMapState(rx.State):
     def setup_map_constraints(self):
         map_api = rxe.map.api("advanced-demo-map")
 
-        # Set maximum bounds (restrict panning to London area)
+        # 设置最大边界（将平移限制在伦敦区域）
         max_bounds = rxe.map.latlng_bounds(
             corner1_lat=51.4, corner1_lng=-0.3, corner2_lat=51.6, corner2_lng=0.1
         )
         yield map_api.set_max_bounds(max_bounds)
 
-        # Set min/max zoom levels
+        # 设置最小/最大缩放级别
         yield map_api.set_min_zoom(10)
         yield map_api.set_max_zoom(16)
 
-        # Disable scroll wheel zoom
+        # 禁用滚轮缩放
         yield map_api.scroll_wheel_zoom(False)
 
         self.constraints_applied = True
@@ -400,14 +400,14 @@ class AdvancedMapState(rx.State):
     def remove_constraints(self):
         map_api = rxe.map.api("advanced-demo-map")
 
-        # Remove bounds restriction
+        # 移除边界限制
         yield map_api.set_max_bounds(None)
 
-        # Reset zoom limits
+        # 重置缩放限制
         yield map_api.set_min_zoom(1)
         yield map_api.set_max_zoom(18)
 
-        # Re-enable scroll wheel zoom
+        # 重新启用滚轮缩放
         yield map_api.scroll_wheel_zoom(True)
 
         self.constraints_applied = False
@@ -416,19 +416,19 @@ class AdvancedMapState(rx.State):
         map_api = rxe.map.api("advanced-demo-map")
 
         if self.location_tracking == False:
-            # Start location tracking
+            # 开始位置追踪
             locate_options = rxe.map.locate_options(
                 set_view=True,
                 max_zoom=16,
                 timeout=10000,
                 enable_high_accuracy=True,
-                watch=False,  # Single location request
+                watch=False,  # 单次位置请求
             )
             yield map_api.locate(locate_options)
             self.location_tracking = True
             self.location_status = "Requesting location..."
         else:
-            # Stop location tracking
+            # 停止位置追踪
             yield map_api.stop_locate()
             self.location_tracking = False
             self.location_status = "Location tracking disabled"
@@ -494,9 +494,9 @@ def advanced_example():
     )
 ```
 
-### Callback Handling
+### 回调处理
 
-Many API methods that retrieve information require callbacks to handle the results:
+许多用于获取信息的 API 方法需要回调来处理结果：
 
 ```python
 class CallbackMapState(rx.State):
@@ -508,40 +508,40 @@ class CallbackMapState(rx.State):
         self.map_info = f"Center: {lat:.4f}, {lng:.4f}"
 
     def handle_bounds_result(self, result):
-        # result will contain bounds information
+        # result 将包含边界信息
         self.map_info = f"Bounds: {result}"
 
     def get_map_info(self):
         map_api = rxe.map.api("info-map")
         yield map_api.get_center(self.handle_center_result)
-        # or
+        # 或者
         yield map_api.get_bounds(self.handle_bounds_result)
 ```
 
-## Available Events
+## 可用事件
 
-The map components support a comprehensive set of events:
+地图组件支持全面的事件集：
 
-**Map Events:**
-- `on_click`, `on_dblclick` - Mouse click events
-- `on_zoom`, `on_zoom_start`, `on_zoom_end` - Zoom events
-- `on_move`, `on_move_start`, `on_move_end` - Pan events
-- `on_resize` - Map container resize
-- `on_load`, `on_unload` - Map lifecycle
+**地图事件：**
+- `on_click`、`on_dblclick` - 鼠标点击事件
+- `on_zoom`、`on_zoom_start`、`on_zoom_end` - 缩放事件
+- `on_move`、`on_move_start`、`on_move_end` - 平移事件
+- `on_resize` - 地图容器大小调整
+- `on_load`、`on_unload` - 地图生命周期
 
-**Location Events:**
-- `on_locationfound`, `on_locationerror` - Geolocation
+**定位事件：**
+- `on_locationfound`、`on_locationerror` - 地理定位
 
-**Layer Events:**
-- `on_layeradd`, `on_layerremove` - Layer management
+**图层事件：**
+- `on_layeradd`、`on_layerremove` - 图层管理
 
-**Popup Events:**
-- `on_popupopen`, `on_popupclose` - Popup lifecycle
-- `on_tooltipopen`, `on_tooltipclose` - Tooltip lifecycle
+**弹窗事件：**
+- `on_popupopen`、`on_popupclose` - 弹窗生命周期
+- `on_tooltipopen`、`on_tooltipclose` - 提示框生命周期
 
-## Common Patterns
+## 常见模式
 
-### Dynamic Markers
+### 动态标记
 
 ```python
 class DynamicMapState(rx.State):
@@ -562,20 +562,20 @@ def dynamic_markers():
                 position=rxe.map.latlng(lat=marker["lat"], lng=marker["lng"]),
             ),
         ),
-        # ... map configuration
+        # ... 地图配置
     )
 ```
 
 
-## Best Practices
+## 最佳实践
 
-1. **Always include attribution** for tile providers
-2. **Set reasonable zoom levels** (typically 1-18)
-3. **Use bounds for multiple markers** instead of arbitrary center/zoom
-4. **Handle loading states** for dynamic map content
-5. **Optimize marker rendering** for large datasets using clustering
-6. **Test on mobile devices** for touch interactions
+1. **始终包含归属信息**——为瓦片提供商添加 attribution
+2. **设置合理的缩放级别**（通常为 1-18）
+3. **对多个标记使用 bounds**——而非任意的 center/zoom
+4. **处理加载状态**——针对动态地图内容
+5. **优化标记渲染**——对大数据集使用聚合
+6. **在移动设备上测试**——确保触摸交互正常
 
 ---
 
-[← Back to main documentation](/docs/enterprise/overview/)
+[← 返回主文档](/docs/enterprise/overview/)

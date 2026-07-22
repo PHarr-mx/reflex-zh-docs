@@ -34,13 +34,13 @@ HoverCardContent: |
 import reflex as rx
 ```
 
-# Hovercard
+# Hovercard（悬停卡片）
 
-The `hover_card.root` contains all the parts of a hover card.
+`hover_card.root` 包含悬停卡片的所有部分。
 
-The `hover_card.trigger` wraps the link that will open the hover card.
+`hover_card.trigger` 包裹用于打开悬停卡片的链接。
 
-The `hover_card.content` contains the content of the open hover card.
+`hover_card.content` 包含悬停卡片打开时的内容。
 
 ```python demo
 rx.text(
@@ -89,9 +89,9 @@ rx.text(
 )
 ```
 
-## Events when the Hovercard opens or closes
+## 悬停卡片打开或关闭时的事件
 
-The `on_open_change` event is called when the `open` state of the hovercard changes. It is used in conjunction with the `open` prop, which is passed to the event handler.
+当悬停卡片的 `open` 状态发生变化时，会调用 `on_open_change` 事件。它与 `open` prop 配合使用，`open` 的值会传递给事件处理器。
 
 ```python demo exec
 class HovercardState(rx.State):

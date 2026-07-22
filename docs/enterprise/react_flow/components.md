@@ -1,56 +1,56 @@
-# Flow Components
+# 流程图组件（Flow Components）
 
-This page documents the main components provided by the `rxe.flow` library.
+本页介绍 `rxe.flow` 库提供的主要组件。
 
 ## rxe.flow.provider
 
-The `FlowProvider` component is a context provider that makes it possible to access a flow’s internal state outside of the `<ReactFlow />` component. Many of the hooks we provide rely on this component to work.
+`FlowProvider` 组件是一个上下文提供器（context provider），它使得在 `<ReactFlow />` 组件外部访问流程图的内部状态成为可能。我们提供的许多钩子（Hooks）都依赖此组件才能工作。
 
-**Props:**
+**属性（Props）：**
 
-- `initial_nodes`: `Sequence[Node]` - These nodes are used to initialize the flow. They are not dynamic.
-- `default_edges`: `Sequence[Edge]` - These edges are used to initialize the flow. They are not dynamic.
-- `initial_width`: `float` - The initial width is necessary to be able to use fitView on the server.
-- `initial_height`: `float` - The initial height is necessary to be able to use fitView on the server.
-- `fit_view`: `bool` - When true, the flow will be zoomed and panned to fit all the nodes initially provided.
-- `initial_fit_view_options`: `FitViewOptions` - You can provide an object of options to customize the initial fitView behavior.
-- `initial_min_zoom`: `float` - Initial minimum zoom level.
-- `initial_max_zoom`: `float` - Initial maximum zoom level.
-- `node_origin`: `NodeOrigin` - The origin of the node to use when placing it in the flow or looking up its x and y position.
-- `node_extent`: `CoordinateExtent` - The boundary a node can be moved in.
+- `initial_nodes`：`Sequence[Node]` - 这些节点用于初始化流程图。它们不是动态的。
+- `default_edges`：`Sequence[Edge]` - 这些边用于初始化流程图。它们不是动态的。
+- `initial_width`：`float` - 初始宽度是在服务器端使用 fitView 所必需的。
+- `initial_height`：`float` - 初始高度是在服务器端使用 fitView 所必需的。
+- `fit_view`：`bool` - 当为 true 时，流程图会进行缩放和平移以适配初始提供的所有节点。
+- `initial_fit_view_options`：`FitViewOptions` - 你可以提供一个选项对象来自定义初始 fitView 行为。
+- `initial_min_zoom`：`float` - 初始最小缩放级别。
+- `initial_max_zoom`：`float` - 初始最大缩放级别。
+- `node_origin`：`NodeOrigin` - 在将节点放置到流程图中或查找其 x 和 y 位置时所使用的节点原点。
+- `node_extent`：`CoordinateExtent` - 节点可移动的边界范围。
 
 ## rxe.flow
 
-The `Flow` component is the main component that renders the flow. It takes in nodes and edges, and provides event handlers for user interactions.
+`Flow` 组件是渲染流程图的主组件。它接收节点和边，并为用户交互提供事件处理程序。
 
-**Props:**
+**属性（Props）：**
 
-- `nodes`: `Sequence[Node]` - An array of nodes to render in a controlled flow.
-- `edges`: `Sequence[Edge]` - An array of edges to render in a controlled flow.
-- `default_nodes`: `Sequence[Node]` - The initial nodes to render in an uncontrolled flow.
-- `default_edges`: `Sequence[Edge]` - The initial edges to render in an uncontrolled flow.
-- `node_types`: `Mapping[str, Any]` - Custom node types.
-- `edge_types`: `Mapping[str, Any]` - Custom edge types.
-- `on_nodes_change`: Event handler for when nodes change.
-- `on_edges_change`: Event handler for when edges change.
-- `on_connect`: Event handler for when a connection is made.
-- `fit_view`: `bool` - When true, the flow will be zoomed and panned to fit all the nodes initially provided.
-- `fit_view_options`: `FitViewOptions` - Options for `fit_view`.
-- `style`: The style of the component.
+- `nodes`：`Sequence[Node]` - 在受控流程图中渲染的节点数组。
+- `edges`：`Sequence[Edge]` - 在受控流程图中渲染的边数组。
+- `default_nodes`：`Sequence[Node]` - 在非受控流程图中渲染的初始节点。
+- `default_edges`：`Sequence[Edge]` - 在非受控流程图中渲染的初始边。
+- `node_types`：`Mapping[str, Any]` - 自定义节点类型。
+- `edge_types`：`Mapping[str, Any]` - 自定义边类型。
+- `on_nodes_change`：节点发生变化时的事件处理程序。
+- `on_edges_change`：边发生变化时的事件处理程序。
+- `on_connect`：建立连接时的事件处理程序。
+- `fit_view`：`bool` - 当为 true 时，流程图会进行缩放和平移以适配初始提供的所有节点。
+- `fit_view_options`：`FitViewOptions` - `fit_view` 的选项。
+- `style`：组件的样式。
 
 ## rxe.flow.background
 
-The `Background` component renders a background for the flow. It can be a pattern of lines, dots, or a cross.
+`Background` 组件为流程图渲染背景。它可以是线条、点或十字图案。
 
-**Props:**
+**属性（Props）：**
 
-- `color`: `str` - Color of the pattern.
-- `bg_color`: `str` - Color of the background.
-- `variant`: `Literal["lines", "dots", "cross"]` - The type of pattern to render.
-- `gap`: `float | tuple[float, float]` - The gap between patterns.
-- `size`: `float` - The size of the pattern elements.
+- `color`：`str` - 图案的颜色。
+- `bg_color`：`str` - 背景的颜色。
+- `variant`：`Literal["lines", "dots", "cross"]` - 要渲染的图案类型。
+- `gap`：`float | tuple[float, float]` - 图案之间的间距。
+- `size`：`float` - 图案元素的尺寸。
 
-**Example:**
+**示例：**
 
 ```python
 rxe.flow.background(variant="dots", gap=20, size=1)
@@ -58,16 +58,16 @@ rxe.flow.background(variant="dots", gap=20, size=1)
 
 ## rxe.flow.controls
 
-The `Controls` component renders a panel with buttons to zoom in, zoom out, fit the view, and lock the viewport.
+`Controls` 组件渲染一个面板，其中包含用于放大、缩小、适配视图和锁定视口的按钮。
 
-**Props:**
+**属性（Props）：**
 
-- `show_zoom`: `bool` - Whether to show the zoom buttons.
-- `show_fit_view`: `bool` - Whether to show the fit view button.
-- `show_interactive`: `bool` - Whether to show the lock button.
-- `position`: `PanelPosition` - The position of the controls on the pane.
+- `show_zoom`：`bool` - 是否显示缩放按钮。
+- `show_fit_view`：`bool` - 是否显示适配视图按钮。
+- `show_interactive`：`bool` - 是否显示锁定按钮。
+- `position`：`PanelPosition` - 控件在画布上的位置。
 
-**Example:**
+**示例：**
 
 ```python
 rxe.flow.controls()
@@ -75,17 +75,17 @@ rxe.flow.controls()
 
 ## rxe.flow.mini_map
 
-The `MiniMap` component renders a small overview of your flow.
+`MiniMap` 组件渲染流程图的小型概览图。
 
-**Props:**
+**属性（Props）：**
 
-- `node_color`: `str | Any` - Color of nodes on minimap.
-- `node_stroke_color`: `str | Any` - Stroke color of nodes on minimap.
-- `pannable`: `bool` - Determines whether you can pan the viewport by dragging inside the minimap.
-- `zoomable`: `bool` - Determines whether you can zoom the viewport by scrolling inside the minimap.
-- `position`: `PanelPosition` - Position of minimap on pane.
+- `node_color`：`str | Any` - 小地图上节点的颜色。
+- `node_stroke_color`：`str | Any` - 小地图上节点的描边颜色。
+- `pannable`：`bool` - 决定你是否可以通过在小地图内拖动来平移视口。
+- `zoomable`：`bool` - 决定你是否可以通过在小地图内滚动来缩放视口。
+- `position`：`PanelPosition` - 小地图在画布上的位置。
 
-**Example:**
+**示例：**
 
 ```python
 rxe.flow.mini_map(pannable=True, zoomable=True)

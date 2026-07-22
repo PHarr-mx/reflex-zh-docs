@@ -1,10 +1,10 @@
-# Theming
+# 主题（Theming）
 
-You can customize the appearance of the Flow component using CSS. The Flow component comes with a default theme, which you can override with your own styles.
+你可以使用 CSS 自定义流程图（Flow）组件的外观。流程图组件自带一个默认主题，你可以用自己的样式覆盖它。
 
-## CSS Variables
+## CSS 变量
 
-The Flow component uses CSS variables for theming. You can override these variables to change the appearance of the flow. Here are some of the most common variables:
+流程图组件使用 CSS 变量进行主题设置。你可以覆盖这些变量来改变流程图的外观。以下是一些最常见的变量：
 
 ```css
 .react-flow {
@@ -19,9 +19,9 @@ The Flow component uses CSS variables for theming. You can override these variab
 }
 ```
 
-## Custom Stylesheets
+## 自定义样式表
 
-You can add custom stylesheets to your app to override the default styles. To do this, add the `stylesheets` prop to your `rxe.App` or `rx.App` instance:
+你可以向应用添加自定义样式表来覆盖默认样式。为此，请向你的 `rxe.App` 或 `rx.App` 实例添加 `stylesheets` 属性：
 
 ```python
 app = rxe.App(
@@ -31,15 +31,15 @@ app = rxe.App(
 )
 ```
 
-Then, create a file `assets/css/my-custom-styles.css` in your project and add your custom styles there.
+然后，在你的项目中创建一个文件 `assets/css/my-custom-styles.css`，并在其中添加你的自定义样式。
 
-## Customizing Node and Edge Styles
+## 自定义节点和边的样式
 
-You can also apply custom styles to individual nodes and edges using the `style` and `className` props.
+你还可以使用 `style` 和 `className` 属性为单个节点和边应用自定义样式。
 
-### Using the style prop
+### 使用 style 属性
 
-You can pass a style dictionary to the `style` prop of a node or edge:
+你可以向节点或边的 `style` 属性传递一个样式字典：
 
 ```python
 node = {
@@ -50,12 +50,12 @@ node = {
 }
 ```
 
-### Using the className prop
+### 使用 className 属性
 
-You can also pass a class name to the `className` prop and define the styles in your CSS file:
+你还可以向 `className` 属性传递一个类名，并在你的 CSS 文件中定义样式：
 
 ```python
-# In your python code
+# 在你的 Python 代码中
 node = {
     "id": "1",
     "position": {"x": 100, "y": 100},
@@ -65,7 +65,7 @@ node = {
 ```
 
 ```css
-/* In your CSS file */
+/* 在你的 CSS 文件中 */
 .my-custom-node {
     background-color: #ffcc00;
     border: 2px solid #ff9900;

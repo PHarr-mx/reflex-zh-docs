@@ -115,13 +115,13 @@ FormMessage: |
 import reflex as rx
 ```
 
-# Form
+# 表单（Form）
 
-Forms are used to collect user input. The `rx.form` component is used to group inputs and submit them together.
+表单（Form）用于收集用户输入。`rx.form` 组件用于将输入控件组合在一起并一起提交。
 
-The form component's children can be form controls such as `rx.input`, `rx.checkbox`, `rx.slider`, `rx.text_area`, `rx.radio_group`, `rx.select` or `rx.switch`. The controls should have a `name` attribute that is used to identify the control in the form data. The `on_submit` event trigger submits the form data as a dictionary to the `handle_submit` event handler.
+表单组件的子元素可以是表单控件，如 `rx.input`、`rx.checkbox`、`rx.slider`、`rx.text_area`、`rx.radio_group`、`rx.select` 或 `rx.switch`。控件应该有一个 `name` 属性，用于在表单数据中标识该控件。`on_submit` 事件触发器将表单数据作为字典提交给 `handle_submit` 事件处理函数。
 
-The form is submitted when the user clicks the submit button or presses enter on the form controls.
+当用户点击提交按钮或在表单控件上按下回车键时，表单会被提交。
 
 ```python demo exec
 class FormState(rx.State):
@@ -129,7 +129,7 @@ class FormState(rx.State):
 
     @rx.event
     def handle_submit(self, form_data: dict):
-        """Handle the form submit."""
+        """处理表单提交。"""
         self.form_data = form_data
 
 
@@ -155,34 +155,26 @@ def form_example():
 ```
 
 ```md alert warning
-# When using the form you must include a button or input with `type='submit'`.
+# 使用表单时，必须包含一个带有 `type='submit'` 的按钮或输入框。
 ```
 
 ```md alert info
-# Using `name` vs `id`.
+# 使用 `name` 还是 `id`。
 
-When using the `name` attribute in form controls like `rx.switch`, `rx.radio_group`, and `rx.checkbox`, these controls will only be included in the form data if their values are set (e.g., if the checkbox is checked, the switch is toggled, or a radio option is selected).
+在 `rx.switch`、`rx.radio_group` 和 `rx.checkbox` 等表单控件中使用 `name` 属性时，这些控件只有在设置了值的情况下才会包含在表单数据中（例如，复选框被选中、开关被切换、或选择了某个单选项）。
 
-If you need these controls to be passed in the form data even when their values are not set, you can use the `id` attribute instead of name. The id attribute ensures that the control is always included in the submitted form data, regardless of whether its value is set or not.
+如果你需要这些控件即使在未设置值的情况下也包含在表单数据中，可以使用 `id` 属性代替 name。id 属性确保控件始终包含在提交的表单数据中，无论其值是否已设置。
 ```
 
-```md video https://youtube.com/embed/ITOZkzjtjUA?start=5287&end=6040
-# Video: Forms
+```md video https://youtube.com/embed/ITOZKzjtjUA?start=5287&end=6040
+# 视频：表单
 ```
 
-## Validating Form Data with a TypedDict
+## 使用 TypedDict 验证表单数据
 
-The `on_submit` handler usually receives the form data as a plain `dict`, which
-means accessing a field is untyped (`form_data["email"]` returns `Any`) and a
-typo in a `name` goes unnoticed until runtime.
+`on_submit` 处理函数通常以普通 `dict` 的形式接收表单数据，这意味着访问字段时没有类型信息（`form_data["email"]` 返回 `Any`），而且 `name` 中的拼写错误直到运行时才会被发现。
 
-Instead, you can annotate the handler's parameter with a
-[`TypedDict`](https://docs.python.org/3/library/typing.html#typing.TypedDict).
-This gives you typed, autocompleted access to each field inside the handler, and
-Reflex validates the form **at compile time**: every required key of the
-`TypedDict` must have a matching form control. If a required field has no
-control with that `name` (or `id`), Reflex raises an `EventHandlerValueError`
-before the app starts, pointing out exactly which fields are missing.
+作为替代，你可以使用 [`TypedDict`](https://docs.python.org/3/library/typing.html#typing.TypedDict) 来标注处理函数的参数。这样你可以在处理函数内部获得带类型提示和自动补全的字段访问，而且 Reflex 会在**编译时**验证表单：`TypedDict` 中的每个必需键都必须有对应的表单控件。如果某个必需字段没有对应 `name`（或 `id`）的控件，Reflex 会在应用启动前抛出 `EventHandlerValueError`，精确指出缺少哪些字段。
 
 ```python demo exec
 from typing import TypedDict
@@ -194,7 +186,7 @@ class ContactForm(TypedDict):
     first_name: str
     last_name: str
     email: str
-    message: NotRequired[str]  # optional field
+    message: NotRequired[str]  # 可选字段
 
 
 class TypedFormState(rx.State):
@@ -202,8 +194,8 @@ class TypedFormState(rx.State):
 
     @rx.event
     def handle_submit(self, form_data: ContactForm):
-        """Handle the form submit."""
-        # form_data is typed: editors autocomplete the keys below.
+        """处理表单提交。"""
+        # form_data 是有类型的：编辑器会自动补全下面的键。
         self.form_data = form_data
 
 
@@ -226,12 +218,9 @@ def typed_form_example():
     )
 ```
 
-### Required and optional fields
+### 必需字段和可选字段
 
-By default every key declared in a `TypedDict` is **required** and must be
-backed by a form control. Mark a field as optional with `NotRequired` (or by
-inheriting from a `total=False` base) so Reflex won't require a matching
-control:
+默认情况下，`TypedDict` 中声明的每个键都是**必需的**，必须有对应的表单控件。使用 `NotRequired`（或通过继承 `total=False` 的基类）将字段标记为可选，这样 Reflex 就不会要求对应的控件：
 
 ```python
 from typing import TypedDict
@@ -240,13 +229,12 @@ from typing_extensions import NotRequired
 
 
 class ContactForm(TypedDict):
-    name: str  # required: a control named "name" must exist
-    email: str  # required: a control named "email" must exist
-    message: NotRequired[str]  # optional: no control required
+    name: str  # 必需：必须存在名为 "name" 的控件
+    email: str  # 必需：必须存在名为 "email" 的控件
+    message: NotRequired[str]  # 可选：不需要对应的控件
 ```
 
-If a required field is missing, creating the form fails fast with a message that
-lists the expected, missing, and matching fields:
+如果缺少必需字段，创建表单时会立即失败，并显示一条消息列出预期的、缺少的和匹配的字段：
 
 ```python
 class SignupForm(TypedDict):
@@ -259,7 +247,7 @@ class SignupState(rx.State):
     def handle_submit(self, form_data: SignupForm): ...
 
 
-# Raises EventHandlerValueError: the form has no control named "email".
+# 抛出 EventHandlerValueError：表单没有名为 "email" 的控件。
 rx.form(
     rx.input(name="username"),
     rx.button("Submit", type="submit"),
@@ -268,22 +256,16 @@ rx.form(
 ```
 
 ```md alert info
-# When is validation skipped?
+# 什么时候会跳过验证？
 
-The check only runs when the form fields are statically known. It is
-automatically skipped when control `name`/`id` values are dynamic (for example,
-built with `rx.foreach`), or when the form has an `id` (since controls can be
-associated from elsewhere via the HTML `form` attribute). In those cases the
-`TypedDict` still provides typed access inside the handler. At runtime
-`form_data` is always a regular dictionary.
+该检查仅在表单字段是静态已知时运行。当控件的 `name`/`id` 值是动态的（例如，使用 `rx.foreach` 构建的），或者当表单有 `id` 时（因为控件可以通过 HTML `form` 属性从其他地方关联），检查会自动跳过。在这些情况下，`TypedDict` 仍然在处理函数内部提供类型化的访问。在运行时，`form_data` 始终是一个普通字典。
 ```
 
-## Dynamic Forms
+## 动态表单
 
-Forms can be dynamically created by iterating through state vars using `rx.foreach`.
+可以通过使用 `rx.foreach` 遍历状态变量来动态创建表单。
 
-This example allows the user to add new fields to the form prior to submit, and all
-fields will be included in the form data passed to the `handle_submit` function.
+此示例允许用户在提交前向表单添加新字段，所有字段都会包含在传递给 `handle_submit` 函数的表单数据中。
 
 ```python demo exec
 class DynamicFormState(rx.State):

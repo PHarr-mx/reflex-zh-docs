@@ -65,40 +65,40 @@ import random
 import reflex as rx
 ```
 
-# Select
+# 选择器（Select）
 
-A select component displays a dropdown list of options for the user to pick one from. It's one of the most common form controls in web applications, use it whenever you need a user to choose a single value from a predefined list and screen space is limited.
+选择器（Select）组件显示一个下拉选项列表，供用户从中选择一个。它是 Web 应用中最常见的表单控件之一，当你需要用户从预定义列表中选择单个值且屏幕空间有限时，就可以使用它。
 
-Reflex's `rx.select` is a fully-featured, accessible dropdown built on Radix UI primitives. It works with simple option lists or full state-bound bindings, supports form integration, keyboard navigation, and works out-of-the-box on desktop and mobile.
+Reflex 的 `rx.select` 是一个功能完备、具有无障碍支持的下拉组件，基于 Radix UI 原语构建。它适用于简单的选项列表或完整的状态绑定，支持表单集成、键盘导航，并且在桌面端和移动端开箱即用。
 
-## When to Use Select
+## 何时使用选择器
 
-Use `rx.select` when:
+在以下情况使用 `rx.select`：
 
-- You have more than five options and need to save vertical space
-- The user should choose exactly one option from a predefined list
-- You want a consistent dropdown that matches your app's theme
+- 你有超过五个选项且需要节省垂直空间
+- 用户应该从预定义列表中恰好选择一个选项
+- 你想要一个与应用主题一致的统一风格下拉框
 
-Consider alternatives when:
+在以下情况考虑替代方案：
 
-- You have fewer than five options → use [Radio Group](/docs/library/forms/radio-group) for better visibility
-- Users need to select multiple values → use [Checkbox](/docs/library/forms/checkbox) groups or a multi-select pattern
-- Users should type a value rather than choose one → use [Input](/docs/library/forms/input)
-- You need hierarchical or searchable options → use the [low-level Select API](/docs/library/forms/select/low) with custom content
+- 你只有不到五个选项 → 使用[单选组](/docs/library/forms/radio-group)以获得更好的可见性
+- 用户需要选择多个值 → 使用[复选框](/docs/library/forms/checkbox)组或多选模式
+- 用户应该输入值而不是选择 → 使用[输入框](/docs/library/forms/input)
+- 你需要分层或可搜索的选项 → 使用带有自定义内容的[底层 Select API](/docs/library/forms/select/low)
 
-## Basic Usage
+## 基本用法
 
-At its simplest, pass a list of string options. The component renders a dropdown button that opens a menu of choices.
+最简单的用法是传入一个字符串选项列表。组件会渲染一个下拉按钮，点击后打开选项菜单。
 
 ```python demo
 rx.select(["apple", "grape", "pear"])
 ```
 
-The user can click the trigger button to open the dropdown and choose a different option.
+用户可以点击触发按钮打开下拉框并选择不同的选项。
 
-## Tracking the Selected Value
+## 跟踪选中的值
 
-In most real apps, you need to react when the user selects a value, to filter data, update a chart, save to a database, or trigger another event. Bind the select to a [State](/docs/state/overview) var using the `value` prop and an `on_change` event handler.
+在大多数实际应用中，你需要在用户选择值时做出响应——过滤数据、更新图表、保存到数据库或触发其他事件。使用 `value` 属性和 `on_change` 事件处理函数将选择器绑定到[状态](/docs/state/overview)变量。
 
 ```python demo exec
 class SelectState(rx.State):
@@ -123,11 +123,11 @@ def select_with_state():
     )
 ```
 
-This is the most common pattern. Because the select is bound to a state var, the value always reflects what's stored there, you can update it from anywhere in your app, and the select will re-render automatically.
+这是最常见的模式。因为选择器绑定到了状态变量，所以值始终反映其中存储的内容，你可以从应用的任何位置更新它，选择器会自动重新渲染。
 
-## Setting a Default Value
+## 设置默认值
 
-If you just need the select to start with a specific option chosen, without tracking the user's choice in state, use `default_value`. This is the simplest pattern when you only care about the value at form submission time, or when you don't need the selected value to affect anything else in your app.
+如果你只需要选择器以特定选项开始，而不需要在状态中跟踪用户的选择，使用 `default_value`。当你只关心表单提交时的值，或者不需要选中的值影响应用中的其他内容时，这是最简单的模式。
 
 ```python demo
 rx.select(
@@ -136,9 +136,9 @@ rx.select(
 )
 ```
 
-## Placeholder Text
+## 占位文本
 
-When you want the select to start empty, prompting the user to make a choice, omit `default_value` and provide a `placeholder`.
+当你想让选择器初始为空，提示用户做出选择时，省略 `default_value` 并提供 `placeholder`。
 
 ```python demo
 rx.select(
@@ -147,9 +147,9 @@ rx.select(
 )
 ```
 
-## Dynamic Options from State
+## 从状态动态获取选项
 
-Real applications rarely have hardcoded options. More often, options come from a database, API, or calculated from other state. Pass a state var as the options list, and the dropdown updates whenever the list changes.
+实际应用很少有硬编码的选项。更常见的是，选项来自数据库、API 或从其他状态计算得出。将状态变量作为选项列表传入，当列表变化时下拉框会自动更新。
 
 ```python demo exec
 class SelectStateDynamic(rx.State):
@@ -188,9 +188,9 @@ def select_dynamic():
     )
 ```
 
-## Disabled State
+## 禁用状态
 
-To prevent user interaction, set `disabled=True`. The select renders with a muted appearance and cannot be opened.
+要阻止用户交互，设置 `disabled=True`。选择器会以灰色外观渲染且无法打开。
 
 ```python demo
 rx.select(
@@ -200,11 +200,11 @@ rx.select(
 )
 ```
 
-To disable individual items rather than the whole select, use the [low-level API](/docs/library/forms/select/low) and set `disabled=True` on specific `rx.select.item` components.
+要禁用单个选项而不是整个选择器，使用[底层 API](/docs/library/forms/select/low) 并在特定的 `rx.select.item` 组件上设置 `disabled=True`。
 
-## Using Select in a Form
+## 在表单中使用选择器
 
-Select components integrate cleanly with Reflex forms. The `name` prop sets the key used when the form is submitted, and `required=True` prevents submission until the user makes a choice.
+选择器组件与 Reflex 表单无缝集成。`name` 属性设置表单提交时使用的键，`required=True` 阻止用户在做出选择之前提交。
 
 ```python demo exec
 class SelectFormState(rx.State):
@@ -254,11 +254,11 @@ def select_form():
     )
 ```
 
-For full details on building forms, validation, and submission handling, see the [Form documentation](/docs/library/forms/form).
+有关构建表单、验证和提交处理的完整详细信息，请参阅[表单文档](/docs/library/forms/form)。
 
-## Mapping Display Labels to Underlying Values
+## 将显示标签映射到底层值
 
-When your options have separate display labels and underlying values (e.g., a user ID for the value, a name for the label), use a [computed var](/docs/vars/computed-vars) to map between them.
+当你的选项有单独的显示标签和底层值时（例如，值为用户 ID，标签为名称），使用[计算变量](/docs/vars/computed-vars)在它们之间进行映射。
 
 ```python demo exec
 class SelectDictState(rx.State):
@@ -298,11 +298,11 @@ def select_dict_example():
     )
 ```
 
-For native label/value separation in the dropdown itself, use the [low-level Select API](/docs/library/forms/select/low) and pass `value=` and a display label child to each `rx.select.item`.
+要在下拉框本身中原生支持标签/值分离，使用[底层 Select API](/docs/library/forms/select/low) 并向每个 `rx.select.item` 传入 `value=` 和显示标签子元素。
 
-## Using Select Inside a Dialog
+## 在对话框中使用选择器
 
-When placing a select inside a [Dialog](/docs/library/overlay/dialog) or other portal-based container, set `position="popper"` on the select so the dropdown menu positions itself correctly above the overlay content.
+当将选择器放置在[对话框](/docs/library/overlay/dialog)或其他基于 portal 的容器中时，在选择器上设置 `position="popper"`，使下拉菜单正确定位在覆盖层内容之上。
 
 ```python demo
 rx.dialog.root(
@@ -322,11 +322,11 @@ rx.dialog.root(
 )
 ```
 
-## React to Open and Close Events
+## 响应打开和关闭事件
 
-Beyond `on_change`, the `on_open_change` event fires when the dropdown opens or closes. Use this to trigger analytics, prefetch data, or animate related UI.
+除了 `on_change` 之外，`on_open_change` 事件会在下拉框打开或关闭时触发。使用它来触发分析、预取数据或为相关 UI 添加动画。
 
-The example below uses [rx.cond](/docs/library/dynamic-rendering/cond) to swap between two badges based on whether the dropdown is open.
+下面的示例使用 [rx.cond](/docs/library/dynamic-rendering/cond) 根据下拉框是否打开来切换两个徽章。
 
 ```python demo exec
 class SelectOpenState(rx.State):
@@ -357,11 +357,11 @@ def select_open_change():
     )
 ```
 
-## Common Patterns
+## 常见模式
 
-### Filtering a List Based on Selection
+### 根据选择过滤列表
 
-A classic use case, the select controls what data is displayed elsewhere on the page.
+一个经典用例——选择器控制页面其他位置显示的数据。
 
 ```python demo exec
 class FilterState(rx.State):
@@ -400,9 +400,9 @@ def select_filter():
     )
 ```
 
-### Cascading Selects
+### 级联选择器
 
-When one select's options depend on another's value, a common pattern for country/state, category/subcategory, etc.
+当一个选择器的选项取决于另一个选择器的值时——这是国家/省份、类别/子类别等的常见模式。
 
 ```python demo exec
 class CascadeState(rx.State):
@@ -451,61 +451,61 @@ def select_cascade():
 
 <!-- faqs-start -->
 
-## Frequently Asked Questions
+## 常见问题
 
-### What is the best alternative to st.selectbox?
+### st.selectbox 的最佳替代方案是什么？
 
-For prototypes and quick data scripts, `st.selectbox` is fine. But for production apps, you need a dropdown component that doesn't trigger a full-page rerun on every interaction. `rx.select` is the most direct replacement, same API simplicity, but built on Radix UI as a real React component bound to Python state. It supports proper form integration, keyboard navigation, and accessibility out of the box, and works in apps with authentication, routing, and complex state.
+对于原型和快速数据脚本，`st.selectbox` 就够用了。但对于生产应用，你需要一个不会在每次交互时触发全页重新运行的下拉组件。`rx.select` 是最直接的替代方案——同样简单的 API，但基于 Radix UI 构建为真正的 React 组件，绑定到 Python 状态。它开箱即用地支持表单集成、键盘导航和无障碍访问，并且适用于带有认证、路由和复杂状态的应用。
 
-### How do you make a dropdown menu in Python without writing JavaScript?
+### 如何在不编写 JavaScript 的情况下用 Python 创建下拉菜单？
 
-Use `rx.select(["option_1", "option_2", "option_3"])`. That's the full code for a working dropdown, Reflex compiles your Python to a React app, so the menu renders as a styled, accessible web component without you writing any JavaScript, HTML, or CSS. For interactive dropdowns bound to your app state, add `value=` and `on_change=` props pointing to a state var and event handler.
+使用 `rx.select(["option_1", "option_2", "option_3"])`。这就是一个完整可用的下拉菜单的全部代码——Reflex 将你的 Python 编译为 React 应用，因此菜单会渲染为带样式的、具有无障碍支持的 Web 组件，无需你编写任何 JavaScript、HTML 或 CSS。对于绑定到应用状态的交互式下拉框，添加指向状态变量和事件处理函数的 `value=` 和 `on_change=` 属性。
 
-### How do you replace dcc.Dropdown with a simpler API?
+### 如何用更简单的 API 替换 dcc.Dropdown？
 
-Plotly Dash's `dcc.Dropdown` works but requires the callback decorator pattern, every interaction needs a `@app.callback` with explicit inputs and outputs. `rx.select` does the same job with standard Python event handlers: define a method on your state class, pass it to `on_change=`, and Reflex handles the wiring. Migration is usually mechanical: replace `dcc.Dropdown(options=..., value=..., id=...)` with `rx.select(options, value=State.value, on_change=State.set_value)` and delete the `@app.callback` decorators.
+Plotly Dash 的 `dcc.Dropdown` 可以用，但需要回调装饰器模式——每次交互都需要一个带有显式输入和输出的 `@app.callback`。`rx.select` 用标准的 Python 事件处理函数完成同样的工作：在状态类上定义一个方法，将其传递给 `on_change=`，Reflex 会处理连接。迁移通常是机械性的：将 `dcc.Dropdown(options=..., value=..., id=...)` 替换为 `rx.select(options, value=State.value, on_change=State.set_value)` 并删除 `@app.callback` 装饰器。
 
-### Why does my Streamlit selectbox cause the whole page to rerun?
+### 为什么我的 Streamlit selectbox 会导致整个页面重新运行？
 
-Because that's how Streamlit works by default, every widget interaction reruns your entire script from the top. This is fine for small scripts but becomes a performance problem as your app grows. The alternatives are: use `st.cache_data` and `st.session_state` aggressively to limit recomputation, switch to fragments (`@st.fragment`) for isolated reruns, or move to a framework like Reflex where state updates trigger granular re-renders instead of full reruns. Reflex's `rx.select` only updates the UI elements that actually depend on the selected value.
+因为这就是 Streamlit 的默认工作方式——每次组件交互都会从头重新运行整个脚本。这对小脚本没问题，但随着应用增长会成为性能问题。替代方案有：积极使用 `st.cache_data` 和 `st.session_state` 来限制重新计算，切换到 fragments（`@st.fragment`）进行隔离的重新运行，或者迁移到像 Reflex 这样的框架，其中状态更新触发细粒度的重新渲染而不是完全重新运行。Reflex 的 `rx.select` 只更新实际依赖于选中值的 UI 元素。
 
-### What dropdown component works best for production Python web apps?
+### 哪个下拉组件最适合生产环境的 Python Web 应用？
 
-For prototypes, `st.selectbox` (Streamlit), `gr.Dropdown` (Gradio), and `dcc.Dropdown` (Plotly Dash) all work fine. For production apps with auth, routing, and complex state, `rx.select` (Reflex) is purpose-built, it's a real React component under the hood, supports proper form integration, and doesn't suffer from the full-page rerun problem that limits Streamlit at scale. The choice often comes down to whether you're building a quick demo or a real product.
+对于原型，`st.selectbox`（Streamlit）、`gr.Dropdown`（Gradio）和 `dcc.Dropdown`（Plotly Dash）都可以。对于带有认证、路由和复杂状态的生产应用，`rx.select`（Reflex）是专门为此构建的——底层是真正的 React 组件，支持完整的表单集成，并且不会受到限制 Streamlit 大规模使用的全页重新运行问题的影响。选择通常取决于你是在构建快速演示还是真正的产品。
 
-### How do you build a dropdown that filters a table of data?
+### 如何构建一个过滤数据表的下拉框？
 
-Bind the dropdown to a state variable, then derive the filtered data using a computed property. In Reflex: `rx.select(categories, value=State.selected, on_change=State.set_selected)` paired with a `@rx.var filtered_rows(self) -> list: return [r for r in self.all_rows if r.category == self.selected]`. The pattern is essentially the same in Streamlit, Dash, and Gradio, but Reflex's version only re-renders the table, not the entire page.
+将下拉框绑定到状态变量，然后使用计算属性派生过滤后的数据。在 Reflex 中：`rx.select(categories, value=State.selected, on_change=State.set_selected)` 配合 `@rx.var filtered_rows(self) -> list: return [r for r in self.all_rows if r.category == self.selected]`。这个模式在 Streamlit、Dash 和 Gradio 中基本相同，但 Reflex 的版本只重新渲染表格，而不是整个页面。
 
-### What's a good Retool alternative for building admin panels with dropdowns?
+### 有什么好的 Retool 替代方案来构建带下拉框的管理面板？
 
-Reflex is the most popular open-source alternative to Retool for building internal tools and admin panels. Unlike Retool, which is a hosted low-code platform with seat-based pricing, Reflex is open source, self-hostable, and lets you build everything in Python, including dropdowns (`rx.select`), tables, forms, and complete CRUD workflows. You get the same component-based UX as Retool, but with full code ownership and no per-user fees.
+Reflex 是构建内部工具和管理面板最流行的开源 Retool 替代方案。与 Retool 不同——Retool 是一个基于席位定价的托管低代码平台——Reflex 是开源的、可自托管的，让你用 Python 构建一切，包括下拉框（`rx.select`）、表格、表单和完整的 CRUD 工作流。你获得与 Retool 相同的基于组件的用户体验，但拥有完整的代码所有权且没有按用户收费。
 
-### How do you populate a dropdown from a database in Python?
+### 如何在 Python 中从数据库填充下拉框？
 
-Load the values into a state variable when the page loads, then pass the variable as the options list. In a Reflex app: define `options: list[str] = []` on a State class, populate it in an `on_mount` handler that queries your database, and pass `State.options` to `rx.select`. The dropdown updates automatically whenever the underlying data changes. The same pattern works with any database, SQLAlchemy, raw SQL, an ORM, or an API call.
+在页面加载时将值加载到状态变量中，然后将该变量作为选项列表传入。在 Reflex 应用中：在 State 类上定义 `options: list[str] = []`，在查询数据库的 `on_mount` 处理函数中填充它，然后将 `State.options` 传递给 `rx.select`。当底层数据变化时，下拉框会自动更新。同样的模式适用于任何数据库——SQLAlchemy、原始 SQL、ORM 或 API 调用。
 
-### How do you build a dropdown with searchable or filterable options?
+### 如何构建带有可搜索或可过滤选项的下拉框？
 
-Native `<select>` elements don't support search. For a searchable dropdown, sometimes called a combobox or typeahead, you need a custom implementation. In Reflex, this is done via the low-level Select API combined with an input field that filters the options list. Streamlit's `st.selectbox` added basic search behavior, and Dash has `dcc.Dropdown(searchable=True)`, but both are limited in customization compared to building it yourself with composable primitives.
+原生 `<select>` 元素不支持搜索。对于可搜索的下拉框——有时称为组合框（combobox）或自动补全（typeahead）——你需要自定义实现。在 Reflex 中，这通过底层 Select API 结合一个过滤选项列表的输入框来完成。Streamlit 的 `st.selectbox` 添加了基本的搜索行为，Dash 有 `dcc.Dropdown(searchable=True)`，但与使用可组合原语自己构建相比，两者在自定义方面都有限制。
 
-### What's the difference between a dropdown and a multiselect?
+### 下拉框和多选框有什么区别？
 
-A dropdown (or single-select) lets the user pick one option. A multiselect lets them pick several. In native HTML these are different elements (`<select>` vs `<select multiple>`). In Python frameworks: Streamlit uses `st.selectbox` and `st.multiselect`, Dash uses `dcc.Dropdown(multi=True)`, and Reflex uses `rx.select` for single and `rxe.mantine.multi_select` (Reflex Enterprise) for multi. Choose based on whether your data model allows one or many values per field.
+下拉框（或单选）让用户选择一个选项。多选框让他们选择多个。在原生 HTML 中这些是不同的元素（`<select>` 与 `<select multiple>`）。在 Python 框架中：Streamlit 使用 `st.selectbox` 和 `st.multiselect`，Dash 使用 `dcc.Dropdown(multi=True)`，Reflex 使用 `rx.select` 进行单选，使用 `rxe.mantine.multi_select`（Reflex Enterprise）进行多选。根据你的数据模型是否允许每个字段有一个或多个值来选择。
 
 <!-- faqs-end -->
 
-## Related Components
+## 相关组件
 
-- [Radio Group](/docs/library/forms/radio-group) - inline single-selection for fewer than 5 options
-- [Checkbox](/docs/library/forms/checkbox) - single or multi-selection with visible state
-- [Form](/docs/library/forms/form) - grouping selects with other inputs for submission
-- [Dialog](/docs/library/overlay/dialog) - modal dialogs that can contain selects
-- [Low-level Select API](/docs/library/forms/select/low) - fine-grained control over trigger, content, and items
+- [单选组](/docs/library/forms/radio-group) - 少于 5 个选项时的内联单选
+- [复选框](/docs/library/forms/checkbox) - 具有可见状态的单选或多选
+- [表单](/docs/library/forms/form) - 将选择器与其他输入组合在一起提交
+- [对话框](/docs/library/overlay/dialog) - 可以包含选择器的模态对话框
+- [底层 Select API](/docs/library/forms/select/low) - 对触发器、内容和选项的细粒度控制
 
-## Related Concepts
+## 相关概念
 
-- [State Management](/docs/state/overview) - how Reflex components track and update values
-- [Event Handlers](/docs/events/events-overview) - understanding `on_change`, `on_open_change`, and related triggers
-- [Forms and Validation](/docs/library/forms/form) - building complete forms with typed, validated inputs
-- [Computed Vars](/docs/vars/computed-vars) - deriving values from state for dynamic options and lookups
+- [状态管理](/docs/state/overview) - Reflex 组件如何跟踪和更新值
+- [事件处理函数](/docs/events/events-overview) - 理解 `on_change`、`on_open_change` 和相关触发器
+- [表单和验证](/docs/library/forms/form) - 构建带有类型化、验证输入的完整表单
+- [计算变量](/docs/vars/computed-vars) - 从状态派生值用于动态选项和查找

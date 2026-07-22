@@ -39,13 +39,13 @@ AccordionItem: |
 import reflex as rx
 ```
 
-# Accordion
+# 手风琴（Accordion）
 
-An accordion is a vertically stacked set of interactive headings that each reveal an associated section of content.
-The accordion component is made up of `accordion`, which is the root of the component and takes in an `accordion.item`,
-which contains all the contents of the collapsible section.
+手风琴（Accordion）是一组垂直堆叠的交互式标题，每个标题展开后会显示相关的内容区域。
+手风琴组件由 `accordion` 组成，它是组件的根节点，接受 `accordion.item`，
+其中包含可折叠区域的所有内容。
 
-## Basic Example
+## 基本示例
 
 ```python demo
 rx.accordion.root(
@@ -63,12 +63,12 @@ rx.accordion.root(
 )
 ```
 
-## Styling
+## 样式
 
-### Type
+### 类型
 
-We use the `type` prop to determine whether multiple items can be opened at once. The allowed values for this prop are
-`single` and `multiple` where `single` will only open one item at a time. The default value for this prop is `single`.
+我们使用 `type` 属性来确定是否可以同时打开多个项目。该属性允许的值为
+`single` 和 `multiple`，其中 `single` 一次只能打开一个项目。该属性的默认值为 `single`。
 
 ```python demo
 rx.accordion.root(
@@ -88,10 +88,10 @@ rx.accordion.root(
 )
 ```
 
-### Default Value
+### 默认值
 
-We use the `default_value` prop to specify which item should open by default. The value for this prop should be any of the
-unique values set by an `accordion.item`.
+我们使用 `default_value` 属性来指定默认打开哪个项目。该属性的值应为
+`accordion.item` 设置的任意唯一值。
 
 ```python demo
 rx.flex(
@@ -119,9 +119,9 @@ rx.flex(
 )
 ```
 
-### Collapsible
+### 可折叠
 
-We use the `collapsible` prop to allow all items to close. If set to `False`, an opened item cannot be closed.
+我们使用 `collapsible` 属性来允许所有项目关闭。如果设置为 `False`，已打开的项目将无法关闭。
 
 ```python demo
 rx.flex(
@@ -156,9 +156,9 @@ rx.flex(
 )
 ```
 
-### Disable
+### 禁用
 
-We use the `disabled` prop to prevent interaction with the accordion and all its items.
+我们使用 `disabled` 属性来禁止与手风琴及其所有项目的交互。
 
 ```python demo
 rx.accordion.root(
@@ -177,12 +177,12 @@ rx.accordion.root(
 )
 ```
 
-### Orientation
+### 方向
 
-We use `orientation` prop to set the orientation of the accordion to `vertical` or `horizontal`. By default, the orientation
-will be set to `vertical`. Note that, the orientation prop won't change the visual orientation but the
-functional orientation of the accordion. This means that for vertical orientation, the up and down arrow keys moves focus between the next or previous item,
-while for horizontal orientation, the left or right arrow keys moves focus between items.
+我们使用 `orientation` 属性将手风琴的方向设置为 `vertical` 或 `horizontal`。默认情况下，方向
+设置为 `vertical`。请注意，orientation 属性不会改变视觉方向，而是改变
+手风琴的功能方向。这意味着对于垂直方向，上和下方向键在下一个或上一个项目之间移动焦点，
+而对于水平方向，左或右方向键在项目之间移动焦点。
 
 ```python demo
 rx.accordion.root(
@@ -220,7 +220,7 @@ rx.accordion.root(
 )
 ```
 
-### Variant
+### 变体
 
 ```python demo
 rx.flex(
@@ -299,9 +299,9 @@ rx.flex(
 )
 ```
 
-### Color Scheme
+### 配色方案
 
-We use the `color_scheme` prop to assign a specific color to the accordion background, ignoring the global theme.
+我们使用 `color_scheme` 属性为手风琴背景分配特定颜色，忽略全局主题。
 
 ```python demo
 rx.flex(
@@ -340,10 +340,10 @@ rx.flex(
 )
 ```
 
-### Value
+### 值
 
-We use the `value` prop to specify the controlled value of the accordion item that we want to activate.
-This property should be used in conjunction with the `on_value_change` event argument.
+我们使用 `value` 属性来指定要激活的手风琴项目的受控值。
+此属性应与 `on_value_change` 事件参数配合使用。
 
 ```python demo exec
 class AccordionState(rx.State):
@@ -395,11 +395,11 @@ def index() -> rx.Component:
 
 ## AccordionItem
 
-The accordion item contains all the parts of a collapsible section.
+手风琴项目包含可折叠区域的所有部分。
 
-## Styling
+## 样式
 
-### Value
+### 值
 
 ```python demo
 rx.accordion.root(
@@ -423,7 +423,7 @@ rx.accordion.root(
 )
 ```
 
-### Disable
+### 禁用
 
 ```python demo
 rx.accordion.root(

@@ -2,9 +2,9 @@
 title: Autocomplete
 ---
 
-# Autocomplete component
+# Autocomplete 组件
 
-`rxe.mantine.autocomplete` is a component for providing suggestions as the user types. It is useful for enhancing user experience by offering relevant options based on input.
+`rxe.mantine.autocomplete` 是一个在用户输入时提供建议的组件。它通过根据输入提供相关选项来增强用户体验。
 
 ```python demo exec
 import reflex as rx

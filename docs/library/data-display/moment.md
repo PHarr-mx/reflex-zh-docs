@@ -3,25 +3,22 @@ components:
   - rx.moment
 ---
 
-# Moment
+# 时间显示（Moment）
 
-Displaying date and relative time to now sometimes can be more complicated than necessary.
+显示日期和相对时间有时可能比必要的更加复杂。
 
-To make it easy, Reflex is wrapping [react-moment](https://www.npmjs.com/package/react-moment) under `rx.moment`.
+为了简化这一过程，Reflex 将 [react-moment](https://www.npmjs.com/package/react-moment) 封装为 `rx.moment`。
 
 ```python exec
 import reflex as rx
 from reflex.utils.serializers import serialize_datetime
 ```
 
-## Examples
+## 示例
 
-Using a date from a state var as a value, we will display it in a few different
-way using `rx.moment`.
+使用状态变量中的日期作为值，我们将通过 `rx.moment` 以几种不同的方式显示它。
 
-The `date_now` state var is initialized when the site was deployed. The
-button below can be used to update the var to the current datetime, which will
-be reflected in the subsequent examples.
+`date_now` 状态变量在站点部署时初始化。下方的按钮可用于将该变量更新为当前日期时间，更新后会反映在后续的示例中。
 
 ```python demo exec
 from datetime import datetime, timezone
@@ -41,15 +38,15 @@ def moment_update_example():
     )
 ```
 
-### Display the date as-is:
+### 原样显示日期：
 
 ```python demo
 rx.moment(MomentState.date_now)
 ```
 
-### Humanized interval
+### 人性化时间间隔
 
-Sometimes we don't want to display just a raw date, but we want something more instinctive to read. That's when we can use `from_now` and `to_now`.
+有时我们不想只显示原始日期，而是想要更直观的显示方式。这时我们可以使用 `from_now` 和 `to_now`。
 
 ```python demo
 rx.moment(MomentState.date_now, from_now=True)
@@ -59,15 +56,15 @@ rx.moment(MomentState.date_now, from_now=True)
 rx.moment(MomentState.date_now, to_now=True)
 ```
 
-You can also set a duration (in milliseconds) with `from_now_during` where the date will display as relative, then after that, it will be displayed as defined in `format`.
+你还可以使用 `from_now_during` 设置一个持续时间（以毫秒为单位），在此期间日期将以相对时间显示，之后将按照 `format` 中定义的格式显示。
 
 ```python demo
 rx.moment(
     MomentState.date_now, from_now_during=100000
-)  # after 100 seconds, date will display normally
+)  # 100 秒后，日期将正常显示
 ```
 
-### Formatting dates
+### 格式化日期
 
 ```python demo
 rx.moment(MomentState.date_now, format="YYYY-MM-DD")
@@ -77,11 +74,11 @@ rx.moment(MomentState.date_now, format="YYYY-MM-DD")
 rx.moment(MomentState.date_now, format="HH:mm:ss")
 ```
 
-### Offset Date
+### 日期偏移
 
-With the props `add` and `subtract`, you can pass an `rx.MomentDelta` object to modify the displayed date without affecting the stored date in your state.
+通过 `add` 和 `subtract` 属性，你可以传入一个 `rx.MomentDelta` 对象来修改显示的日期，而不会影响状态中存储的日期。
 
-#### Add
+#### 增加
 
 ```python demo
 rx.vstack(
@@ -126,7 +123,7 @@ rx.vstack(
 )
 ```
 
-#### Subtract
+#### 减少
 
 ```python demo
 rx.vstack(
@@ -173,9 +170,9 @@ rx.vstack(
 )
 ```
 
-### Timezones
+### 时区
 
-You can also set dates to display in a specific timezone:
+你还可以设置日期在特定时区中显示：
 
 ```python demo
 rx.vstack(
@@ -185,17 +182,17 @@ rx.vstack(
 )
 ```
 
-### Client-side periodic update
+### 客户端定期更新
 
-If a date is not passed to `rx.moment`, it will use the client's current time.
+如果没有向 `rx.moment` 传入日期，它将使用客户端的当前时间。
 
-If you want to update the date every second, you can use the `interval` prop.
+如果你想每秒更新日期，可以使用 `interval` 属性。
 
 ```python demo
 rx.moment(interval=1000, format="HH:mm:ss")
 ```
 
-Even better, you can actually link an event handler to the `on_change` prop that will be called every time the date is updated:
+更好的是，你可以将事件处理程序绑定到 `on_change` 属性，每次日期更新时都会调用它：
 
 ```python demo exec
 class MomentLiveState(rx.State):

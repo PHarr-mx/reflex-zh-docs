@@ -32,7 +32,7 @@ DrawerRoot: |
 import reflex as rx
 ```
 
-# Drawer
+# Drawer（抽屉）
 
 ```python demo
 rx.drawer.root(
@@ -58,11 +58,11 @@ rx.drawer.root(
 )
 ```
 
-## Sidebar Menu with a Drawer and State
+## 使用 Drawer 和 State 创建侧边栏菜单
 
-This example shows how to create a sidebar menu with a drawer. The drawer is opened by clicking a button. The drawer contains links to different sections of the page. When a link is clicked the drawer closes and the page scrolls to the section.
+此示例展示了如何使用抽屉创建侧边栏菜单。点击按钮即可打开抽屉。抽屉包含指向页面不同部分的链接。点击链接时，抽屉会关闭，页面会滚动到对应的部分。
 
-The `rx.drawer.root` component has an `open` prop that is set by the state variable `is_open`. Setting the `modal` prop to `False` allows the user to interact with the rest of the page while the drawer is open and allows the page to be scrolled when a user clicks one of the links.
+`rx.drawer.root` 组件有一个 `open` prop，由状态变量 `is_open` 设置。将 `modal` prop 设置为 `False` 允许用户在抽屉打开时与页面的其余部分交互，并允许用户点击链接时滚动页面。
 
 ```python demo exec
 class DrawerState(rx.State):

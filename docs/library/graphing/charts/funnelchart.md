@@ -13,11 +13,11 @@ import random
 rx.toast.provider()
 ```
 
-# Funnel Chart
+# 漏斗图（Funnel Chart）
 
-Funnel charts in Reflex are built on [Recharts](https://recharts.org/), a React charting library, and created in pure Python. A funnel chart is a graphical representation used to visualize how data moves through a process. In a funnel chart, the dependent variable’s value diminishes in the subsequent stages of the process. It can be used to demonstrate the flow of users through a business or sales process.
+Reflex 中的漏斗图基于 [Recharts](https://recharts.org/)（一个 React 图表库）构建，使用纯 Python 创建。漏斗图是一种用于可视化数据在流程中如何移动的图形表示。在漏斗图中，因变量的值在后续阶段逐渐减小。它可以用来展示用户在业务或销售流程中的流转情况。
 
-## Simple Example
+## 简单示例
 
 ```python demo graphing
 data = [
@@ -46,9 +46,9 @@ def funnel_simple():
     )
 ```
 
-## Event Triggers
+## 事件触发器
 
-Funnel chart supports `on_click`, `on_mouse_enter`, `on_mouse_leave` and `on_mouse_move` event triggers, allows you to interact with the funnel chart and perform specific actions based on user interactions.
+漏斗图支持 `on_click`、`on_mouse_enter`、`on_mouse_leave` 和 `on_mouse_move` 事件触发器，允许你与漏斗图交互并根据用户操作执行特定动作。
 
 ```python demo graphing
 data = [
@@ -80,9 +80,9 @@ def funnel_events():
     )
 ```
 
-## Dynamic Data
+## 动态数据
 
-Here is an example of a funnel chart with a `State`. Here we have defined a function `randomize_data`, which randomly changes the data when the graph is clicked on using `on_click=FunnelState.randomize_data`.
+下面是一个使用 `State` 的漏斗图示例。我们定义了一个 `randomize_data` 函数，当使用 `on_click=FunnelState.randomize_data` 点击图表时，该函数会随机更改数据。
 
 ```python exec
 data = [
@@ -124,9 +124,9 @@ def funnel_state():
     )
 ```
 
-## Changing the Chart Animation
+## 更改图表动画
 
-The `is_animation_active` prop can be used to turn off the animation, but defaults to `True`. `animation_begin` sets the delay before animation starts, `animation_duration` determines how long the animation lasts, and `animation_easing` defines the speed curve of the animation for smooth transitions.
+`is_animation_active` 属性可用于关闭动画，但默认为 `True`。`animation_begin` 设置动画开始前的延迟，`animation_duration` 决定动画持续时间，`animation_easing` 定义动画的速度曲线以实现平滑过渡。
 
 ```python demo graphing
 data = [
@@ -153,10 +153,10 @@ def funnel_animation():
     )
 ```
 
-## Related Charts
+## 相关图表
 
-Explore more chart types you can build with Reflex and Recharts in pure Python:
+探索更多可以使用 Reflex 和 Recharts 以纯 Python 构建的图表类型：
 
-- [Pie Chart](/docs/library/graphing/charts/piechart)
-- [Bar Chart](/docs/library/graphing/charts/barchart)
-- [Composed Chart](/docs/library/graphing/charts/composedchart)
+- [饼图](/docs/library/graphing/charts/piechart)
+- [柱状图](/docs/library/graphing/charts/barchart)
+- [组合图](/docs/library/graphing/charts/composedchart)

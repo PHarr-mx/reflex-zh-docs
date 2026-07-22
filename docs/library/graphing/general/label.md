@@ -4,17 +4,17 @@ components:
   - rx.recharts.LabelList
 ---
 
-# Label
+# 标签（Label）
 
 ```python exec
 import reflex as rx
 ```
 
-Label is a component used to display a single label at a specific position within a chart or axis, while LabelList is a component that automatically renders a list of labels for each data point in a chart series, providing a convenient way to display multiple labels without manually positioning each one.
+Label 是一个用于在图表或坐标轴的特定位置显示单个标签的组件，而 LabelList 是一个自动为图表系列中的每个数据点渲染标签列表的组件，提供了一种便捷的方式来显示多个标签，无需手动定位每个标签。
 
-## Simple Example
+## 简单示例
 
-Here's a simple example that demonstrates how you can customize the label of your axis using `rx.recharts.label`. The `value` prop represents the actual text of the label, the `position` prop specifies where the label is positioned within the axis component, and the `offset` prop is used to fine-tune the label's position.
+以下是一个简单示例，演示如何使用 `rx.recharts.label` 自定义坐标轴的标签。`value` 属性表示标签的实际文本，`position` 属性指定标签在坐标轴组件中的位置，`offset` 属性用于微调标签的位置。
 
 ```python demo graphing
 data = [
@@ -66,9 +66,9 @@ def label_simple():
     )
 ```
 
-## Label List Example
+## 标签列表示例
 
-`rx.recharts.label_list` takes in a `data_key` where we define the data column to plot.
+`rx.recharts.label_list` 接收一个 `data_key`，用于定义要绘制的数据列。
 
 ```python demo graphing
 data = [

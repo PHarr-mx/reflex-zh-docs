@@ -6,15 +6,15 @@ meta_description: "Use AG Grid in Python with Reflex. Build interactive, enterpr
 
 # AG Grid
 
-AG Grid (also written **ag-grid** or **aggrid**) is a powerful, feature-rich React data grid, and Reflex lets you use it entirely in Python — no JavaScript required. It brings enterprise-grade table functionality to your Reflex applications: with support for sorting, filtering, pagination, row selection, pivoting, and much more, AG Grid transforms how you display and interact with tabular data, whether it comes from a pandas DataFrame or your app's state.
+AG Grid（也写作 **ag-grid** 或 **aggrid**）是一个功能强大的 React 数据网格（Data Grid），而 Reflex 让你可以完全用 Python 来使用它——无需 JavaScript。它将企业级表格功能引入你的 Reflex 应用：支持排序、筛选、分页、行选择、透视等功能，AG Grid 彻底改变了你展示和操作表格数据的方式，无论数据来自 pandas DataFrame 还是应用的状态（State）。
 
-[Explore the full AG Grid showcase and examples](https://aggrid.reflex.run/)
+[查看完整的 AG Grid 展示和示例](https://aggrid.reflex.run/)
 
-## Your First Reflex AG Grid
+## 你的第一个 Reflex AG Grid
 
-A basic Reflex AG Grid contains column definitions `column_defs`, which define the columns to be displayed in the grid, and `row_data`, which contains the data to be displayed in the grid.
+一个基本的 Reflex AG Grid 包含列定义（Column Definitions）`column_defs`（定义网格中要显示的列）和 `row_data`（包含要在网格中显示的数据）。
 
-Each grid also requires a unique `id`, which is needed to uniquely identify the Ag-Grid instance on the page. If you have multiple grids on the same page, each grid must have a unique `id` so that it can be correctly rendered and managed.
+每个网格还需要一个唯一的 `id`，用于唯一标识页面上的 Ag-Grid 实例。如果同一页面上有多个网格，每个网格必须有一个唯一的 `id`，以便正确渲染和管理。
 
 ```python demo exec
 import reflex as rx
@@ -40,9 +40,9 @@ def ag_grid_simple():
     )
 ```
 
-📊 **Dataset source:** [wind_dataset.csv](https://raw.githubusercontent.com/plotly/datasets/master/wind_dataset.csv)
+📊 **数据集来源：** [wind_dataset.csv](https://raw.githubusercontent.com/plotly/datasets/master/wind_dataset.csv)
 
-The format of the data passed to the `row_data` prop is a list of dictionaries. Each dictionary represents a row in the grid as seen below.
+传递给 `row_data` 属性的数据格式是一个字典列表。每个字典代表网格中的一行，如下所示。
 
 ```python
 [
@@ -52,7 +52,7 @@ The format of the data passed to the `row_data` prop is a list of dictionaries. 
 ]
 ```
 
-The previous example showed the `column_defs` written out in full. You can also extract the required information from the dataframe's column names:
+前面的示例展示了完整写出的 `column_defs`。你也可以从 DataFrame 的列名中提取所需信息：
 
 ```python demo exec
 import reflex as rx
@@ -72,11 +72,11 @@ def ag_grid_simple_2():
     )
 ```
 
-📊 **Dataset source:** [wind_dataset.csv](https://raw.githubusercontent.com/plotly/datasets/master/wind_dataset.csv)
+📊 **数据集来源：** [wind_dataset.csv](https://raw.githubusercontent.com/plotly/datasets/master/wind_dataset.csv)
 
-## Headers
+## 表头（Headers）
 
-In the above example, the first letter of the field names provided are capitalized when displaying the header name. You can customize the header names by providing a `header_name` key in the column definition. In this example, the `header_name` is customized for the second and third columns.
+在上面的示例中，提供的字段名的首字母在显示表头名称时会被大写。你可以通过在列定义中提供 `header_name` 键来自定义表头名称。在这个示例中，第二列和第三列的 `header_name` 被自定义了。
 
 ```python demo exec
 import reflex as rx
@@ -103,11 +103,11 @@ def ag_grid_simple_headers():
     )
 ```
 
-📊 **Dataset source:** [gapminder2007.csv](https://raw.githubusercontent.com/plotly/datasets/master/gapminder2007.csv)
+📊 **数据集来源：** [gapminder2007.csv](https://raw.githubusercontent.com/plotly/datasets/master/gapminder2007.csv)
 
-## Column Filtering
+## 列筛选（Column Filtering）
 
-Allow a user to filter a column by setting the `filter` key to `True` in the column definition. In this example we enable filtering for the first and last columns.
+通过在列定义中将 `filter` 键设置为 `True`，允许用户筛选某一列。在这个示例中，我们为第一列和最后一列启用了筛选。
 
 ```python demo exec
 import reflex as rx
@@ -134,13 +134,13 @@ def ag_grid_simple_column_filtering():
     )
 ```
 
-### Filter Types
+### 筛选类型（Filter Types）
 
-You can set `filter=True` to enable the default filter for a column.
+你可以设置 `filter=True` 来为某列启用默认筛选器。
 
-You can also set the filter type using the `filter` key. The following filter types are available: `ag_grid.filters.date`, `ag_grid.filters.number` and `ag_grid.filters.text`. These ensure that the input you enter to the filter is of the correct type.
+你也可以使用 `filter` 键来设置筛选器类型。以下筛选器类型可用：`ag_grid.filters.date`、`ag_grid.filters.number` 和 `ag_grid.filters.text`。这些确保你输入到筛选器的内容是正确的类型。
 
-(`ag_grid.filters.set` and `ag_grid.filters.multi` are available with AG Grid Enterprise)
+（`ag_grid.filters.set` 和 `ag_grid.filters.multi` 在 AG Grid Enterprise 中可用）
 
 ```python demo exec
 import reflex as rx
@@ -168,13 +168,13 @@ def ag_grid_column_filter_types():
     )
 ```
 
-📊 **Dataset source:** [GanttChart-updated.csv](https://raw.githubusercontent.com/plotly/datasets/master/GanttChart-updated.csv)
+📊 **数据集来源：** [GanttChart-updated.csv](https://raw.githubusercontent.com/plotly/datasets/master/GanttChart-updated.csv)
 
-## Row Sorting
+## 行排序（Row Sorting）
 
-By default, the rows can be sorted by any column by clicking on the column header. You can disable sorting of the rows for a column by setting the `sortable` key to `False` in the column definition.
+默认情况下，可以通过点击列标题按任意列对行进行排序。你可以通过在列定义中将 `sortable` 键设置为 `False` 来禁用某列的行排序。
 
-In this example, we disable sorting for the first column.
+在这个示例中，我们禁用了第一列的排序。
 
 ```python demo exec
 import reflex as rx
@@ -201,11 +201,11 @@ def ag_grid_simple_row_sorting():
     )
 ```
 
-📊 **Dataset source:** [gapminder2007.csv](https://raw.githubusercontent.com/plotly/datasets/master/gapminder2007.csv)
+📊 **数据集来源：** [gapminder2007.csv](https://raw.githubusercontent.com/plotly/datasets/master/gapminder2007.csv)
 
-## Row Selection
+## 行选择（Row Selection）
 
-Row Selection is enabled using the `row_selection` attribute. Setting it to `multiple` allows users to select multiple rows at a time. You can use the `checkbox_selection` column definition attribute to render checkboxes for selection.
+行选择通过 `row_selection` 属性启用。将其设置为 `multiple` 允许用户一次选择多行。你可以使用 `checkbox_selection` 列定义属性来渲染用于选择的复选框。
 
 ```python demo exec
 import reflex as rx
@@ -233,13 +233,13 @@ def ag_grid_simple_row_selection():
     )
 ```
 
-📊 **Dataset source:** [gapminder2007.csv](https://raw.githubusercontent.com/plotly/datasets/master/gapminder2007.csv)
+📊 **数据集来源：** [gapminder2007.csv](https://raw.githubusercontent.com/plotly/datasets/master/gapminder2007.csv)
 
-## Editing
+## 编辑（Editing）
 
-Enable Editing by setting the `editable` attribute to `True`. The cell editor is inferred from the cell data type. Set the cell editor type using the `cell_editor` attribute.
+通过将 `editable` 属性设置为 `True` 来启用编辑。单元格编辑器会根据单元格数据类型自动推断。使用 `cell_editor` 属性设置单元格编辑器类型。
 
-There are 7 provided cell editors in AG Grid:
+AG Grid 提供了 7 种单元格编辑器：
 
 1. `ag_grid.editors.text`
 2. `ag_grid.editors.large_text`
@@ -249,9 +249,9 @@ There are 7 provided cell editors in AG Grid:
 6. `ag_grid.editors.date`
 7. `ag_grid.editors.checkbox`
 
-In this example, we enable editing for the second and third columns. The second column uses the `number` cell editor, and the third column uses the `select` cell editor.
+在这个示例中，我们为第二列和第三列启用了编辑。第二列使用 `number` 单元格编辑器，第三列使用 `select` 单元格编辑器。
 
-The `on_cell_value_changed` event trigger is linked to the `cell_value_changed` event handler in the state. This event handler is called whenever a cell value is changed and changes the value of the backend var `_data_df` and the state var `data`.
+`on_cell_value_changed` 事件触发器（Event Trigger）连接到状态中的 `cell_value_changed` 事件处理器（Event Handler）。每当单元格值被更改时，这个事件处理器就会被调用，并更改后端变量 `_data_df` 和状态变量 `data` 的值。
 
 ```python
 import reflex as rx
@@ -308,9 +308,9 @@ def ag_grid_simple_editing():
     )
 ```
 
-## Pagination
+## 分页（Pagination）
 
-By default, the grid uses a vertical scroll. You can reduce the amount of scrolling required by adding pagination. To add pagination, set `pagination=True`. You can set the `pagination_page_size` to the number of rows per page and `pagination_page_size_selector` to a list of options for the user to select from.
+默认情况下，网格使用垂直滚动。你可以通过添加分页来减少所需的滚动量。要添加分页，设置 `pagination=True`。你可以将 `pagination_page_size` 设置为每页的行数，将 `pagination_page_size_selector` 设置为供用户选择的选项列表。
 
 ```python demo exec
 import reflex as rx
@@ -339,13 +339,13 @@ def ag_grid_simple_pagination():
     )
 ```
 
-📊 **Dataset source:** [gapminder2007.csv](https://raw.githubusercontent.com/plotly/datasets/master/gapminder2007.csv)
+📊 **数据集来源：** [gapminder2007.csv](https://raw.githubusercontent.com/plotly/datasets/master/gapminder2007.csv)
 
-## AG Grid with State
+## AG Grid 与状态（State）
 
-### Putting Data in State
+### 将数据放入状态
 
-Assuming you want to make any edit to your data, you can put the data in State. This allows you to update the grid based on user input. Whenever the `data` var is updated, the grid will be re-rendered with the new data.
+假设你想对数据进行任何编辑，你可以将数据放入状态中。这允许你根据用户输入更新网格。每当 `data` 变量被更新时，网格将使用新数据重新渲染。
 
 ```python
 from typing import Any
@@ -381,9 +381,9 @@ def ag_grid_state_2():
     )
 ```
 
-### Updating the Grid with State
+### 使用状态更新网格
 
-You can use State to update the grid based on a users input. In this example, we update the `column_defs` of the grid when a user clicks a button.
+你可以使用状态根据用户输入来更新网格。在这个示例中，当用户点击按钮时，我们更新网格的 `column_defs`。
 
 ```python
 import reflex as rx
@@ -442,15 +442,15 @@ def ag_grid_simple_with_state():
     )
 ```
 
-📊 **Dataset source:** [gapminder2007.csv](https://raw.githubusercontent.com/plotly/datasets/master/gapminder2007.csv)
+📊 **数据集来源：** [gapminder2007.csv](https://raw.githubusercontent.com/plotly/datasets/master/gapminder2007.csv)
 
-## AG Grid with Data from a Database
+## AG Grid 与数据库数据
 
-In this example, we will use a database to store the data. The data is loaded from a csv file and inserted into the database when the page is loaded using the `insert_dataframe_to_db` event handler.
+在这个示例中，我们将使用数据库来存储数据。数据从 csv 文件加载，并在页面加载时使用 `insert_dataframe_to_db` 事件处理器插入到数据库中。
 
-The data is then fetched from the database and displayed in the grid using the `data` computed var.
+然后使用 `data` 计算变量（Computed Var）从数据库中获取数据并显示在网格中。
 
-When a cell value is changed, the data is updated in the database using the `cell_value_changed` event handler.
+当单元格值被更改时，使用 `cell_value_changed` 事件处理器在数据库中更新数据。
 
 ```python
 import reflex as rx
@@ -468,7 +468,7 @@ class Country(rx.Model, table=True):
 class AGGridDatabaseState(rx.State):
     countries: list[Country]
 
-    # Insert data from a csv loaded dataframe to the database (Do this on the page load)
+    # 从 csv 加载的 DataFrame 中将数据插入数据库（在页面加载时执行）
     @rx.event
     def insert_dataframe_to_db(self):
         data = pd.read_csv("data/gapminder2007.csv")
@@ -482,7 +482,7 @@ class AGGridDatabaseState(rx.State):
                 session.add(db_record)
             session.commit()
 
-    # Fetch data from the database using a computed variable
+    # 使用计算变量从数据库中获取数据
     @rx.var
     def data(self) -> list[dict]:
         with rx.session() as session:
@@ -490,7 +490,7 @@ class AGGridDatabaseState(rx.State):
             self.countries = [result.dict() for result in results]
         return self.countries
 
-    # Update the database when a cell value is changed
+    # 当单元格值被更改时更新数据库
     @rx.event
     def cell_value_changed(self, row, col_field, new_value):
         self.countries[row][col_field] = new_value
@@ -533,55 +533,55 @@ def index():
     )
 
 
-# Add state and page to the app.
+# 将状态和页面添加到应用。
 app = rx.App()
 app.add_page(index, on_load=AGGridDatabaseState.insert_dataframe_to_db)
 ```
 
-## Using AG Grid Enterprise
+## 使用 AG Grid Enterprise
 
-AG Grid offers both community and enterprise versions. See the [AG Grid docs](https://www.ag-grid.com/archive/31.2.0/react-data-grid/licensing/) for details on purchasing a license key.
+AG Grid 提供社区版和企业版。有关购买许可证密钥的详细信息，请参阅 [AG Grid 文档](https://www.ag-grid.com/archive/31.2.0/react-data-grid/licensing/)。
 
-To use an AG Grid Enterprise license key with Reflex AG Grid set the environment variable `AG_GRID_LICENSE_KEY`:
+要在 Reflex AG Grid 中使用 AG Grid Enterprise 许可证密钥，请设置环境变量 `AG_GRID_LICENSE_KEY`：
 
 ```bash
 export AG_GRID_LICENSE_KEY="your_license_key"
 ```
 
-## column_def props
+## column_def 属性
 
-The following props are available for `column_defs` as well as many others that can be found here: [AG Grid Column Def Docs](https://www.ag-grid.com/react-data-grid/column-properties/). (it is necessary to use snake_case for the keys in Reflex, unlike in the AG Grid docs where camelCase is used)
+以下属性可用于 `column_defs`，还有许多其他属性可以在此处找到：[AG Grid 列定义文档](https://www.ag-grid.com/react-data-grid/column-properties/)。（在 Reflex 中需要使用 snake_case 作为键名，这与 AG Grid 文档中使用 camelCase 不同）
 
-- `field`: `str`: The field of the row object to get the cell's data from.
-- `col_id`: `str | None`: The unique ID to give the column. This is optional. If missing, the ID will default to the field.
-- `type`: `str | None`: The type of the column.
-- `cell_data_type`: `bool | str | None`: The data type of the cell values for this column. Can either infer the data type from the row data (true - the default behaviour), define a specific data type (string), or have no data type (false).
-- `hide`: `bool`: Set to true for this column to be hidden.
-- `editable`: `bool | None`: Set to true if this column is editable, otherwise false.
-- `filter`: `AGFilters | str | None`: Filter component to use for this column. Set to true to use the default filter. Set to the name of a provided filter to use that filter. (Check out the Filter Types section of this page for more information)
-- `floating_filter`: `bool`: Whether to display a floating filter for this column.
-- `header_name`: `str | None`: The name to render in the column header. If not specified and field is specified, the field name will be used as the header name.
-- `header_tooltip`: `str | None`: Tooltip for the column header.
-- `checkbox_selection`: `bool | None`: Set to true to render a checkbox for row selection.
-- `cell_editor`: `AGEditors | str | None`: Provide your own cell editor component for this column's cells. (Check out the Editing section of this page for more information)
-- `cell_editor_params`: `dict[str, list[Any]] | None`: Params to be passed to the cellEditor component.
+- `field`: `str`：行对象中用于获取单元格数据的字段。
+- `col_id`: `str | None`：给列的唯一 ID。这是可选的。如果缺少，ID 将默认为字段名。
+- `type`: `str | None`：列的类型。
+- `cell_data_type`: `bool | str | None`：此列单元格值的数据类型。可以从行数据推断数据类型（true - 默认行为），定义特定数据类型（字符串），或没有数据类型（false）。
+- `hide`: `bool`：设置为 true 则隐藏此列。
+- `editable`: `bool | None`：如果此列可编辑则设置为 true，否则为 false。
+- `filter`: `AGFilters | str | None`：用于此列的筛选器组件。设置为 true 使用默认筛选器。设置为提供的筛选器名称以使用该筛选器。（查看本页的筛选类型部分了解更多信息）
+- `floating_filter`: `bool`：是否为此列显示浮动筛选器。
+- `header_name`: `str | None`：在列标题中渲染的名称。如果未指定且指定了字段，则字段名将用作标题名称。
+- `header_tooltip`: `str | None`：列标题的工具提示。
+- `checkbox_selection`: `bool | None`：设置为 true 以渲染用于行选择的复选框。
+- `cell_editor`: `AGEditors | str | None`：为此列的单元格提供自定义单元格编辑器组件。（查看本页的编辑部分了解更多信息）
+- `cell_editor_params`: `dict[str, list[Any]] | None`：传递给 cellEditor 组件的参数。
 
 
 
-## Functionality you need is not available/working in Reflex
+## 你需要的功能在 Reflex 中不可用/无法正常工作
 
-All AGGrid options found in this [documentation](https://www.ag-grid.com/react-data-grid/reference/) are mapped in rxe.ag_grid, but some features might not have been fully tested, due to the sheer number of existing features in the underlying AG Grid library.
+此[文档](https://www.ag-grid.com/react-data-grid/reference/)中找到的所有 AGGrid 选项都已映射到 rxe.ag_grid 中，但由于底层 AG Grid 库中功能数量庞大，某些功能可能尚未经过完全测试。
 
-If one of the ag_grid props does not import the expected module, you can pass it manually via the props `community_modules` or `enterprise_modules`, which expect a `set[str]` of the module names. You will get a warning in the browser console if a module is missing, so you can check there if a feature is not working as expected.
+如果某个 ag_grid 属性没有导入预期的模块，你可以通过 `community_modules` 或 `enterprise_modules` 属性手动传递，这些属性期望一个模块名称的 `set[str]`。如果缺少模块，你会在浏览器控制台中收到警告，因此如果某个功能未按预期工作，你可以在那里检查。
 
-You can also report the missing module on our discord or GitHub issues page of the main Reflex repository.
+你也可以在我们的 Discord 或主 Reflex 仓库的 GitHub issues 页面上报告缺失的模块。
 
-Best practice is to create a single instance of `ag_grid.api()` with the same `id` as the `id` of the `ag_grid` component that is to be referenced, `"ag_grid_basic_row_selection"` in this first example.
+最佳实践是创建一个 `ag_grid.api()` 的单例，使用与要引用的 `ag_grid` 组件相同的 `id`，在第一个示例中为 `"ag_grid_basic_row_selection"`。
 
-The example below uses the `select_all()` and `deselect_all()` methods of the AG Grid API to select and deselect all rows in the grid. This method is not available in Reflex directly. Check out this [documentation](https://www.ag-grid.com/react-data-grid/grid-api/#reference-selection-selectAll) to see what the methods look like in the AG Grid docs.
+下面的示例使用 AG Grid API 的 `select_all()` 和 `deselect_all()` 方法来选中和取消选中网格中的所有行。此方法在 Reflex 中不直接可用。查看此[文档](https://www.ag-grid.com/react-data-grid/grid-api/#reference-selection-selectAll)了解这些方法在 AG Grid 文档中的样子。
 
 ```md alert info
-# Ensure that the docs are set to React tab in AG Grid
+# 确保文档在 AG Grid 中设置为 React 标签页
 ```
 
 ```python demo exec
@@ -616,25 +616,25 @@ def ag_grid_api_simple():
     )
 ```
 
-📊 **Dataset source:** [gapminder2007.csv](https://raw.githubusercontent.com/plotly/datasets/master/gapminder2007.csv)
+📊 **数据集来源：** [gapminder2007.csv](https://raw.githubusercontent.com/plotly/datasets/master/gapminder2007.csv)
 
-The react code for the `select_all()` event handler is `selectAll = (source?: SelectionEventSourceType) => void;`.
+`select_all()` 事件处理器的 React 代码是 `selectAll = (source?: SelectionEventSourceType) => void;`。
 
-To use this in Reflex as you can see, it should be called in snake case rather than camel case. The `void` means it doesn't return anything. The `source?` indicates that it takes an optional `source` argument.
+如你所见，要在 Reflex 中使用它，应该用 snake_case 而不是 camelCase 来调用。`void` 意味着它不返回任何内容。`source?` 表示它接受一个可选的 `source` 参数。
 
 
 ```md alert info
-# Another way to use the AG Grid API
-It is also possible to use the AG Grid API directly with the event trigger (`on_click`) of the component. This removes the need to create a variable `my_api`. This is shown in the example below. It is necessary to use the `id` of the `ag_grid` component that is to be referenced.
+# 使用 AG Grid API 的另一种方式
+也可以直接在组件的事件触发器（`on_click`）中使用 AG Grid API。这消除了创建变量 `my_api` 的需要。如下面的示例所示。需要使用要引用的 `ag_grid` 组件的 `id`。
 
 ```python
 rx.button("Select all", on_click=rxe.ag_grid.api(id="ag_grid_basic_row_selection").select_all()),
 ```
 ```
 
-### More examples
+### 更多示例
 
-The following example lets a user [export the data as a csv](https://www.ag-grid.com/javascript-data-grid/grid-api/#reference-export-exportDataAsCsv) and [adjust the size of columns to fit the available horizontal space](https://www.ag-grid.com/javascript-data-grid/grid-api/#reference-columnSizing-sizeColumnsToFit). (Try resizing the screen and then clicking the resize columns button)
+下面的示例让用户[将数据导出为 csv](https://www.ag-grid.com/javascript-data-grid/grid-api/#reference-export-exportDataAsCsv) 并[调整列的大小以适应可用的水平空间](https://www.ag-grid.com/javascript-data-grid/grid-api/#reference-columnSizing-sizeColumnsToFit)。（尝试调整屏幕大小，然后点击调整列大小按钮）
 
 
 ```python demo exec
@@ -668,18 +668,18 @@ def ag_grid_api_simple2():
     )
 ```
 
-📊 **Dataset source:** [gapminder2007.csv](https://raw.githubusercontent.com/plotly/datasets/master/gapminder2007.csv)
+📊 **数据集来源：** [gapminder2007.csv](https://raw.githubusercontent.com/plotly/datasets/master/gapminder2007.csv)
 
-The react code for both of these is shown below. The key point to see is that both of these functions return `void` and therefore does not return anything.
+这两个函数的 React 代码如下所示。需要注意的关键点是这两个函数都返回 `void`，因此不返回任何内容。
 
 `exportDataAsCsv = (params?: CsvExportParams) => void;`
 
 `sizeColumnsToFit = (paramsOrGridWidth?: ISizeColumnsToFitParams  |  number) => void;`
 
 
-### Example with a Return Value
+### 带返回值的示例
 
-This example shows how to get the data from `ag_grid` as a [csv on the backend](https://www.ag-grid.com/javascript-data-grid/grid-api/#reference-export-getDataAsCsv). The data that was passed to the backend is then displayed as a toast with the data.
+这个示例展示了如何在[后端以 csv 形式获取 `ag_grid` 的数据](https://www.ag-grid.com/javascript-data-grid/grid-api/#reference-export-getDataAsCsv)。传递给后端的数据随后以 toast 的形式显示。
 
 ```python
 import reflex as rx
@@ -720,6 +720,6 @@ def ag_grid_api_argument():
     )
 ```
 
-The react code for the `get_data_as_csv` method of the AG Grid API is `getDataAsCsv = (params?: CsvExportParams) => string  |  undefined;`. Here the function returns a `string` (or undefined).
+AG Grid API 的 `get_data_as_csv` 方法的 React 代码是 `getDataAsCsv = (params?: CsvExportParams) => string  |  undefined;`。这里函数返回一个 `string`（或 undefined）。
 
-In Reflex to handle this returned value it is necessary to pass a `callback` as an argument to the `get_data_as_csv` method that will get the returned value. In this example the `handle_get_data` event handler is passed as the callback. This event handler will be called with the returned value from the `get_data_as_csv` method.
+在 Reflex 中，要处理这个返回值，需要将 `callback` 作为参数传递给 `get_data_as_csv` 方法来获取返回值。在这个示例中，`handle_get_data` 事件处理器作为回调传递。这个事件处理器将使用 `get_data_as_csv` 方法的返回值被调用。

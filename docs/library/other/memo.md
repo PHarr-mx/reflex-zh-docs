@@ -2,22 +2,22 @@
 import reflex as rx
 ```
 
-# Memo
+# Memo（记忆化组件）
 
-The `@rx.memo` decorator turns a function into a memoized React component. The compiler emits the function as its own module, and React's `memo` only re-renders it when its declared props change. Reach for it when a subtree is expensive to render and depends on a narrow slice of state.
+`@rx.memo` 装饰器将函数转换为记忆化的 React 组件。编译器将该函数作为独立模块输出，React 的 `memo` 仅在其声明的 props 发生变化时才重新渲染它。当子树渲染开销较大且仅依赖于少量状态时，可以使用它。
 
-## Requirements
+## 要求
 
-Every parameter must be annotated with `rx.Var[...]` or `rx.RestProp`. The compiler reads those annotations to generate prop names, prop forwarding, and the JS function signature.
+每个参数都必须使用 `rx.Var[...]` 或 `rx.RestProp` 进行类型标注。编译器读取这些标注来生成 prop 名称、prop 转发和 JS 函数签名。
 
-1. **`rx.Var[T]` for props** — annotate each prop as `rx.Var[T]` where `T` is the prop's runtime type (`str`, `int`, a TypedDict, etc.). Inside the function body, the parameter is a `Var` you compose into the rendered tree.
-2. **`rx.RestProp` for spread props** — at most one parameter may be annotated as `rx.RestProp`, which forwards unrecognized kwargs through to the rendered root.
-3. **`rx.Var[rx.Component]` for slot children** — a parameter named `children` annotated as `rx.Var[rx.Component]` accepts children rendered by the caller.
-4. **Keyword arguments at the call site** — pass props by name, not by position.
+1. **`rx.Var[T]` 用于 props** — 将每个 prop 标注为 `rx.Var[T]`，其中 `T` 是 prop 的运行时类型（`str`、`int`、TypedDict 等）。在函数体内，该参数是一个 `Var`，你可以将其组合到渲染树中。
+2. **`rx.RestProp` 用于展开 props** — 最多一个参数可以标注为 `rx.RestProp`，它会将未识别的 kwargs 转发到渲染的根元素。
+3. **`rx.Var[rx.Component]` 用于插槽子元素** — 名为 `children` 且标注为 `rx.Var[rx.Component]` 的参数接受调用方渲染的子元素。
+4. **调用处使用关键字参数** — 按名称传递 props，而非按位置。
 
-Defaults need to be `rx.Var` values. For the common empty cases use the module-level constants `rx.EMPTY_VAR_STR` (an empty string), `rx.EMPTY_VAR_INT` (zero), and `rx.EMPTY_VAR_COMPONENT` (an empty component): `class_name: rx.Var[str] = rx.EMPTY_VAR_STR` falls back to `""` when the caller omits the prop, and `children: rx.Var[rx.Component] = rx.EMPTY_VAR_COMPONENT` makes a slot optional.
+默认值必须是 `rx.Var` 值。对于常见的空值情况，使用模块级常量 `rx.EMPTY_VAR_STR`（空字符串）、`rx.EMPTY_VAR_INT`（零）和 `rx.EMPTY_VAR_COMPONENT`（空组件）：`class_name: rx.Var[str] = rx.EMPTY_VAR_STR` 在调用方省略该 prop 时回退为 `""`，`children: rx.Var[rx.Component] = rx.EMPTY_VAR_COMPONENT` 使插槽变为可选。
 
-## Basic Usage
+## 基本用法
 
 ```python
 class DemoState(rx.State):
@@ -45,11 +45,11 @@ def index():
     )
 ```
 
-`expensive_component` re-renders only when `label` changes — bumping `DemoState.count` does not invalidate it.
+`expensive_component` 仅在 `label` 变化时重新渲染——增加 `DemoState.count` 不会使其失效。
 
-## With State Variables
+## 配合状态变量使用
 
-Props can be ordinary Vars. The memoized component re-renders when those Vars change:
+Props 可以是普通的 Var。当这些 Var 发生变化时，记忆化组件会重新渲染：
 
 ```python
 class AppState(rx.State):
@@ -68,9 +68,9 @@ def index():
     )
 ```
 
-## Forwarding Props with `rx.RestProp`
+## 使用 `rx.RestProp` 转发 Props
 
-Use `rx.RestProp` to accept and forward arbitrary props (think `...rest` in JSX). Useful for thin wrappers that re-style a primitive without redeclaring every prop.
+使用 `rx.RestProp` 来接受并转发任意 props（类似于 JSX 中的 `...rest`）。适用于对基础组件进行重新样式设置而无需重新声明每个 prop 的轻量包装器。
 
 ```python
 @rx.memo
@@ -90,19 +90,13 @@ def index():
     )
 ```
 
-At most one `rx.RestProp` parameter is allowed per memo.
+每个 memo 最多允许一个 `rx.RestProp` 参数。
 
-The `rest` parameter should be treated as an opaque value and passed
-positionally to any component which will use it.
+`rest` 参数应被视为不透明值，并以位置参数方式传递给使用它的任何组件。
 
-You may use the `.merge` var operation to combine the arbitrary props with
-another object Var or python dict. The memo body can read placeholders like
-`rest.get("class_name", "")`, but the actual value will be unavailable at
-compile time, so you can't branch on it or do python operations with the values,
-only var operations which will be translated to Javascript expressions.
+你可以使用 `.merge` var 操作将任意 props 与另一个对象 Var 或 Python 字典组合。memo 函数体可以读取类似 `rest.get("class_name", "")` 的占位符，但实际值在编译时不可用，因此你不能基于它进行分支判断或用其值执行 Python 操作，只能使用会被转换为 JavaScript 表达式的 var 操作。
 
-The same example as above, but now allowing the caller to optionally pass a
-`class_name` that gets merged with the default styles:
+与上面相同的示例，但现在允许调用方可选地传入一个 `class_name`，它会与默认样式合并：
 
 ```python
 @rx.memo
@@ -116,9 +110,9 @@ def primary_button(
 ```
 
 
-## Accepting Children
+## 接受子元素
 
-Declare a parameter named `children` typed as `rx.Var[rx.Component]` to receive a child subtree.
+声明一个名为 `children`、类型为 `rx.Var[rx.Component]` 的参数来接收子树。
 
 ```python
 @rx.memo
@@ -141,9 +135,9 @@ def index():
     )
 ```
 
-## Returning a `Var` Instead of a Component
+## 返回 `Var` 而非组件
 
-A memo function can return `rx.Var[T]` instead of `rx.Component`. The compiler emits a plain JavaScript function and the call site is just a `Var` you can compose into the page.
+memo 函数可以返回 `rx.Var[T]` 而非 `rx.Component`。编译器会输出一个纯 JavaScript 函数，调用处只是一个可以组合到页面中的 `Var`。
 
 ```python
 class PriceState(rx.State):
@@ -163,11 +157,11 @@ def index():
     )
 ```
 
-The body of a `Var`-returning memo runs at compile time and is restricted to Var operations — no hooks, no Python branching on the Vars.
+返回 `Var` 的 memo 函数体在编译时运行，仅限于 Var 操作——不能使用 hooks，也不能对 Var 进行 Python 分支判断。
 
-## Customizing the JavaScript Wrapper
+## 自定义 JavaScript 包装器
 
-By default the compiled function component is wrapped in React's [`memo`](https://react.dev/reference/react/memo) helper. Pass `wrapper=` to swap it for a different function — any `Var` whose JavaScript expression is callable, typically an `rx.vars.FunctionStringVar` carrying its own imports — or pass `wrapper=None` to export the bare function component with no wrapper at all.
+默认情况下，编译后的函数组件会被 React 的 [`memo`](https://react.dev/reference/react/memo) 辅助函数包裹。传入 `wrapper=` 可以将其替换为其他函数——任何 JavaScript 表达式可调用的 `Var`，通常是带有自身导入的 `rx.vars.FunctionStringVar`——或传入 `wrapper=None` 以导出没有任何包装器的裸函数组件。
 
 ```python
 observer = rx.vars.FunctionStringVar(
@@ -186,39 +180,39 @@ def custom_sankey_node(x: rx.Var[int], y: rx.Var[int]) -> rx.Component:
     return rx.box(width=x.to_string(), height=y.to_string())
 ```
 
-The wrapper's imports ride along with the `Var`, so a custom wrapper brings its own import statement and `wrapper=None` pulls in nothing. `wrapper=` only applies to component-returning memos — a `Var`-returning memo compiles to a plain function and rejects the argument.
+包装器的导入会随 `Var` 一起携带，因此自定义包装器会自带其导入语句，而 `wrapper=None` 不会引入任何导入。`wrapper=` 仅适用于返回组件的 memo——返回 `Var` 的 memo 会编译为纯函数并拒绝该参数。
 
-## Performance Considerations
+## 性能考量
 
-Reach for `rx.memo` when:
+在以下情况下使用 `rx.memo`：
 
-- The component is expensive to render.
-- Its output is a stable function of a small set of props.
-- A frequently-updating ancestor would otherwise force it to re-render.
+- 组件渲染开销较大。
+- 其输出是少量 props 的稳定函数。
+- 频繁更新的祖先组件会迫使其重新渲染。
 
-Skip it when:
+在以下情况下跳过它：
 
-- The component is cheap and the bookkeeping is not worth it.
-- The props change on every render anyway — memo never gets to short-circuit.
+- 组件本身很轻量，记忆化的开销不值得。
+- props 在每次渲染时都会变化——memo 永远无法短路。
 
-## Migrating from the Old `rx.memo`
+## 从旧版 `rx.memo` 迁移
 
-The previous `rx.memo` accepted plain-typed arguments (`def card(title: str)`). The new one requires `rx.Var[...]`. To migrate:
+旧版 `rx.memo` 接受普通类型参数（`def card(title: str)`）。新版要求使用 `rx.Var[...]`。迁移方法：
 
 ```python
-# Before
+# 迁移前
 @rx.memo
 def card(title: str) -> rx.Component: ...
 
 
-# After
+# 迁移后
 @rx.memo
 def card(title: rx.Var[str]) -> rx.Component: ...
 ```
 
-The old `rx._x.memo` alias still resolves to the new memo and prints a one-time `was promoted to rx.memo` notice.
+旧的 `rx._x.memo` 别名仍然解析为新版 memo，并会打印一次性的 `was promoted to rx.memo` 提示。
 
-## API Reference
+## API 参考
 
 ### `rx.memo`
 
@@ -227,9 +221,9 @@ rx.memo(component_fn)
 rx.memo(wrapper=...)(component_fn)
 ```
 
-Wraps a function whose parameters are all `rx.Var[...]` or `rx.RestProp`. Returns a callable that constructs the memoized component (or a `Var` if the function's return annotation is `rx.Var[T]`). Called with only keyword arguments, it returns a decorator applying them.
+包装一个所有参数均为 `rx.Var[...]` 或 `rx.RestProp` 的函数。返回一个可调用对象，用于构造记忆化组件（如果函数的返回标注为 `rx.Var[T]`，则返回一个 `Var`）。仅使用关键字参数调用时，返回一个应用这些参数的装饰器。
 
-| Argument | Type | Description |
+| 参数 | 类型 | 描述 |
 | --- | --- | --- |
-| `component_fn` | `Callable[..., rx.Component \| rx.Var]` | The function to memoize. All parameters must be `rx.Var[...]` or `rx.RestProp`. |
-| `wrapper` | `rx.Var \| None` | The JS function the compiled function component is wrapped in. Defaults to React's `memo`; pass `None` to omit the wrapper. Only supported on component-returning memos. |
+| `component_fn` | `Callable[..., rx.Component \| rx.Var]` | 要记忆化的函数。所有参数必须为 `rx.Var[...]` 或 `rx.RestProp`。 |
+| `wrapper` | `rx.Var \| None` | 编译后的函数组件所包裹的 JS 函数。默认为 React 的 `memo`；传入 `None` 可省略包装器。仅支持返回组件的 memo。 |

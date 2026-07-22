@@ -10,13 +10,13 @@ components:
 
 # HTML
 
-Reflex also provides a set of HTML elements that can be used to create web pages. These elements are the same as the HTML elements that are used in web development. These elements come unstyled by default. You can style them using style props or tailwindcss classes.
+Reflex 还提供了一组 HTML 元素，可用于创建网页。这些元素与 Web 开发中使用的 HTML 元素相同。这些元素默认不带样式。你可以使用 style 属性或 Tailwind CSS 类来设置样式。
 
-The most commonly used HTML elements are listed below. The full API reference is split into smaller pages:
+下面列出了最常用的 HTML 元素。完整的 API 参考被拆分为更小的页面：
 
-- [Text elements](/docs/library/html/text)
-- [Document and layout elements](/docs/library/html/layout)
-- [Form elements](/docs/library/html/forms)
-- [Media and embedded elements](/docs/library/html/media)
-- [Table elements](/docs/library/html/tables)
-- [SVG elements](/docs/library/html/svg)
+- [文本元素](/docs/library/html/text)
+- [文档和布局元素](/docs/library/html/layout)
+- [表单元素](/docs/library/html/forms)
+- [媒体和嵌入元素](/docs/library/html/media)
+- [表格元素](/docs/library/html/tables)
+- [SVG 元素](/docs/library/html/svg)

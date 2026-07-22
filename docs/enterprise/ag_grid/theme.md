@@ -8,20 +8,20 @@ import reflex as rx
 import reflex_enterprise as rxe
 ```
 
-# Themes
+# 主题（Themes）
 
 ```md alert warning
-# Only the old theme API of AG Grid is currently supported. The new theme API is not supported yet.
+# 目前仅支持 AG Grid 的旧主题 API。新的主题 API 尚不支持。
 ```
 
-You can style your grid with a theme. AG Grid includes the following themes:
+你可以使用主题来设置网格的样式。AG Grid 包含以下主题：
 
 1. `quartz`
 2. `alpine`
 3. `balham`
 4. `material`
 
-The grid uses `quartz` by default. To use any other theme, set it using the `theme` prop, i.e. `theme="alpine"`.
+网格默认使用 `quartz`。要使用其他主题，使用 `theme` 属性设置，例如 `theme="alpine"`。
 
 ```python
 import reflex as rx
@@ -71,35 +71,35 @@ def ag_grid_simple_themes():
     )
 ```
 
-📊 **Dataset source:** [gapminder2007.csv](https://raw.githubusercontent.com/plotly/datasets/master/gapminder2007.csv)
+📊 **数据集来源：** [gapminder2007.csv](https://raw.githubusercontent.com/plotly/datasets/master/gapminder2007.csv)
 
-## Customizing a Theme with CSS
+## 使用 CSS 自定义主题
 
-The `theme` prop maps directly to one of AG Grid's built-in theme classes, which `reflex-enterprise` applies on the grid root element:
+`theme` 属性直接映射到 AG Grid 的内置主题类之一，`reflex-enterprise` 将其应用于网格根元素：
 
 - `theme="quartz"` → `.ag-theme-quartz`
 - `theme="balham"` → `.ag-theme-balham`
 - `theme="alpine"` → `.ag-theme-alpine`
 - `theme="material"` → `.ag-theme-material`
 
-Each theme also has a dark variant (`.ag-theme-quartz-dark`, `.ag-theme-balham-dark`, etc.). The dark variant is only applied when the corresponding theme name is selected; listing both light and dark class selectors in your CSS lets the same overrides apply in either mode.
+每个主题还有一个暗色变体（`.ag-theme-quartz-dark`、`.ag-theme-balham-dark` 等）。暗色变体仅在选择相应主题名称时应用；在 CSS 中同时列出亮色和暗色类选择器可以让相同的覆盖在任一模式下生效。
 
-You can customize any theme by overriding the AG Grid CSS variables (the `--ag-*` custom properties) and by writing rules that target AG Grid's built-in classes. The full list of available variables is documented in the [AG Grid theming reference](https://www.ag-grid.com/javascript-data-grid/global-style-customisation-variables/).
+你可以通过覆盖 AG Grid CSS 变量（`--ag-*` 自定义属性）并编写针对 AG Grid 内置类的规则来自定义任何主题。可用变量的完整列表记录在 [AG Grid 主题参考](https://www.ag-grid.com/javascript-data-grid/global-style-customisation-variables/)中。
 
-### CSS Variables
+### CSS 变量
 
-AG Grid exposes most visual properties as CSS variables. Commonly customized ones:
+AG Grid 将大多数视觉属性公开为 CSS 变量。常用的自定义项：
 
-- Typography: `--ag-font-family`, `--ag-font-size`
-- Density and shape: `--ag-grid-size` (base unit), `--ag-border-radius`, `--ag-wrapper-border-radius`, `--ag-cell-horizontal-padding`
-- Borders: `--ag-border-color`, `--ag-row-border-color`
-- Backgrounds: `--ag-background-color`, `--ag-odd-row-background-color`, `--ag-row-hover-color`
-- Headers: `--ag-header-background-color`, `--ag-header-foreground-color`, `--ag-header-column-separator-color`
-- Accents (selection / focus): `--ag-accent-color`, `--ag-selected-row-background-color`, `--ag-range-selection-background-color`, `--ag-input-focus-border-color`, `--ag-checkbox-checked-color`
+- 排版：`--ag-font-family`、`--ag-font-size`
+- 密度和形状：`--ag-grid-size`（基本单位）、`--ag-border-radius`、`--ag-wrapper-border-radius`、`--ag-cell-horizontal-padding`
+- 边框：`--ag-border-color`、`--ag-row-border-color`
+- 背景：`--ag-background-color`、`--ag-odd-row-background-color`、`--ag-row-hover-color`
+- 表头：`--ag-header-background-color`、`--ag-header-foreground-color`、`--ag-header-column-separator-color`
+- 强调色（选择/聚焦）：`--ag-accent-color`、`--ag-selected-row-background-color`、`--ag-range-selection-background-color`、`--ag-input-focus-border-color`、`--ag-checkbox-checked-color`
 
-### Scoping Overrides with a Wrapper Class
+### 使用包装类限定覆盖范围
 
-If you have multiple grids on a page, scope your overrides to a parent class so they don't leak to other grids. Wrap the grid in an `rx.box` (or any element) with a class such as `custom-ag-grid`, then target the theme class _inside_ that wrapper in your CSS:
+如果页面上有多个网格，将覆盖限定到父类，以免泄漏到其他网格。将网格包装在一个带有类名（如 `custom-ag-grid`）的 `rx.box`（或任何元素）中，然后在 CSS 中针对该包装器_内部_的主题类：
 
 ```python
 rx.box(
@@ -119,11 +119,10 @@ rx.box(
 /* assets/ag_grid_theme.css */
 
 /*
- * Custom ag-grid theme overrides.
+ * 自定义 ag-grid 主题覆盖。
  *
- * reflex-enterprise applies the built-in theme as a class on the grid root.
- * Scope overrides to a parent `.custom-ag-grid` container so they don't leak
- * to other grids on the page.
+ * reflex-enterprise 将内置主题作为类应用于网格根元素。
+ * 将覆盖限定到父级 `.custom-ag-grid` 容器，以免泄漏到页面上的其他网格。
  */
 
 .custom-ag-grid .ag-theme-quartz,
@@ -156,7 +155,7 @@ rx.box(
     --ag-cell-horizontal-padding: 16px;
 }
 
-/* Stronger header typography. */
+/* 更强的表头排版。 */
 .custom-ag-grid .ag-header-cell-text {
     font-weight: 600;
     letter-spacing: 0.04em;
@@ -165,11 +164,11 @@ rx.box(
 }
 ```
 
-Listing every theme variant in the selector keeps the overrides applied no matter which built-in theme is selected at runtime, including its dark variant.
+在选择器中列出所有主题变体可以确保无论运行时选择哪个内置主题（包括其暗色变体），覆盖都会生效。
 
-### Loading the Stylesheet
+### 加载样式表
 
-Place your CSS file under `assets/` and add it to the `stylesheets` list on your `rxe.App` (or `rx.App`):
+将你的 CSS 文件放在 `assets/` 下，并将其添加到 `rxe.App`（或 `rx.App`）的 `stylesheets` 列表中：
 
 ```python
 app = rxe.App(
@@ -177,11 +176,11 @@ app = rxe.App(
 )
 ```
 
-The path is relative to `assets/`, so `assets/ag_grid_theme.css` is referenced as `/ag_grid_theme.css`.
+路径相对于 `assets/`，因此 `assets/ag_grid_theme.css` 引用为 `/ag_grid_theme.css`。
 
-### Overriding CSS Variables Inline via `style`
+### 通过 `style` 内联覆盖 CSS 变量
 
-For one-off tweaks you don't need a separate stylesheet — you can set `--ag-*` variables directly in the `style` dict on the grid:
+对于一次性调整，你不需要单独的样式表——你可以直接在网格的 `style` 字典中设置 `--ag-*` 变量：
 
 ```python
 rxe.ag_grid(
@@ -199,18 +198,18 @@ rxe.ag_grid(
 ```
 
 ```md alert warning
-# CSS variable inheritance and `!important`
-Inline `style` sets the variable on the grid root element only. The built-in themes bind their styling to multiple CSS classes (`.ag-theme-quartz`, `.ag-theme-quartz .ag-cell`, etc.), and those rules often have higher specificity than a custom property defined inline. As a result, a value set via `style={"--ag-font-family": "..."}` may be ignored unless you append `!important`. If your inline override doesn't take effect, add `!important` or move the override into a stylesheet that targets the theme class with comparable specificity.
+# CSS 变量继承和 `!important`
+内联 `style` 仅在网格根元素上设置变量。内置主题将其样式绑定到多个 CSS 类（`.ag-theme-quartz`、`.ag-theme-quartz .ag-cell` 等），这些规则通常比内联定义的自定义属性具有更高的优先级。因此，通过 `style={"--ag-font-family": "..."}` 设置的值可能会被忽略，除非你附加 `!important`。如果你的内联覆盖没有生效，添加 `!important` 或将覆盖移到以相当优先级针对主题类的样式表中。
 
-Inline `style` overrides only apply to the grid they are set on. To customize multiple grids consistently, prefer a stylesheet scoped to a wrapper class (see above).
+内联 `style` 覆盖仅应用于设置它们的网格。要一致地自定义多个网格，优先使用限定到包装类的样式表（见上文）。
 ```
 
-## Per-Cell Custom Classes
+## 每单元格自定义类
 
-Built-in themes style the grid as a whole. To highlight individual cells based on their value, attach custom CSS classes via the `cellClass` and `cellClassRules` column-def keys, then style those classes in your stylesheet.
+内置主题将网格作为整体进行样式设置。要根据单元格的值高亮显示单个单元格，通过 `cellClass` 和 `cellClassRules` 列定义键附加自定义 CSS 类，然后在样式表中设置这些类的样式。
 
-- `cellClass` always applies the listed class(es) to every cell in the column.
-- `cellClassRules` is a mapping of `class name -> JS expression`; the class is applied when the expression evaluates truthy. The cell's value is available as `params.value`.
+- `cellClass` 始终将列出的类应用于该列中的每个单元格。
+- `cellClassRules` 是一个 `类名 -> JS 表达式` 的映射；当表达式求值为真时应用该类。单元格的值可通过 `params.value` 获取。
 
 ```python
 column_defs = [
@@ -243,4 +242,4 @@ column_defs = [
 .custom-ag-grid .status-planning { color: #a16207; }
 ```
 
-The same approach works for header cells (`headerClass`) and rows (`rowClass` / `rowClassRules` on the grid itself).
+相同的方法也适用于表头单元格（`headerClass`）和行（网格本身的 `rowClass` / `rowClassRules`）。

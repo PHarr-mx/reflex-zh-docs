@@ -7,15 +7,15 @@ components:
 import reflex as rx
 ```
 
-# Link
+# Link（链接）
 
-Links are accessible elements used primarily for navigation. Use the `href` prop to specify the location for the link to navigate to.
+链接是主要用于导航的无障碍元素。使用 `href` prop 来指定链接要导航到的位置。
 
 ```python demo
 rx.link("Reflex Home Page.", href="https://reflex.dev/")
 ```
 
-You can also provide local links to other pages in your project without writing the full url.
+你也可以提供指向项目中其他页面的本地链接，而无需编写完整的 URL。
 
 ```python demo
 rx.link(
@@ -24,35 +24,35 @@ rx.link(
 )
 ```
 
-The `link` component can be used to wrap other components to make them link to other pages.
+`link` 组件可以用来包裹其他组件，使它们链接到其他页面。
 
 ```python demo
 rx.link(rx.button("Example"), href="https://reflex.dev/")
 ```
 
-You can also create anchors to link to specific parts of a page using the `id` prop.
+你还可以使用 `id` prop 创建锚点，链接到页面的特定部分。
 
 ```python demo
 rx.box("Example", id="example")
 ```
 
-To reference an anchor, you can use the `href` prop of the `link` component. The `href` should be in the format of the page you want to link to followed by a # and the id of the anchor.
+要引用锚点，可以使用 `link` 组件的 `href` prop。`href` 的格式应该是你要链接的页面路径，后跟 # 和锚点的 id。
 
 ```python demo
 rx.link("Example", href="/docs/library/typography/link#example")
 ```
 
 ```md alert info
-# Redirecting the user using State
+# 使用 State 重定向用户
 
-It is also possible to redirect the user to a new path within the application, using `rx.redirect()`. Check out the docs [here](/docs/api-reference/special-events).
+也可以使用 `rx.redirect()` 将用户重定向到应用内的新路径。查看[此处](/docs/api-reference/special-events)的文档。
 ```
 
-## Style
+## 样式
 
-## Size
+## 尺寸
 
-Use the `size` prop to control the size of the link. The prop also provides correct line height and corrective letter spacing—as text size increases, the relative line height and letter spacing decrease.
+使用 `size` prop 来控制链接的大小。该 prop 还提供正确的行高和修正的字间距——随着文本尺寸增大，相对行高和字间距会减小。
 
 ```python demo
 rx.flex(
@@ -70,9 +70,9 @@ rx.flex(
 )
 ```
 
-## Weight
+## 字重
 
-Use the `weight` prop to set the text weight.
+使用 `weight` prop 来设置文本字重。
 
 ```python demo
 rx.flex(
@@ -85,9 +85,9 @@ rx.flex(
 )
 ```
 
-## Trim
+## 修剪
 
-Use the `trim` prop to trim the leading space at the start, end, or both sides of the rendered text.
+使用 `trim` prop 来修剪渲染文本开头、结尾或两侧的 leading 空间。
 
 ```python demo
 rx.flex(
@@ -114,9 +114,9 @@ rx.flex(
 )
 ```
 
-## Underline
+## 下划线
 
-Use the `underline` prop to manage the visibility of the underline affordance. It defaults to `auto`.
+使用 `underline` prop 来管理下划线提示的可见性。默认为 `auto`。
 
 ```python demo
 rx.flex(
@@ -128,9 +128,9 @@ rx.flex(
 )
 ```
 
-## Color
+## 颜色
 
-Use the `color_scheme` prop to assign a specific color, ignoring the global theme.
+使用 `color_scheme` prop 来指定特定颜色，忽略全局主题。
 
 ```python demo
 rx.flex(
@@ -142,9 +142,9 @@ rx.flex(
 )
 ```
 
-## High Contrast
+## 高对比度
 
-Use the `high_contrast` prop to increase color contrast with the background.
+使用 `high_contrast` prop 来增加与背景的颜色对比度。
 
 ```python demo
 rx.flex(

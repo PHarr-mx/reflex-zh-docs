@@ -34,17 +34,17 @@ class SegmentedState(rx.State):
         self.control = value
 ```
 
-# Segmented Control
+# 分段控制器（Segmented Control）
 
-Segmented Control offers a clear and accessible way to switch between predefined values and views, e.g., "Inbox," "Drafts," and "Sent."
+分段控制器（Segmented Control）提供了一种清晰且无障碍的方式，用于在预定义的值和视图之间切换，例如"收件箱"、"草稿"和"已发送"。
 
-With Segmented Control, you can make mutually exclusive choices, where only one option can be active at a time, clear and accessible. Without Segmented Control, end users might have to deal with controls like dropdowns or multiple buttons that don't clearly convey state or group options together visually.
+使用分段控制器，你可以进行互斥选择，即一次只能激活一个选项，清晰且无障碍。如果没有分段控制器，最终用户可能不得不使用下拉菜单或多个按钮等控件，这些控件无法清晰地传达状态或在视觉上对选项进行分组。
 
-## Basic Example
+## 基本示例
 
-The `Segmented Control` component is made up of a `rx.segmented_control.root` which groups `rx.segmented_control.item`.
+`Segmented Control` 组件由 `rx.segmented_control.root` 组成，它将 `rx.segmented_control.item` 组合在一起。
 
-The `rx.segmented_control.item` components define the individual segments of the control, each with a label and a unique value.
+`rx.segmented_control.item` 组件定义了控件的各个分段，每个分段都有一个标签和一个唯一值。
 
 ```python demo
 rx.vstack(
@@ -64,8 +64,8 @@ rx.vstack(
 )
 ```
 
-**In the example above:**
+**在上面的示例中：**
 
-`on_change` is used to specify a callback function that will be called when the user selects a different segment. In this case, the `SegmentedState.set_control` event handler is used to update the `control` state variable when the user changes the selected segment.
+`on_change` 用于指定一个回调函数，当用户选择不同的分段时会调用该函数。在此示例中，`SegmentedState.set_control` 事件处理程序用于在用户更改所选分段时更新 `control` 状态变量。
 
-`value` prop is used to specify the currently selected segment, which is bound to the `SegmentedState.control` state variable.
+`value` 属性用于指定当前选中的分段，它绑定到 `SegmentedState.control` 状态变量。

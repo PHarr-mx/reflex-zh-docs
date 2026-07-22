@@ -15,30 +15,30 @@ except ImportError:
     RendererParams = None
 ```
 
-Reflex Enterprise is a package containing paid features built on top of Reflex.
+Reflex Enterprise 是一个包含基于 Reflex 构建的付费功能的软件包。
 
-The full [End-User License Agreement (EULA)](https://raw.githubusercontent.com/reflex-dev/reflex/main/docs/enterprise/LICENSE) for Reflex Enterprise is published in the Reflex repository.
+Reflex Enterprise 的完整[最终用户许可协议（EULA）](https://raw.githubusercontent.com/reflex-dev/reflex/main/docs/enterprise/LICENSE)已发布在 Reflex 仓库中。
 
 ```md alert info
-# Enterprise components are available to free users.
-Free apps can use these components with a "Built with Reflex" badge shown in the bottom right corner of the app.
-For more information on the badge, visit [Built with Reflex](/docs/enterprise/built-with-reflex/).
+# 企业版组件对免费用户开放。
+免费应用可以使用这些组件，但会在应用右下角显示 "Built with Reflex" 徽章。
+有关徽章的更多信息，请访问 [Built with Reflex](/docs/enterprise/built-with-reflex/)。
 ```
 
-## Installation
+## 安装
 
-`reflex-enterprise` must be installed alongside `reflex` to access the enterprise features.
+`reflex-enterprise` 必须与 `reflex` 一起安装才能使用企业版功能。
 
-Install it from PyPI:
+从 PyPI 安装：
 
 ```bash
 pip install reflex-enterprise
 ```
 
-## Features
+## 功能
 
 ```python exec
-# Create master data organized by category
+# 创建按类别组织的主数据
 categories_data = [
     {
         "category": "Configuration",
@@ -350,25 +350,24 @@ else:
 grid
 ```
 
-## Usage of reflex_enterprise.
+## 使用 reflex_enterprise
 
-Use `rxe.App` as your `app` to enable Enterprise components and `rxe.Config`
-options.
+使用 `rxe.App` 作为你的 `app` 以启用企业版组件和 `rxe.Config` 选项。
 
-### In the main file
+### 在主文件中
 
-Create the app with `rxe.App()`:
+使用 `rxe.App()` 创建应用：
 ```python
 import reflex_enterprise as rxe
 
 app = rxe.App()
 ```
 
-### In rxconfig.py
+### 在 rxconfig.py 中
 ```python
 import reflex_enterprise as rxe
 config = rxe.Config(
     app_name="MyApp",
-    ... # accepts rx.Config arguments plus rxe.Config options
+    ... # 接受 rx.Config 参数以及 rxe.Config 选项
 )
 ```

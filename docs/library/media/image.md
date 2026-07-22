@@ -7,10 +7,9 @@ components:
 import reflex as rx
 ```
 
-# Image
+# 图片（Image）
 
-The Image component can display an image given a `src` path as an argument.
-This could either be a local path from the assets folder or an external link.
+图片组件（Image）可以通过传入 `src` 路径作为参数来显示图片。该路径可以是 assets 文件夹中的本地路径，也可以是外部链接。
 
 ```python demo
 rx.image(
@@ -21,7 +20,7 @@ rx.image(
 )
 ```
 
-Image composes a box and can be styled similarly.
+Image 组合了一个 box，可以用类似的方式进行样式设置。
 
 ```python demo
 rx.image(
@@ -34,7 +33,7 @@ rx.image(
 )
 ```
 
-You can also pass a `PIL` image object as the `src`.
+你也可以将 `PIL` 图片对象作为 `src` 传入。
 
 ```python demo box
 rx.image(src="https://picsum.photos/id/1/200/300", alt="An Unsplash Image")
@@ -55,13 +54,13 @@ def image_pil_example():
 ```
 
 ```md alert info
-# rx.image only accepts URLs and Pillow Images
+# rx.image 仅接受 URL 和 Pillow 图片
 
-A cv2 image must be converted to a PIL image to be passed directly to `rx.image` as a State variable, or saved to the `assets` folder and then passed to the `rx.image` component.
+cv2 图片必须先转换为 PIL 图片，才能作为 State 变量直接传递给 `rx.image`，或者保存到 `assets` 文件夹后再传递给 `rx.image` 组件。
 ```
 
 ```md alert info
-# How to let your user upload an image
+# 如何让用户上传图片
 
-To let a user upload an image to your app check out the [upload docs](/docs/library/forms/upload).
+要让用户向你的应用上传图片，请查看[上传文档](/docs/library/forms/upload)。
 ```

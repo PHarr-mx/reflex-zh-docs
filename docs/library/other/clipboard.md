@@ -7,15 +7,13 @@ components:
 import reflex as rx
 ```
 
-# Clipboard
+# 剪贴板（Clipboard）
 
-_New in 0.5.6_
+_0.5.6 版本新增_
 
-The Clipboard component can be used to respond to paste events with complex data.
+剪贴板组件（Clipboard）可用于响应包含复杂数据的粘贴事件。
 
-If the Clipboard component is included in a page without children,
-`rx.clipboard()`, then it will attach to the document's `paste` event handler
-and will be triggered when data is pasted anywhere into the page.
+如果 Clipboard 组件在页面中不包含子元素（即 `rx.clipboard()`），它将附加到文档的 `paste` 事件处理器上，当数据被粘贴到页面的任何位置时都会触发。
 
 ```python demo exec
 class ClipboardPasteState(rx.State):
@@ -32,23 +30,15 @@ def clipboard_example():
     )
 ```
 
-The `data` argument passed to the `on_paste` method is a list of tuples, where
-each tuple contains the MIME type of the pasted data and the data itself. Binary
-data will be base64 encoded as a data URI, and can be decoded using python's
-`urlopen` or used directly as the `src` prop of an image.
+传递给 `on_paste` 方法的 `data` 参数是一个元组列表，每个元组包含粘贴数据的 MIME 类型和数据本身。二进制数据将被 base64 编码为 data URI，可以使用 Python 的 `urlopen` 进行解码，也可以直接用作图片的 `src` 属性。
 
-## Scoped Paste Events
+## 限定范围的粘贴事件
 
-If you want to limit the scope of the paste event to a specific element, wrap
-the `rx.clipboard` component around the elements that should trigger the paste
-event.
+如果你想将粘贴事件的范围限定在特定元素内，可以将 `rx.clipboard` 组件包裹在应触发粘贴事件的元素外面。
 
-To avoid having outer paste handlers also trigger the event, you can use the
-event action `.stop_propagation` to prevent the paste from bubbling up through
-the DOM.
+为了避免外层的粘贴处理器也触发事件，你可以使用事件操作 `.stop_propagation` 来阻止粘贴事件在 DOM 中冒泡。
 
-If you need to also prevent the default action of pasting the data into a text
-box, you can also attach the `.prevent_default` action.
+如果你还需要阻止将数据粘贴到文本框的默认行为，也可以附加 `.prevent_default` 操作。
 
 ```python demo exec
 class ClipboardPasteImageState(rx.State):

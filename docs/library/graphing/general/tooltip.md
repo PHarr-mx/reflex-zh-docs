@@ -3,13 +3,13 @@ components:
   - rx.recharts.GraphingTooltip
 ---
 
-# Tooltip
+# 工具提示（Tooltip）
 
 ```python exec
 import reflex as rx
 ```
 
-Tooltips are the little boxes that pop up when you hover over something. Tooltips are always attached to something, like a dot on a scatter chart, or a bar on a bar chart.
+工具提示是当你将鼠标悬停在某个元素上时弹出的小方框。工具提示始终附着在某个元素上，例如散点图上的点或柱状图上的柱形。
 
 ```python demo graphing
 data = [
@@ -38,9 +38,9 @@ def tooltip_simple():
     )
 ```
 
-## Custom Styling
+## 自定义样式
 
-The `rx.recharts.graphing_tooltip` component allows for customization of the tooltip's style, position, and layout. `separator` sets the separator between the data key and value. `view_box` prop defines the dimensions of the chart's viewbox while `allow_escape_view_box` determines whether the tooltip can extend beyond the viewBox horizontally (x) or vertically (y). `wrapper_style` prop allows you to style the outer container or wrapper of the tooltip. `content_style` prop allows you to style the inner content area of the tooltip. `is_animation_active` prop determines if the tooltip animation is active or not.
+`rx.recharts.graphing_tooltip` 组件允许自定义工具提示的样式、位置和布局。`separator` 设置数据键和值之间的分隔符。`view_box` 属性定义图表视口的尺寸，而 `allow_escape_view_box` 决定工具提示是否可以在水平方向（x）或垂直方向（y）上超出 viewBox。`wrapper_style` 属性允许你设置工具提示外部容器或包装器的样式。`content_style` 属性允许你设置工具提示内部内容区域的样式。`is_animation_active` 属性决定工具提示动画是否激活。
 
 ```python demo graphing
 data = [

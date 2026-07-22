@@ -36,19 +36,19 @@ HStack: |
 import reflex as rx
 ```
 
-# Stack
+# 堆叠（Stack）
 
-`Stack` is a layout component used to group elements together and apply a space between them.
+`Stack` 是一个布局组件，用于将元素组合在一起并在它们之间应用间距。
 
-`vstack` is used to stack elements in the vertical direction.
+`vstack` 用于在垂直方向堆叠元素。
 
-`hstack` is used to stack elements in the horizontal direction.
+`hstack` 用于在水平方向堆叠元素。
 
-`stack` is used to stack elements in the vertical or horizontal direction.
+`stack` 用于在垂直或水平方向堆叠元素。
 
-These components are based on the `flex` component and therefore inherit all of its props.
+这些组件都基于 `flex` 组件，因此继承了其所有属性。
 
-The `stack` component can be used with the `flex_direction` prop to set to either `row` or `column` to set the direction.
+`stack` 组件可以配合 `flex_direction` 属性使用，将其设置为 `row` 或 `column` 来指定方向。
 
 ```python demo
 rx.flex(
@@ -100,7 +100,7 @@ rx.flex(
 )
 ```
 
-## Hstack
+## 水平堆叠（Hstack）
 
 ```python demo
 rx.hstack(
@@ -133,7 +133,7 @@ rx.hstack(
 )
 ```
 
-## Vstack
+## 垂直堆叠（Vstack）
 
 ```python demo
 rx.vstack(
@@ -166,7 +166,7 @@ rx.vstack(
 )
 ```
 
-## Real World Example
+## 实际示例
 
 ```python demo
 rx.hstack(

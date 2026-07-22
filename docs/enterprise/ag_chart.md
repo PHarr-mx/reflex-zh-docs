@@ -1,6 +1,6 @@
 # AG Chart
 
-AG Chart is a powerful charting library that provides interactive charts and data visualization components for enterprise applications.
+AG Chart 是一个强大的图表库，为企业应用提供交互式图表和数据可视化组件。
 
 ```python demo exec
 import reflex as rx
@@ -28,4 +28,4 @@ def basic_chart():
     )
 ```
 
-For more detailed documentation, see the [AG Chart Documentation](https://charts.ag-grid.com/).
+如需更详细的文档，请参阅 [AG Chart 文档](https://charts.ag-grid.com/)。

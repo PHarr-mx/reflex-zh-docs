@@ -9,7 +9,7 @@ import reflex_enterprise as rxe
 
 # Pill
 
-`rxe.mantine.pill` is a wrapping of the mantine component [Pill](https://mantine.dev/core/pill/). It is a simple component that can be used to display a small piece of information, such as a tag or a label. It can be used in various contexts, such as in a list of tags or labels, or as a standalone component.
+`rxe.mantine.pill` 是 Mantine 组件 [Pill](https://mantine.dev/core/pill/) 的封装。它是一个简单的组件，可用于显示一小段信息，例如标签或标记。它可以在各种场景中使用，例如在标签列表中或作为独立组件。
 
 ```python demo exec
 import reflex as rx
@@ -17,7 +17,7 @@ import reflex_enterprise as rxe
 
 
 def pill_page():
-    """Pill demo."""
+    """Pill 演示。"""
     return rxe.mantine.pill(
         "Pill",
         color="blue",
@@ -29,8 +29,8 @@ def pill_page():
     )
 ```
 
-## Pill Group
-`rxe.mantine.pill.group` allows grouping multiple `rxe.mantine.pill` components together, with a predefined layout.
+## Pill 分组
+`rxe.mantine.pill.group` 允许将多个 `rxe.mantine.pill` 组件组合在一起，并使用预定义的布局。
 
 ```python demo exec
 import reflex as rx
@@ -38,7 +38,7 @@ import reflex_enterprise as rxe
 
 
 def pill_group_page():
-    """Pill demo."""
+    """Pill 演示。"""
     return rxe.mantine.pill.group(
         rxe.mantine.pill("Pill 1"),
         rxe.mantine.pill("Pill 2"),
@@ -48,14 +48,14 @@ def pill_group_page():
 
 ## PillsInput
 
-`rxe.mantine.pills_input` is a wrapping of the mantine component [PillsInput](https://mantine.dev/core/pills-input/). It is an utility component that can be used to display a list of tags or labels. It can be used in various contexts, such as in a form or as a standalone component.
-By itself it does not include any logic, it only renders given children.
+`rxe.mantine.pills_input` 是 Mantine 组件 [PillsInput](https://mantine.dev/core/pills-input/) 的封装。它是一个实用组件，可用于显示标签或标记列表。它可以在各种场景中使用，例如在表单中或作为独立组件。
+它本身不包含任何逻辑，仅渲染给定的子元素。
 
 ```md alert info
-# For a fully functional out-of-the-box component, consider using [`rxe.mantine.tags_input`](/docs/enterprise/mantine/tags-input/) instead.
+# 如需一个开箱即用的完整功能组件，请考虑使用 [`rxe.mantine.tags_input`](/docs/enterprise/mantine/tags-input/)。
 ```
 
-## Example
+## 示例
 
 ```python demo exec
 import reflex as rx
@@ -63,23 +63,23 @@ import reflex_enterprise as rxe
 
 
 class PillInputState(rx.State):
-    """State for the PillsInput demo."""
+    """PillsInput 演示的状态。"""
 
     tags: set[str] = {"Foo", "Bar"}
 
     @rx.event
     def add_tag(self, tag: str):
-        """Add a tag to the list of tags."""
+        """向标签列表中添加一个标签。"""
         self.tags.add(tag)
 
     @rx.event
     def remove_tag(self, tag: str):
-        """Remove a tag from the list of tags."""
+        """从标签列表中移除一个标签。"""
         self.tags.remove(tag)
 
 
 def pills_input_page():
-    """PillsInput demo."""
+    """PillsInput 演示。"""
     return rxe.mantine.pills_input(
         rxe.mantine.pill.group(
             rx.foreach(

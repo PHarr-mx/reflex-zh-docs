@@ -9,6 +9,6 @@ components:
   - rx.el.svg.stop
 ---
 
-# HTML SVG Elements
+# HTML SVG 元素
 
-SVG elements are available through the `rx.el.svg` namespace.
+SVG 元素可通过 `rx.el.svg` 命名空间使用。

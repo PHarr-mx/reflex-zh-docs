@@ -7,21 +7,21 @@ components:
 import reflex as rx
 ```
 
-# Toast
+# Toast（轻提示）
 
-A `rx.toast` is a non-blocking notification that disappears after a certain amount of time. It is often used to show a message to the user without interrupting their workflow.
+`rx.toast` 是一种非阻塞通知，会在一定时间后自动消失。它通常用于在不中断用户工作流的情况下向用户显示消息。
 
-## Usage
+## 用法
 
-You can use `rx.toast` as an event handler for any component that triggers an action.
+你可以将 `rx.toast` 用作任何触发操作的组件的事件处理器。
 
 ```python demo
 rx.button("Show Toast", on_click=rx.toast("Hello, World!"))
 ```
 
-### Usage in State
+### 在 State 中使用
 
-You can also use `rx.toast` in a state to show a toast when a specific action is triggered, using `yield`.
+你也可以在状态中使用 `rx.toast`，通过 `yield` 在特定操作触发时显示轻提示。
 
 ```python demo exec
 import asyncio
@@ -30,9 +30,9 @@ import asyncio
 class ToastState(rx.State):
     @rx.event
     async def fetch_data(self):
-        # Simulate fetching data for a 2-second delay
+        # 模拟 2 秒延迟获取数据
         await asyncio.sleep(2)
-        # Shows a toast when the data is fetched
+        # 数据获取完成后显示轻提示
         yield rx.toast("Data fetched!")
 
 
@@ -40,11 +40,11 @@ def render():
     return rx.button("Get Data", on_click=ToastState.fetch_data)
 ```
 
-## Interaction
+## 交互
 
-If you want to interact with a toast, a few props are available to customize the behavior.
+如果你想与轻提示进行交互，可以使用一些 prop 来自定义行为。
 
-By passing a `ToastAction` to the `action` or `cancel` prop, you can trigger an action when the toast is clicked or when it is closed.
+通过向 `action` 或 `cancel` prop 传递 `ToastAction`，你可以在点击轻提示或关闭轻提示时触发操作。
 
 ```python demo
 rx.button(
@@ -52,9 +52,9 @@ rx.button(
 )
 ```
 
-### Presets
+### 预设
 
-`rx.toast` has some presets that you can use to show different types of toasts.
+`rx.toast` 提供了一些预设，用于显示不同类型的轻提示。
 
 ```python demo
 rx.hstack(
@@ -65,9 +65,9 @@ rx.hstack(
 )
 ```
 
-### Customization
+### 自定义
 
-If the presets don't fit your needs, you can customize the toasts by passing to `rx.toast` or to `rx.toast.options` some kwargs.
+如果预设不能满足你的需求，你可以通过向 `rx.toast` 或 `rx.toast.options` 传递 kwargs 来自定义轻提示。
 
 ```python demo
 rx.button(
@@ -85,29 +85,29 @@ rx.button(
 )
 ```
 
-The following props are available for customization:
+以下 prop 可用于自定义：
 
-- `description`: `str | Var`: Toast's description, renders underneath the title.
-- `close_button`: `bool`: Whether to show the close button.
-- `invert`: `bool`: Dark toast in light mode and vice versa.
-- `important`: `bool`: Control the sensitivity of the toast for screen readers.
-- `duration`: `int`: Time in milliseconds that should elapse before automatically closing the toast.
-- `position`: `LiteralPosition`: Position of the toast.
-- `dismissible`: `bool`: If false, it'll prevent the user from dismissing the toast.
-- `action`: `ToastAction`: Renders a primary button, clicking it will close the toast.
-- `cancel`: `ToastAction`: Renders a secondary button, clicking it will close the toast.
-- `id`: `str | Var`: Custom id for the toast.
-- `unstyled`: `bool`: Removes the default styling, which allows for easier customization.
-- `style`: `Style`: Custom style for the toast.
-- `on_dismiss`: `Any`: The function gets called when either the close button is clicked, or the toast is swiped.
-- `on_auto_close`: `Any`: Function that gets called when the toast disappears automatically after it's timeout (`duration` prop).
+- `description`：`str | Var`：轻提示的描述，渲染在标题下方。
+- `close_button`：`bool`：是否显示关闭按钮。
+- `invert`：`bool`：在浅色模式下使用深色轻提示，反之亦然。
+- `important`：`bool`：控制轻提示对屏幕阅读器的敏感度。
+- `duration`：`int`：自动关闭轻提示前应经过的时间（毫秒）。
+- `position`：`LiteralPosition`：轻提示的位置。
+- `dismissible`：`bool`：如果为 false，将阻止用户关闭轻提示。
+- `action`：`ToastAction`：渲染一个主要按钮，点击它会关闭轻提示。
+- `cancel`：`ToastAction`：渲染一个次要按钮，点击它会关闭轻提示。
+- `id`：`str | Var`：轻提示的自定义 id。
+- `unstyled`：`bool`：移除默认样式，便于自定义。
+- `style`：`Style`：轻提示的自定义样式。
+- `on_dismiss`：`Any`：当点击关闭按钮或滑动关闭轻提示时调用的函数。
+- `on_auto_close`：`Any`：轻提示在超时（`duration` prop）后自动消失时调用的函数。
 
-## Toast Provider
+## Toast Provider（轻提示提供者）
 
-Using the `rx.toast` function require to have a toast provider in your app.
+使用 `rx.toast` 函数需要在应用中有一个 toast provider。
 
-`rx.toast.provider` is a component that provides a context for displaying toasts. It should be placed at the root of your app.
+`rx.toast.provider` 是一个提供轻提示显示上下文的组件。它应放置在应用的根级别。
 
 ```md alert warning
-# In most case you will not need to include this component directly, as it is already included in `rx.app` as the `overlay_component` for displaying connections errors.
+# 在大多数情况下，你不需要直接包含此组件，因为它已经作为 `overlay_component` 包含在 `rx.app` 中，用于显示连接错误。
 ```

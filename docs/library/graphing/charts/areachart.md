@@ -6,16 +6,16 @@ title: Area Chart
 meta_description: "Create area charts in Python with Reflex. Build stacked, gradient, and multi-series Recharts area charts with custom axes, tooltips, legends, and colors — all in pure Python."
 ---
 
-# Area Chart
+# 面积图（Area Chart）
 
 ```python exec
 import reflex as rx
 import random
 ```
 
-Area charts in Reflex are built on [Recharts](https://recharts.org/), a React charting library, and created in pure Python. A Recharts area chart displays quantitative data using filled areas between a line connecting data points and the axis.
+Reflex 中的面积图基于 [Recharts](https://recharts.org/)（一个 React 图表库）构建，使用纯 Python 创建。Recharts 面积图通过连接数据点的折线与坐标轴之间的填充区域来展示定量数据。
 
-## Basic Example
+## 基本示例
 
 ```python demo graphing
 data = [
@@ -42,9 +42,9 @@ def area_simple():
     )
 ```
 
-## Syncing Charts
+## 图表同步
 
-The `sync_id` prop allows you to sync two graphs. In the example, it is set to "1" for both charts, indicating that they should be synchronized. This means that any interactions (such as brushing) performed on one chart will be reflected in the other chart.
+`sync_id` 属性允许你同步两个图表。在示例中，两个图表都设置为 "1"，表示它们应该同步。这意味着在一个图表上执行的任何交互（如刷选）都会反映到另一个图表上。
 
 ```python demo graphing
 data = [
@@ -95,11 +95,11 @@ def area_sync():
     )
 ```
 
-## Stacked Area Chart
+## 堆叠面积图（Stacked Area Chart）
 
-The `stack_id` prop allows you to stack multiple areas on top of each other, creating a stacked area chart. In the example, it is set to "1" for both charts, indicating that they should be stacked together. This means that the areas of the charts will be vertically stacked, with the values of each chart contributing to the total height of the stacked areas.
+`stack_id` 属性允许你将多个面积区域堆叠在一起，创建堆叠面积图。在示例中，两个图表都设置为 "1"，表示它们应该堆叠在一起。这意味着图表的面积区域将垂直堆叠，每个图表的值共同构成堆叠区域的总高度。
 
-This is similar to the `sync_id` prop, but instead of synchronizing the interaction between the charts, it just stacks the charts on top of each other.
+这与 `sync_id` 属性类似，但它不是同步图表之间的交互，而是简单地将图表堆叠在一起。
 
 ```python demo graphing
 data = [
@@ -137,9 +137,9 @@ def area_stack():
     )
 ```
 
-## Multiple Axis
+## 多坐标轴
 
-Multiple axes can be used for displaying different data series with varying scales or units on the same chart. This allows for a more comprehensive comparison and analysis of the data.
+可以使用多个坐标轴在同一图表上显示具有不同比例或单位的数据系列。这样可以更全面地比较和分析数据。
 
 ```python demo graphing
 data = [
@@ -182,12 +182,12 @@ def area_multi_axis():
     )
 ```
 
-## Layout
+## 布局
 
-Use the `layout` prop to set the orientation to either `"horizontal"` (default) or `"vertical"`.
+使用 `layout` 属性将方向设置为 `"horizontal"`（默认）或 `"vertical"`。
 
 ```md alert info
-# Include margins around your graph to ensure proper spacing and enhance readability. By default, provide margins on all sides of the chart to create a visually appealing and functional representation of your data.
+# 在图表周围添加边距以确保适当的间距并提高可读性。默认情况下，在图表的所有侧面提供边距，以创建美观且实用的数据展示效果。
 ```
 
 ```python demo graphing
@@ -218,9 +218,9 @@ def area_vertical():
     )
 ```
 
-## Stateful Example
+## 带状态的示例
 
-Here is an example of an area graph with a `State`. Here we have defined a function `randomize_data`, which randomly changes the data for both graphs when the first defined `area` is clicked on using `on_click=AreaState.randomize_data`.
+下面是一个使用 `State` 的面积图示例。我们定义了一个 `randomize_data` 函数，当使用 `on_click=AreaState.randomize_data` 点击第一个定义的 `area` 时，该函数会随机更改两个图表的数据。
 
 ```python demo exec
 class AreaState(rx.State):
@@ -275,10 +275,10 @@ def area_stateful():
     )
 ```
 
-## Related Charts
+## 相关图表
 
-Explore more chart types you can build with Reflex and Recharts in pure Python:
+探索更多可以使用 Reflex 和 Recharts 以纯 Python 构建的图表类型：
 
-- [Line Chart](/docs/library/graphing/charts/linechart)
-- [Bar Chart](/docs/library/graphing/charts/barchart)
-- [Composed Chart](/docs/library/graphing/charts/composedchart)
+- [折线图](/docs/library/graphing/charts/linechart)
+- [柱状图](/docs/library/graphing/charts/barchart)
+- [组合图](/docs/library/graphing/charts/composedchart)

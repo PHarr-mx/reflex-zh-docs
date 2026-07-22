@@ -13,6 +13,6 @@ components:
   - rx.el.textarea
 ---
 
-# HTML Form Elements
+# HTML 表单元素
 
-Form-related HTML elements are available through the `rx.el` namespace.
+表单相关的 HTML 元素可通过 `rx.el` 命名空间使用。

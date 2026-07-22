@@ -163,17 +163,17 @@ DropdownMenuSubContent: |
 import reflex as rx
 ```
 
-# Dropdown Menu
+# Dropdown Menu（下拉菜单）
 
-A Dropdown Menu is a menu that offers a list of options that a user can select from. They are typically positioned near a button that will control their appearance and disappearance.
+下拉菜单（Dropdown Menu）是提供一系列选项供用户选择的菜单。它通常位于控制其显示和隐藏的按钮附近。
 
-A Dropdown Menu is composed of a `menu.root`, a `menu.trigger` and a `menu.content`. The `menu.trigger` is the element that the user interacts with to open the menu. It wraps the element that will open the dropdown menu. The `menu.content` is the component that pops out when the dropdown menu is open.
+下拉菜单由 `menu.root`、`menu.trigger` 和 `menu.content` 组成。`menu.trigger` 是用户与之交互以打开菜单的元素。它包裹用于打开下拉菜单的元素。`menu.content` 是下拉菜单打开时弹出的组件。
 
-The `menu.item` contains the actual dropdown menu items and sits under the `menu.content`. The `shortcut` prop is an optional shortcut command displayed next to the item text.
+`menu.item` 包含实际的下拉菜单项，位于 `menu.content` 之下。`shortcut` prop 是显示在菜单项文本旁边的可选快捷键命令。
 
-The `menu.sub` contains all the parts of a submenu. There is a `menu.sub_trigger`, which is an item that opens a submenu. It must be rendered inside a `menu.sub` component. The `menu.sub_component` is the component that pops out when a submenu is open. It must also be rendered inside a `menu.sub` component.
+`menu.sub` 包含子菜单的所有部分。其中有一个 `menu.sub_trigger`，它是用于打开子菜单的项。它必须渲染在 `menu.sub` 组件内部。`menu.sub_component` 是子菜单打开时弹出的组件。它也必须渲染在 `menu.sub` 组件内部。
 
-The `menu.separator` is used to visually separate items in a dropdown menu.
+`menu.separator` 用于在视觉上分隔下拉菜单中的项。
 
 ```python demo
 rx.menu.root(
@@ -203,9 +203,9 @@ rx.menu.root(
 )
 ```
 
-## Events when the Dropdown Menu opens or closes
+## 下拉菜单打开或关闭时的事件
 
-The `on_open_change` event, from the `menu.root`, is called when the `open` state of the dropdown menu changes. It is used in conjunction with the `open` prop, which is passed to the event handler.
+来自 `menu.root` 的 `on_open_change` 事件在下拉菜单的 `open` 状态发生变化时被调用。它与 `open` prop 配合使用，`open` 的值会传递给事件处理器。
 
 ```python demo exec
 class DropdownMenuState(rx.State):
@@ -244,11 +244,11 @@ def dropdown_menu_example():
     )
 ```
 
-## Opening a Dialog from Menu using State
+## 使用 State 从菜单打开对话框
 
-Accessing an overlay component from within another overlay component is a common use case but does not always work exactly as expected.
+从一个覆盖层组件内部访问另一个覆盖层组件是常见的用例，但并不总是能按预期工作。
 
-The code below will not work as expected as because the dialog is within the menu and the dialog will only be open when the menu is open, rendering the dialog unusable.
+下面的代码不会按预期工作，因为对话框位于菜单内部，对话框只有在菜单打开时才能打开，这使得对话框无法使用。
 
 ```python
 rx.menu.root(
@@ -265,7 +265,7 @@ rx.menu.root(
 )
 ```
 
-In this example, we will show how to open a dialog box from a dropdown menu, where the menu will close and the dialog will open and be functional.
+在此示例中，我们将展示如何从下拉菜单打开对话框，菜单会关闭，对话框会打开并正常工作。
 
 ```python demo exec
 class DropdownMenuState2(rx.State):

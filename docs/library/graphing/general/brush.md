@@ -3,15 +3,15 @@ components:
   - rx.recharts.Brush
 ---
 
-# Brush
+# 刷选器（Brush）
 
 ```python exec
 import reflex as rx
 ```
 
-## Simple Example
+## 简单示例
 
-The brush component allows us to view charts that have a large number of data points. To view and analyze them efficiently, the brush provides a slider with two handles that helps the viewer to select some range of data points to be displayed.
+刷选器组件允许我们查看包含大量数据点的图表。为了高效地查看和分析这些数据，刷选器提供了一个带有两个手柄的滑块，帮助查看者选择要显示的数据点范围。
 
 ```python demo graphing
 data = [
@@ -70,9 +70,9 @@ def brush_simple():
     )
 ```
 
-## Position, Size, and Range
+## 位置、大小和范围
 
-This example showcases ways to set the Position, Size, and Range. The `gap` prop provides the spacing between stops on the brush when the graph will refresh. The `start_index` and `end_index` props defines the default range of the brush. `traveller_width` prop specifies the width of each handle ("traveller" in recharts lingo).
+此示例展示了设置位置、大小和范围的方法。`gap` 属性提供刷选器上刻度之间的间距，图表将在这些刻度处刷新。`start_index` 和 `end_index` 属性定义刷选器的默认范围。`traveller_width` 属性指定每个手柄（Recharts 术语中的 "traveller"）的宽度。
 
 ```python demo graphing
 data = [

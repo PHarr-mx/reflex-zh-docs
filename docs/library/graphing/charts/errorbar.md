@@ -9,9 +9,9 @@ meta_description: "Add error bars to your charts in Python with Reflex. Use Rech
 import reflex as rx
 ```
 
-# Error Bar
+# 误差条（Error Bar）
 
-Error bars in Reflex are built on [Recharts](https://recharts.org/), a React charting library, and created in pure Python. An error bar is a graphical representation of the uncertainty or variability of a data point in a chart, depicted as a line extending from the data point parallel to one of the axes. The `data_key`, `width`, `stroke_width`, `stroke`, and `direction` props can be used to customize the appearance and behavior of the error bars, specifying the data source, dimensions, color, and orientation of the error bars.
+Reflex 中的误差条基于 [Recharts](https://recharts.org/)（一个 React 图表库）构建，使用纯 Python 创建。误差条是图表中数据点不确定性或变异性的图形表示，表现为从数据点沿某一坐标轴方向延伸的线段。`data_key`、`width`、`stroke_width`、`stroke` 和 `direction` 属性可用于自定义误差条的外观和行为，分别指定数据源、尺寸、颜色和方向。
 
 ```python demo graphing
 data = [
@@ -45,13 +45,13 @@ def error():
     )
 ```
 
-## Symmetric and Asymmetric Errors
+## 对称与非对称误差
 
-The `data_key` of an `rx.recharts.error_bar()` points at a field in each data row, and that field controls how far the whisker extends. Use a single number for a **symmetric** error — the same distance above and below the point — or a two-element `[low, high]` list for an **asymmetric** error. In the example above, some rows use `"errorY": 20` (symmetric) while others use `"errorY": [30, 20]` (asymmetric). The `direction` prop (`"x"` or `"y"`) chooses which axis the whisker runs along, so you can show error on one or both axes at once.
+`rx.recharts.error_bar()` 的 `data_key` 指向每行数据中的一个字段，该字段控制须线的延伸距离。使用单个数字表示**对称**误差——数据点上下延伸相同的距离——或使用包含两个元素的 `[low, high]` 列表表示**非对称**误差。在上面的示例中，某些行使用 `"errorY": 20`（对称），而其他行使用 `"errorY": [30, 20]`（非对称）。`direction` 属性（`"x"` 或 `"y"`）选择须线沿哪个轴延伸，因此你可以同时在一个或两个轴上显示误差。
 
-## Error Bars on a Line Chart
+## 折线图上的误差条
 
-Error bars aren't limited to scatter charts. Add an `rx.recharts.error_bar()` as a child of an `rx.recharts.line()` to visualize variance or measurement uncertainty on a line chart — useful for time series such as average temperature or benchmark results.
+误差条不仅限于散点图。将 `rx.recharts.error_bar()` 作为 `rx.recharts.line()` 的子组件添加，可以在折线图上可视化方差或测量不确定性——适用于平均温度或基准测试结果等时间序列数据。
 
 ```python demo graphing
 data = [
@@ -85,10 +85,10 @@ def line_error():
     )
 ```
 
-## Related Charts
+## 相关图表
 
-Explore more chart types you can build with Reflex and Recharts in pure Python:
+探索更多可以使用 Reflex 和 Recharts 以纯 Python 构建的图表类型：
 
-- [Scatter Chart](/docs/library/graphing/charts/scatterchart)
-- [Line Chart](/docs/library/graphing/charts/linechart)
-- [Bar Chart](/docs/library/graphing/charts/barchart)
+- [散点图](/docs/library/graphing/charts/scatterchart)
+- [折线图](/docs/library/graphing/charts/linechart)
+- [柱状图](/docs/library/graphing/charts/barchart)

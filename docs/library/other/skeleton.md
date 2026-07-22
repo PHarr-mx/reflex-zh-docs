@@ -8,10 +8,10 @@ components:
 import reflex as rx
 ```
 
-# Skeleton (loading placeholder)
+# Skeleton（加载占位符）
 
-`Skeleton` is a loading placeholder component that serves as a visual placeholder while content is loading.
-It is useful for maintaining the layout's structure and providing users with a sense of progression while awaiting the final content.
+`Skeleton` 是一个加载占位符组件，在内容加载期间充当视觉占位符。
+它有助于保持布局结构，并在等待最终内容时为用户提供进度感。
 
 ```python demo
 (
@@ -30,6 +30,6 @@ It is useful for maintaining the layout's structure and providing users with a s
 )
 ```
 
-When using `Skeleton` with text, wrap the text itself instead of the parent element to have a placeholder of the same size.
+在文本中使用 `Skeleton` 时，应包裹文本本身而非父元素，以获得相同大小的占位符。
 
-Use the loading prop to control whether the skeleton or its children are displayed. Skeleton preserves the dimensions of children when they are hidden and disables interactive elements.
+使用 loading prop 来控制显示骨架屏还是其子元素。Skeleton 在子元素隐藏时会保留其尺寸，并禁用交互元素。

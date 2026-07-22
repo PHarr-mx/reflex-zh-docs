@@ -9,7 +9,7 @@ import reflex_enterprise as rxe
 
 # Combobox
 
-`rxe.mantine.combobox` is a wrapping of the mantine component [Combobox](https://mantine.dev/core/combobox/). It is a simple component that can be used to display a list of options, and allows the user to select one or more options from the list. It can be used in various contexts, such as in a form or as a standalone component.
+`rxe.mantine.combobox` 是 Mantine 组件 [Combobox](https://mantine.dev/core/combobox/) 的封装。它是一个简单的组件，可用于显示选项列表，并允许用户从列表中选择一个或多个选项。它可以在各种场景中使用，例如在表单中或作为独立组件。
 
 ```python
 import reflex as rx
@@ -17,7 +17,7 @@ import reflex_enterprise as rxe
 
 
 def combobox_page():
-    """Combobox demo."""
+    """Combobox 演示。"""
     return rxe.mantine.combobox(
         rxe.mantine.combobox.target(
             rx.input(type="button"),
@@ -33,4 +33,3 @@ def combobox_page():
         placeholder="Select a value",
     )
 ```
-

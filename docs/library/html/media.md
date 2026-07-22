@@ -15,6 +15,6 @@ components:
   - rx.el.video
 ---
 
-# HTML Media Elements
+# HTML 媒体元素
 
-Media and embedded HTML elements are available through the `rx.el` namespace.
+媒体和嵌入 HTML 元素可通过 `rx.el` 命名空间使用。

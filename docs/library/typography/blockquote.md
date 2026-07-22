@@ -7,15 +7,15 @@ components:
 import reflex as rx
 ```
 
-# Blockquote
+# Blockquote（块引用）
 
 ```python demo
 rx.blockquote("Perfect typography is certainly the most elusive of all arts.")
 ```
 
-## Size
+## 尺寸
 
-Use the `size` prop to control the size of the blockquote. The prop also provides correct line height and corrective letter spacing—as text size increases, the relative line height and letter spacing decrease.
+使用 `size` prop 来控制块引用的大小。该 prop 还提供正确的行高和修正的字间距——随着文本尺寸增大，相对行高和字间距会减小。
 
 ```python demo
 rx.flex(
@@ -51,9 +51,9 @@ rx.flex(
 )
 ```
 
-## Weight
+## 字重
 
-Use the `weight` prop to set the blockquote weight.
+使用 `weight` prop 来设置块引用的字重。
 
 ```python demo
 rx.flex(
@@ -75,9 +75,9 @@ rx.flex(
 )
 ```
 
-## Color
+## 颜色
 
-Use the `color_scheme` prop to assign a specific color, ignoring the global theme.
+使用 `color_scheme` prop 来指定特定颜色，忽略全局主题。
 
 ```python demo
 rx.flex(
@@ -102,9 +102,9 @@ rx.flex(
 )
 ```
 
-## High Contrast
+## 高对比度
 
-Use the `high_contrast` prop to increase color contrast with the background.
+使用 `high_contrast` prop 来增加与背景的颜色对比度。
 
 ```python demo
 rx.flex(

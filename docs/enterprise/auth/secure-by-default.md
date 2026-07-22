@@ -2,54 +2,44 @@
 title: Secure by Default
 ---
 
-_New in reflex-enterprise v0.9.1._
+_reflex-enterprise v0.9.1 新增。_
 
-# Secure by Default
+# 默认安全（Secure by Default）
 
-Once `rxe.AuthPlugin` is configured (see the
-[overview](/docs/enterprise/auth/overview/)), **every** non-exempt page, event
-handler, base field, and computed var in your app requires a logged-in user
-unless you explicitly opt it out.
+配置好 `rxe.AuthPlugin` 后（参阅[概述](/docs/enterprise/auth/overview/)），应用中**所有**未豁免的页面、事件处理器、基础字段和计算变量都需要已登录用户，除非你明确选择退出。
 
 ```md alert warning
-# Requires `rxe.App` and a configured provider
-Secure-by-default only applies when your app uses `rxe.App()` (not `rx.App()`) and `rxe.AuthPlugin` is in `rxe.Config(plugins=[...])` with an OIDC provider configured. See the [overview](/docs/enterprise/auth/overview/).
+# 需要 `rxe.App` 和已配置的提供商
+默认安全仅在应用使用 `rxe.App()`（而非 `rx.App()`）且 `rxe.AuthPlugin` 位于 `rxe.Config(plugins=[...])` 中并配置了 OIDC 提供商时生效。参阅[概述](/docs/enterprise/auth/overview/)。
 ```
 
-## The `auth=` value
+## `auth=` 值
 
-`auth=` accepts three kinds of value:
+`auth=` 接受三种值：
 
-| `auth=` value | Meaning |
+| `auth=` 值 | 含义 |
 | --- | --- |
-| `True` | Require an authenticated user. This is the default for every surface. |
-| `False` | Public. Allow everyone. |
-| a callable check | An authorization check that runs **only after** authentication succeeds. A truthy result allows; a falsey result or a raised exception denies. |
+| `True` | 需要已认证用户。这是所有界面的默认值。 |
+| `False` | 公开。允许所有人。 |
+| 可调用检查 | 仅在认证成功后运行的授权检查。返回真值则允许；返回假值或抛出异常则拒绝。 |
 
-The four wrappers are exported at top level: `rxe.page`, `rxe.event`,
-`rxe.field`, and `rxe.var`. `rxe.event`, `rxe.field`, and `rxe.var` accept all
-three values. `rxe.page` takes a **bool only**.
+四个包装器在顶层导出：`rxe.page`、`rxe.event`、`rxe.field` 和 `rxe.var`。`rxe.event`、`rxe.field` 和 `rxe.var` 接受所有三种值。`rxe.page` 仅接受 **bool**。
 
-### The global default
+### 全局默认值
 
-`AuthPlugin(auth=...)` sets the default applied to every surface that carries no
-explicit `auth=` of its own. It accepts the same three values:
+`AuthPlugin(auth=...)` 设置应用于所有未携带显式 `auth=` 的界面的默认值。它接受相同的三种值：
 
 ```python
-rxe.AuthPlugin(auth=True)  # any authenticated user (the default)
-rxe.AuthPlugin(auth=False)  # open by default
-rxe.AuthPlugin(auth=my_org_check)  # org-wide authorization check after login
+rxe.AuthPlugin(auth=True)  # 任何已认证用户（默认）
+rxe.AuthPlugin(auth=False)  # 默认开放
+rxe.AuthPlugin(auth=my_org_check)  # 登录后的组织级授权检查
 ```
 
-A plain `rx.field(...)`, a bare `@rxe.var`, a bare `@rxe.event`, and an
-`@rxe.page()` with no `auth=` all **inherit** this global default. An explicit
-per-surface `rxe.*(auth=...)` always overrides it. Changing
-`AuthPlugin(auth=...)` changes the app baseline without editing each field, var,
-event, or page.
+普通的 `rx.field(...)`、裸 `@rxe.var`、裸 `@rxe.event` 以及没有 `auth=` 的 `@rxe.page()` 都**继承**此全局默认值。显式的每界面 `rxe.*(auth=...)` 始终覆盖它。更改 `AuthPlugin(auth=...)` 会改变应用基线，而无需编辑每个字段、变量、事件或页面。
 
-### Gate the whole app behind a role
+### 用角色门控整个应用
 
-A callable global default runs on every untagged page load:
+可调用全局默认值在每个未标记的页面加载时运行：
 
 ```python
 # my_app/auth.py
@@ -57,7 +47,7 @@ from reflex_enterprise.auth import AuthContext
 
 
 def is_member_of(ctx: AuthContext) -> bool:
-    """Allow only members of the ``admins`` group."""
+    """仅允许 ``admins`` 组的成员。"""
     return "admins" in (ctx.auth_user_state.userinfo.get("groups") or [])
 ```
 
@@ -78,17 +68,11 @@ config = rxe.Config(
 )
 ```
 
-Request `extra_scopes=["groups"]` when checks need the `groups` claim. See
-[providers](/docs/enterprise/auth/providers/#the-claims-a-provider-returns).
-Authenticated users who fail the check are sent to `/forbidden`, not back to
-login. Replace that screen with a [custom forbidden
-page](/docs/enterprise/auth/custom-pages/#a-custom-forbidden-page).
+当检查需要 `groups` 声明时，请求 `extra_scopes=["groups"]`。参阅[提供商](/docs/enterprise/auth/providers/#the-claims-a-provider-returns)。未通过检查的已认证用户会被发送到 `/forbidden`，而非回到登录页面。用[自定义禁止访问页面](/docs/enterprise/auth/custom-pages/#a-custom-forbidden-page)替换该界面。
 
-## Pages
+## 页面
 
-Protect a page with `@rxe.page`. For pages, `auth` is a **bool only**. Callable
-checks are not supported as a per-page argument, although the global default may
-still be callable.
+使用 `@rxe.page` 保护页面。对于页面，`auth` 仅为 **bool**。可调用检查不支持作为每页面参数，尽管全局默认值仍然可以是可调用的。
 
 ```python
 def page(
@@ -99,45 +83,34 @@ def page(
 )
 ```
 
-- `auth=None` (the default): follow the configured global default
-  (`AuthPlugin(auth=...)`).
-- `auth=True`: always require an authenticated user, regardless of the global
-  default.
-- `auth=False`: public page.
+- `auth=None`（默认）：遵循已配置的全局默认值（`AuthPlugin(auth=...)`）。
+- `auth=True`：始终需要已认证用户，无论全局默认值如何。
+- `auth=False`：公开页面。
 
-A protected page injects a guard as the **first** `on_load` event. Anonymous
-visitors are redirected to the login endpoint, and the requested page is
-preserved as a `redirect_to` query parameter. The post-login flow returns them
-there.
+受保护的页面将守卫注入为**第一个** `on_load` 事件。匿名访客被重定向到登录端点，请求的页面作为 `redirect_to` 查询参数保留。登录后的流程会将他们送回该页面。
 
-- The post-login `redirect_to` target is validated against the app's origin.
-  Only same-origin absolute paths (e.g. `/dashboard`) or URLs sharing the app's
-  scheme and host are honored. Any cross-origin, scheme-relative (`//evil.test`),
-  or backslash target falls back to the index page.
+- 登录后的 `redirect_to` 目标会针对应用的源进行验证。只有同源绝对路径（如 `/dashboard`）或与应用共享协议和主机的 URL 才会被接受。任何跨源、协议相对（`//evil.test`）或反斜杠目标都会回退到首页。
 
 ```python
 @rxe.page(
     route="/dashboard", title="Dashboard"
-)  # auth=None: follows the global default
+)  # auth=None：遵循全局默认值
 def dashboard() -> rx.Component:
-    """Protected: anonymous visitors are redirected to /login."""
+    """受保护：匿名访客被重定向到 /login。"""
     ...
 
 
 @rxe.page(route="/", title="Home", auth=False)
 def index() -> rx.Component:
-    """Public landing page (opted out of secure-by-default)."""
+    """公开着陆页（选择退出默认安全）。"""
     ...
 ```
 
-Any extra `**page_kwargs` are forwarded to `rx.page`: `title`, `image`,
-`description`, `meta`, `script_tags`, and `on_load`. When `on_load` is provided,
-the guard is prepended.
+任何额外的 `**page_kwargs` 都会转发给 `rx.page`：`title`、`image`、`description`、`meta`、`script_tags` 和 `on_load`。当提供了 `on_load` 时，守卫会被前置。
 
-### Reading the user on page load
+### 在页面加载时读取用户
 
-Because the guard is prepended, a page's `on_load` runs after authentication.
-`await User.current()` (or `ctx.auth_user_state.userinfo`) is non-`None` there:
+由于守卫被前置，页面的 `on_load` 在认证之后运行。在那里 `await User.current()`（或 `ctx.auth_user_state.userinfo`）不为 `None`：
 
 ```python
 @rxe.page(route="/dashboard", title="Dashboard", on_load=DashboardState.load)
@@ -153,36 +126,25 @@ class DashboardState(rx.State):
         self.greeting = f"Welcome, {user.get('name') or user.get('sub')}"
 ```
 
-`User.current()` is event-only; an `on_load` handler is an event and resolves
-the authenticated user from the guard. See [reading the current
-user](#reading-the-current-user).
+`User.current()` 仅限事件使用；`on_load` 处理器是一个事件，从守卫中解析已认证的用户。参阅[读取当前用户](#reading-the-current-user)。
 
-### Pages Added Without `@rxe.page`
+### 未使用 `@rxe.page` 添加的页面
 
-With the plugin active, `rxe.App()` defaults **every** page to login-required,
-including pages added via `app.add_page(...)` or a plain `@rx.page`. Opt out with
-`auth=False`:
+插件激活后，`rxe.App()` 默认将**所有**页面设为需要登录，包括通过 `app.add_page(...)` 或普通 `@rx.page` 添加的页面。使用 `auth=False` 退出：
 
 ```python
 app.add_page(index, route="/", auth=False)
 ```
 
-Because plain `@rx.page` takes no `auth` argument, use
-`@rxe.page(auth=False)` to opt a decorated page out.
+由于普通 `@rx.page` 不接受 `auth` 参数，使用 `@rxe.page(auth=False)` 来让装饰的页面退出。
 
-### When the global default is a callable
+### 当全局默认值是可调用的
 
-A page cannot take a callable `auth=` directly. If `AuthPlugin(auth=...)` is
-callable, untagged pages (`@rxe.page()` / `@rx.page` / `app.add_page`) run it on
-load. An authenticated visitor who **fails** the check is redirected to the
-`forbidden_endpoint` (`/forbidden` by default). An explicit
-`@rxe.page(auth=True)` only requires login and does **not** run the callable
-default.
+页面不能直接接受可调用的 `auth=`。如果 `AuthPlugin(auth=...)` 是可调用的，未标记的页面（`@rxe.page()` / `@rx.page` / `app.add_page`）在加载时运行它。**未通过**检查的已认证访客被重定向到 `forbidden_endpoint`（默认为 `/forbidden`）。显式的 `@rxe.page(auth=True)` 仅要求登录，**不**运行可调用默认值。
 
-## Event handlers
+## 事件处理器
 
-Protect an event handler with `@rxe.event`. Here `auth` accepts a bool or a
-callable check.
+使用 `@rxe.event` 保护事件处理器。这里 `auth` 接受 bool 或可调用检查。
 
 ```python
 def event(
@@ -193,34 +155,26 @@ def event(
 )
 ```
 
-Works bare (`@rxe.event`) or called (`@rxe.event(auth=...)`), and can wrap a raw
-function or an already-converted `EventHandler`. Extra `**event_kwargs` are
-forwarded to `rx.event`: `background`, `stop_propagation`, `prevent_default`,
-`throttle`, `debounce`, and `temporal`.
+可裸用（`@rxe.event`）或调用（`@rxe.event(auth=...)`），可包装原始函数或已转换的 `EventHandler`。额外的 `**event_kwargs` 转发给 `rx.event`：`background`、`stop_propagation`、`prevent_default`、`throttle`、`debounce` 和 `temporal`。
 
 ```python
 class DemoState(rx.State):
-    @rxe.event  # default auth=True: anonymous callers are redirected to /login
+    @rxe.event  # 默认 auth=True：匿名调用者被重定向到 /login
     async def protected_action(self):
         user = await User.current() or {}
         return rx.toast(f"Hello {user.get('name') or user.get('sub')}!")
 
     @rxe.event(auth=False)
     def public_action(self):
-        """Anyone may call this."""
+        """任何人都可以调用。"""
         ...
 ```
 
-A failed authorization check on an event handler shows the
-`"Action not allowed"` toast (see
-[authentication vs authorization](#authentication-vs-authorization)).
+事件处理器上的授权检查失败会显示 `"Action not allowed"` 提示（参阅[认证与授权](#authentication-vs-authorization)）。
 
-## Base fields
+## 基础字段
 
-Base (state) fields are protected by default. A plain `rx.field(...)`, or a bare
-annotation, on one of your state classes is protected and dropped from the state
-delta until the user is resolved. Use `rxe.field` to opt a field out or attach a
-check.
+基础（状态）字段默认受保护。状态类上的普通 `rx.field(...)` 或裸注解是受保护的，在用户被解析之前会从状态增量中丢弃。使用 `rxe.field` 来让字段退出或附加检查。
 
 ```python
 def field(
@@ -234,20 +188,18 @@ def field(
 
 ```python
 class DemoState(rx.State):
-    # Protected by default; dropped from the delta until login.
+    # 默认受保护；登录前从增量中丢弃。
     notes: rx.Field[str] = rx.field("These notes are only sent once you log in.")
 
-    # Public; always sent to the client.
+    # 公开；始终发送到客户端。
     loading: rx.Field[bool] = rxe.field(False, auth=False)
 ```
 
-A withheld field is replaced in the delta with its **declared default** (the
-value baked into the frontend bundle) until the user is resolved.
+被隐藏的字段在增量中替换为其**声明的默认值**（烘焙到前端包中的值），直到用户被解析。
 
-## Computed vars
+## 计算变量
 
-Computed vars are protected by default and withheld until login. Wrap them with
-`@rxe.var`.
+计算变量默认受保护，登录前被隐藏。使用 `@rxe.var` 包装它们。
 
 ```python
 def var(
@@ -258,78 +210,69 @@ def var(
 )
 ```
 
-Usable bare (`@rxe.var`) or called (`@rxe.var(auth=..., initial_value=...)`).
-Extra `**var_kwargs` are forwarded verbatim to `rx.var`: `initial_value`,
-`cache`, `deps`, `auto_deps`, `interval`, and `backend`.
+可裸用（`@rxe.var`）或调用（`@rxe.var(auth=..., initial_value=...)`）。额外的 `**var_kwargs` 原样转发给 `rx.var`：`initial_value`、`cache`、`deps`、`auto_deps`、`interval` 和 `backend`。
 
 ```md alert info
-# Always pair a protected var with `initial_value`
-A protected var is withheld until the user is resolved. Set `initial_value=` to a placeholder baked into the frontend bundle and shown until the real value is delivered after login.
+# 始终为受保护的变量配对 `initial_value`
+受保护的变量在用户被解析之前被隐藏。设置 `initial_value=` 为一个烘焙到前端包中的占位符，在登录后真实值送达之前显示。
 ```
 
 ```python
 class DemoState(rx.State):
     @rxe.var(initial_value="🔒 log in to reveal this")
     def protected_tip(self) -> str:
-        """Protected by default; the placeholder shows until a user is resolved."""
+        """默认受保护；在用户被解析之前显示占位符。"""
         return "✅ Delivered only to logged-in users."
 
     @rxe.var(auth=False)
     def public_label(self) -> str:
-        """Opened up to anonymous visitors."""
+        """对匿名访客开放。"""
         return "Anyone can read this."
 ```
 
-## Authorization checks
+## 授权检查
 
-For finer-grained control than "any authenticated user," attach a **callable**
-`auth=` check to the specific events, vars, or fields that need it. A check is a
-function that receives a single **context object** and returns a bool (or an
-awaitable of one):
+对于比"任何已认证用户"更细粒度的控制，将**可调用** `auth=` 检查附加到需要它的特定事件、变量或字段上。检查是一个接收单个**上下文对象**并返回 bool（或其可等待形式）的函数：
 
 ```python
-def check(ctx) -> bool: ...  # sync
-async def check(ctx) -> bool: ...  # async
+def check(ctx) -> bool: ...  # 同步
+async def check(ctx) -> bool: ...  # 异步
 ```
 
-A check runs **only after** authentication succeeds. Anonymous callers are
-redirected to login before the check runs, and a resolved user is always present
-inside the check.
+检查**仅在认证成功后**运行。匿名调用者在检查运行之前被重定向到登录页面，检查内部始终存在已解析的用户。
 
-### The context object
+### 上下文对象
 
-Each surface passes a different context, all carrying the current user as
-`ctx.auth_user_state` (an `AuthUserState`). Import them from
-`reflex_enterprise.auth`:
+每个界面传递不同的上下文，都携带当前用户作为 `ctx.auth_user_state`（一个 `AuthUserState`）。从 `reflex_enterprise.auth` 导入它们：
 
-| Context | Surface | Extra attributes |
+| 上下文 | 界面 | 额外属性 |
 | --- | --- | --- |
-| `EventAuthContext` | event handler | `event_handler` (the gated handler), `payload` (the event payload dict) |
-| `VarAuthContext` | field / computed var | `field_or_var` (the `Var`, or `None`) |
-| `PageAuthContext` | page (callable global default only) | None |
+| `EventAuthContext` | 事件处理器 | `event_handler`（被门控的处理器），`payload`（事件载荷字典） |
+| `VarAuthContext` | 字段 / 计算变量 | `field_or_var`（`Var`，或 `None`） |
+| `PageAuthContext` | 页面（仅可调用全局默认值） | 无 |
 
-Read the user's claims from `ctx.auth_user_state.userinfo`, a plain dict:
+从 `ctx.auth_user_state.userinfo`（一个普通字典）读取用户声明：
 
 ```python
 from reflex_enterprise.auth import EventAuthContext, VarAuthContext
 
 
 def is_admin(ctx: EventAuthContext) -> bool:
-    """Event check: allow only members of the ``admins`` group."""
+    """事件检查：仅允许 ``admins`` 组的成员。"""
     return "admins" in (ctx.auth_user_state.userinfo.get("groups") or [])
 
 
 def is_staff(ctx: VarAuthContext) -> bool:
-    """Field/var check: allow only staff."""
+    """字段/变量检查：仅允许员工。"""
     return "staff" in (ctx.auth_user_state.userinfo.get("groups") or [])
 
 
 class DemoState(rx.State):
-    @rxe.event(auth=is_admin)  # authorization failure -> "Action not allowed" toast
+    @rxe.event(auth=is_admin)  # 授权失败 -> "Action not allowed" 提示
     def admin_action(self):
         return rx.toast.success("Admin action executed.")
 
-    # Withheld unless the staff check passes; the placeholder shows otherwise.
+    # 除非员工检查通过否则隐藏；否则显示占位符。
     audit_log: rx.Field[list[str]] = rxe.field([], auth=is_staff)
 
     @rxe.var(auth=is_staff, initial_value="🔒 staff only")
@@ -337,31 +280,27 @@ class DemoState(rx.State):
         return "✅ staff-only computed var."
 ```
 
-### One check for any surface
+### 一个检查适用于任何界面
 
-Annotate `ctx` with the `AuthContext` union to make one function usable on **any**
-surface; annotate it with a single context type to restrict it (and get exact
-autocomplete). `isinstance(ctx, EventAuthContext)` narrows the union inside the
-body:
+用 `AuthContext` 联合类型注解 `ctx`，使一个函数可用于**任何**界面；用单个上下文类型注解以限制它（并获得精确的自动补全）。`isinstance(ctx, EventAuthContext)` 在函数体内缩小联合类型：
 
 ```python
 from reflex_enterprise.auth import AuthContext, EventAuthContext
 
 
 def is_admin(ctx: AuthContext) -> bool:
-    """Usable as an event, field, var, or global-default check."""
+    """可用作事件、字段、变量或全局默认值检查。"""
     return "admins" in (ctx.auth_user_state.userinfo.get("groups") or [])
 ```
 
 ```md alert warning
-# Cached claims can lag the IdP by up to 30 minutes
-`ctx.auth_user_state.userinfo` is served from a server-side cache refreshed at most every 30 minutes. The access token is re-read at most about every 60 seconds. Checks that depend on `groups` or roles may see IdP-side changes, such as group revocation, up to 30 minutes late within one token's life. The cache is invalidated whenever the access token changes, so short-lived-token setups using a refresh token (`extra_scopes=["offline_access"]`) pick up changes sooner. If revocation must take effect immediately, check your database or authorization service in an async check instead of relying on cached claims.
+# 缓存的声明可能滞后 IdP 最多 30 分钟
+`ctx.auth_user_state.userinfo` 从服务器端缓存提供，最多每 30 分钟刷新一次。访问令牌最多约每 60 秒重新读取一次。依赖 `groups` 或角色的检查可能会在一个令牌的生命周期内最多延迟 30 分钟才看到 IdP 端的更改（如组撤销）。每当访问令牌更改时缓存都会失效，因此使用刷新令牌（`extra_scopes=["offline_access"]`）的短生命周期令牌配置会更早获取更改。如果撤销必须立即生效，在异步检查中查询你的数据库或授权服务，而非依赖缓存的声明。
 ```
 
-### Async checks
+### 异步检查
 
-Most checks can be sync. Read OIDC claims from
-`ctx.auth_user_state.userinfo`:
+大多数检查可以是同步的。从 `ctx.auth_user_state.userinfo` 读取 OIDC 声明：
 
 ```python
 import reflex as rx
@@ -383,121 +322,95 @@ class DemoState(rx.State):
         return "✅ admin-only value."
 ```
 
-Request `extra_scopes=["groups"]` during OAuth login when checks depend on the
-`groups` claim.
+当检查依赖 `groups` 声明时，在 OAuth 登录期间请求 `extra_scopes=["groups"]`。
 
-A check may also be async. The framework awaits it at the right point: the
-per-event gate for handlers, or delta resolution for fields and vars. Use an
-async check when it calls async APIs, for example:
+检查也可以是异步的。框架在正确的时机等待它：处理器的每事件门控，或字段和变量的增量解析。当检查调用异步 API 时使用异步检查，例如：
 
-- Querying a database.
-- Calling a remote authorization service, such as OpenFGA or another
-  ReBAC backend.
-- Accessing another Reflex state with `await ctx.auth_user_state.get_state(...)`
-  when the policy input is stored in state.
+- 查询数据库。
+- 调用远程授权服务，如 OpenFGA 或其他 ReBAC 后端。
+- 当策略输入存储在状态中时，使用 `await ctx.auth_user_state.get_state(...)` 访问另一个 Reflex 状态。
 
 ```md alert warning
-# One function, one auth value
-The same function cannot back two surfaces with different `auth` values, such as one var with `auth=True` and another with `auth=False` sharing a single getter. That raises `ValueError`. Reusing a function with the same auth value is supported; otherwise define a separate function per surface.
+# 一个函数，一个 auth 值
+同一个函数不能支持两个具有不同 `auth` 值的界面，例如一个 `auth=True` 的变量和另一个 `auth=False` 的变量共享同一个 getter。这会抛出 `ValueError`。复用具有相同 auth 值的函数是支持的；否则为每个界面定义单独的函数。
 ```
 
-## Authentication vs authorization
+## 认证与授权
 
-The two failure modes are deliberately different. Applied per surface against the
-resolved user:
+两种失败模式是刻意不同的。针对已解析的用户按界面应用：
 
-| Situation | Outcome |
+| 情况 | 结果 |
 | --- | --- |
-| `auth=False` | **Allow.** |
-| Not logged in (no user resolved) | **Authentication failure**. Handled before any check runs. |
-| Logged in and `auth=True` | **Allow.** |
-| Logged in and the check returns truthy | **Allow.** |
-| Logged in and the check returns falsey or raises | **Authorization failure.** Never a login redirect. |
+| `auth=False` | **允许。** |
+| 未登录（未解析到用户） | **认证失败**。在任何检查运行之前处理。 |
+| 已登录且 `auth=True` | **允许。** |
+| 已登录且检查返回真值 | **允许。** |
+| 已登录且检查返回假值或抛出异常 | **授权失败。** 永远不会重定向到登录。 |
 
-What each failure does depends on the surface:
+每种失败的具体行为取决于界面：
 
-| Surface | Authentication failure (anonymous) | Authorization failure (check said no) |
+| 界面 | 认证失败（匿名） | 授权失败（检查拒绝） |
 | --- | --- | --- |
-| Event handler | block + redirect to `/login` | block + `"Action not allowed"` toast |
-| Page | redirect to `/login` (with `redirect_to`) | redirect to `/forbidden` |
-| Field / computed var | withheld (placeholder / default shown) | withheld (placeholder / default shown) |
+| 事件处理器 | 阻止 + 重定向到 `/login` | 阻止 + `"Action not allowed"` 提示 |
+| 页面 | 重定向到 `/login`（带 `redirect_to`） | 重定向到 `/forbidden` |
+| 字段 / 计算变量 | 隐藏（显示占位符 / 默认值） | 隐藏（显示占位符 / 默认值） |
 
-Two properties follow from the ordering: a check **never runs for an anonymous
-caller**, and a check that **raises fails closed**. Exceptions are treated as
-deny results.
+从顺序中得出两个属性：检查**永远不会为匿名调用者运行**，并且**抛出异常的检查会失败关闭**。异常被视为拒绝结果。
 
-## How withholding works
+## 隐藏机制如何工作
 
-Protected base fields are dropped from the state delta, and protected computed
-vars are withheld, for any caller who isn't authorized to see them. A sync check
-is evaluated inline as the delta is built; an async check is deferred and awaited
-during delta resolution.
+受保护的基础字段从状态增量中丢弃，受保护的计算变量被隐藏，对任何无权查看它们的调用者都是如此。同步检查在构建增量时内联求值；异步检查被延迟并在增量解析期间等待。
 
-The `hydrate` event runs **before** the auth cookies are known. Even for a
-logged-in user, protected values are withheld at first because the user has not
-been resolved yet. Once an event resolves an authenticated user (for example,
-the page guard on a protected page), the protected names are re-delivered in
-that event's delta, filtered against the resolved user.
+`hydrate` 事件在认证 Cookie 已知**之前**运行。即使对于已登录用户，受保护的值最初也会被隐藏，因为用户尚未被解析。一旦某个事件解析了已认证的用户（例如受保护页面上的页面守卫），受保护的名称会在该事件的增量中重新送达，针对已解析的用户进行过滤。
 
-Set `initial_value` on protected computed vars. The placeholder is baked into
-the frontend bundle and shown until the real value arrives after login.
+为受保护的计算变量设置 `initial_value`。占位符被烘焙到前端包中，在登录后真实值到达之前显示。
 
-## Logout resets protected state
+## 退出登录重置受保护状态
 
-On logout, each non-exempt state's **protected** surface is reset. This prevents
-one user's session data from leaking to the next user on the same client token:
+退出登录时，每个未豁免状态的**受保护**界面被重置。这防止一个用户的会话数据泄漏到同一客户端令牌上的下一个用户：
 
-- Protected base vars revert to their declared defaults.
-- Protected cached computed vars are dropped.
-- Server-only backend vars are cleared.
+- 受保护的基础变量恢复为声明的默认值。
+- 受保护的缓存计算变量被丢弃。
+- 仅服务端的后端变量被清除。
 
-**Public (`auth=False`) fields and vars are preserved** across logout. They are
-not part of the authenticated session.
+**公开（`auth=False`）的字段和变量在退出登录时被保留**。它们不属于已认证的会话。
 
-### Logout is protected against CSRF
+### 退出登录受 CSRF 保护
 
-The plugin installs middleware for the configured `logout_endpoint`. Cross-site
-GET navigations to `/logout` are blocked when the browser sends
-`Sec-Fetch-Site: cross-site`; those requests are redirected to the frontend root.
-Same-origin logout requests continue normally. No configuration is required.
+插件为配置的 `logout_endpoint` 安装中间件。当浏览器发送 `Sec-Fetch-Site: cross-site` 时，跨站 GET 导航到 `/logout` 会被阻止；这些请求被重定向到前端根路径。同源退出登录请求正常继续。无需配置。
 
 ```md alert warning
-# Only covers the backend-served frontend
-This guard applies only when the backend serves the compiled frontend, which is the default fullstack deployment. In a split frontend/backend deployment, the logout page is served elsewhere and is **not** protected. Add a cross-site guard there.
+# 仅覆盖后端提供的前端
+此守卫仅在后端提供编译后的前端时适用，这是默认的全栈部署。在前后端分离部署中，退出登录页面由其他地方提供，**不**受保护。在那里添加跨站守卫。
 ```
 
-## Exempt states
+## 豁免状态
 
-Some state classes are never protected and never gated:
+某些状态类永远不受保护，也永远不会被门控：
 
-- State classes defined inside `reflex` or `reflex_enterprise`.
-- Any `OIDCAuthState` subclass, including user-defined auth providers.
+- 在 `reflex` 或 `reflex_enterprise` 内部定义的状态类。
+- 任何 `OIDCAuthState` 子类，包括用户定义的认证提供商。
 
-These exemptions let provider states read auth cookies before login and let the
-page guard resolve the current user without being gated.
+这些豁免让提供商状态在登录前读取认证 Cookie，并让页面守卫解析当前用户而不被门控。
 
-## Reading the current user
+## 读取当前用户
 
-Import the `User` facade to read the current user from either the frontend or the
-backend:
+导入 `User` 门面以从前端或后端读取当前用户：
 
 ```python
 from reflex_enterprise.auth import User
 ```
 
-`User` is an alias of `reflex_enterprise.auth.AuthUserState` and may be used
-interchangeably.
+`User` 是 `reflex_enterprise.auth.AuthUserState` 的别名，可以互换使用。
 
-**Frontend Vars**: embed these class-level descriptors directly in components.
-They bind to `AuthUserState`, populated after login by the provider that
-authenticated the user. Each is typed `str` and is empty (`""`) until login:
+**前端 Var**：将这些类级别描述符直接嵌入组件中。它们绑定到 `AuthUserState`，在登录后由认证用户的提供商填充。每个类型为 `str`，登录前为空（`""`）：
 
-| Attribute | Value |
+| 属性 | 值 |
 | --- | --- |
-| `User.name` | The user's name claim. |
-| `User.email` | The user's email claim. |
-| `User.sub` | The user's subject identifier. |
-| `User.picture` | The user's picture URL. |
+| `User.name` | 用户的 name 声明。 |
+| `User.email` | 用户的 email 声明。 |
+| `User.sub` | 用户的主体标识符。 |
+| `User.picture` | 用户的头像 URL。 |
 
 ```python
 rx.avatar(src=User.picture, fallback="U", size="5")
@@ -506,12 +419,9 @@ rx.text(User.email, color_scheme="gray")
 rx.cond(User.sub != "", rx.text("Signed in"), rx.link("Log in", href="/login"))
 ```
 
-### Reading other claims in a component
+### 在组件中读取其他声明
 
-The common OIDC claims `name`, `email`, `sub`, and `picture` are projected as
-frontend Vars. The full `userinfo` dict is server-only and never serialized. To
-render any other claim (`groups`, roles, a custom field) in a component, opt it
-onto the frontend by declaring a computed var on an `AuthUserState` substate:
+常见的 OIDC 声明 `name`、`email`、`sub` 和 `picture` 被投射为前端 Var。完整的 `userinfo` 字典仅限服务端，永远不会被序列化。要在组件中渲染任何其他声明（`groups`、角色、自定义字段），通过在 `AuthUserState` 子状态上声明计算变量将其投射到前端：
 
 ```python
 import reflex as rx
@@ -524,41 +434,35 @@ class UserExtras(AuthUserState):
         return self.userinfo.get("groups") or []
 
 
-# in a component:
+# 在组件中：
 rx.cond(UserExtras.groups.contains("admins"), rx.badge("Admin"), rx.fragment())
 ```
 
-For backend checks, read the same claims via `await User.current()` or
-`ctx.auth_user_state.userinfo.get(...)`. See
-[the claims a provider
-returns](/docs/enterprise/auth/providers/#the-claims-a-provider-returns).
+对于后端检查，通过 `await User.current()` 或 `ctx.auth_user_state.userinfo.get(...)` 读取相同的声明。参阅[提供商返回的声明](/docs/enterprise/auth/providers/#the-claims-a-provider-returns)。
 
-**Backend**: use these inside an event handler. `current()` and
-`current_provider()` are async:
+**后端**：在事件处理器中使用这些。`current()` 和 `current_provider()` 是异步的：
 
-| Call | Returns |
+| 调用 | 返回值 |
 | --- | --- |
-| `await User.current()` | The current user's `OIDCUserInfo` claims dict for this event, or `None` when anonymous. |
-| `await User.current_provider()` | The provider **class** that actually authenticated this event's user, or `None`. Correct in multi-provider setups. |
-| `User.logout` | Event handler that signs the current user out. Bind it (`on_click=User.logout`) or return it from a handler. Redirects to the home page (`/`) when anonymous. |
+| `await User.current()` | 当前事件的用户 `OIDCUserInfo` 声明字典，匿名时为 `None`。 |
+| `await User.current_provider()` | 实际认证此事件用户的提供商**类**，或 `None`。在多提供商配置中正确。 |
+| `User.logout` | 将当前用户登出的事件处理器。绑定它（`on_click=User.logout`）或从处理器中返回它。匿名时重定向到首页（`/`）。 |
 
-Inside an authorization check, `ctx.auth_user_state.provider` returns the same
-provider class.
+在授权检查中，`ctx.auth_user_state.provider` 返回相同的提供商类。
 
-`OIDCUserInfo` is a plain dict at runtime. Read claims with `.get(...)`:
+`OIDCUserInfo` 在运行时是一个普通字典。使用 `.get(...)` 读取声明：
 
 ```python
 class DemoState(rx.State):
-    @rxe.event  # default auth=True
+    @rxe.event  # 默认 auth=True
     async def whoami(self):
         user = await User.current() or {}
         return rx.toast(f"You are {user.get('name') or user.get('sub')}.")
 ```
 
-## Related
+## 相关内容
 
-- [Overview](/docs/enterprise/auth/overview/): plugin setup and the login flow.
-- [Providers](/docs/enterprise/auth/providers/): provider configuration.
-- [Custom pages](/docs/enterprise/auth/custom-pages/): custom login, callback,
-  logout, and forbidden pages.
-- [Testing](/docs/enterprise/auth/testing/): unit tests and mock-IdP flow tests.
+- [概述](/docs/enterprise/auth/overview/)：插件设置和登录流程。
+- [提供商](/docs/enterprise/auth/providers/)：提供商配置。
+- [自定义页面](/docs/enterprise/auth/custom-pages/)：自定义登录、回调、退出登录和禁止访问页面。
+- [测试](/docs/enterprise/auth/testing/)：单元测试和模拟 IdP 流程测试。

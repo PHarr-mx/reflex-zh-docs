@@ -2,8 +2,8 @@
 title: Semi Circle Progress
 ---
 
-# Semi Circle Progress component
-`rxe.mantine.semi_circle_progress` is a component for displaying progress in a semi-circular format. It is useful for visualizing completion percentages or other metrics in a compact and visually appealing way.
+# Semi Circle Progress 组件
+`rxe.mantine.semi_circle_progress` 是一个以半圆形格式显示进度的组件。它适用于以紧凑且美观的方式可视化完成百分比或其他指标。
 
 ```python demo exec
 import reflex as rx

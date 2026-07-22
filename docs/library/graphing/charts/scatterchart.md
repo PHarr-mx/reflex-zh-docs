@@ -6,17 +6,17 @@ title: Scatter Chart
 meta_description: "Create scatter plots and bubble charts in Python with Reflex. Build interactive Recharts scatter charts with multiple series, custom axes, sizing, and tooltips — all in pure Python."
 ---
 
-# Scatter Chart
+# 散点图（Scatter Chart）
 
 ```python exec
 import reflex as rx
 ```
 
-Scatter charts in Reflex are built on [Recharts](https://recharts.org/), a React charting library, and created in pure Python. A scatter plot (or scatter chart) always has two value axes to show one set of numerical data along a horizontal (value) axis and another set of numerical values along a vertical (value) axis. The chart displays points at the intersection of an x and y numerical value, combining these values into single data points.
+Reflex 中的散点图基于 [Recharts](https://recharts.org/)（一个 React 图表库）构建，使用纯 Python 创建。散点图（或散点图表）始终有两个值轴，用于沿水平（值）轴显示一组数值数据，沿垂直（值）轴显示另一组数值。图表在 x 和 y 数值的交点处显示点，将这些值组合为单个数据点。
 
-## Simple Example
+## 简单示例
 
-For a scatter chart we must define an `rx.recharts.scatter()` component for each set of values we wish to plot. Each `rx.recharts.scatter()` component has a `data` prop which clearly states which data source we plot. We also must define `rx.recharts.x_axis()` and `rx.recharts.y_axis()` so that the graph knows what data to plot on each axis.
+对于散点图，我们必须为每组要绘制的值定义一个 `rx.recharts.scatter()` 组件。每个 `rx.recharts.scatter()` 组件都有一个 `data` 属性，用于明确指出我们绘制的数据源。我们还必须定义 `rx.recharts.x_axis()` 和 `rx.recharts.y_axis()`，以便图表知道在每个轴上绘制什么数据。
 
 ```python demo graphing
 data01 = [
@@ -42,9 +42,9 @@ def scatter_simple():
     )
 ```
 
-## Multiple Scatters
+## 多个散点
 
-We can also add two scatters on one chart by using two `rx.recharts.scatter()` components, and we can define an `rx.recharts.z_axis()` which represents a third column of data and is represented by the size of the dots in the scatter plot.
+我们还可以通过使用两个 `rx.recharts.scatter()` 组件在同一个图表上添加两个散点，并且可以定义一个 `rx.recharts.z_axis()`，它代表第三列数据，并通过散点图中点的大小来表示。
 
 ```python demo graphing
 data01 = [
@@ -81,15 +81,11 @@ def scatter_double():
     )
 ```
 
-To learn how to use the `x_axis_id` and `y_axis_id` props, check out the Multiple Axis section of the area chart [documentation](/docs/library/graphing/charts/areachart).
+要了解如何使用 `x_axis_id` 和 `y_axis_id` 属性，请查看面积图[文档](/docs/library/graphing/charts/areachart)中的多坐标轴部分。
 
-## Dynamic Data
+## 动态数据
 
-Chart data tied to a State var causes the chart to automatically update when the
-state changes, providing a nice way to visualize data in response to user
-interface elements. View the "Data" tab to see the substate driving this
-calculation of iterations in the Collatz Conjecture for a given starting number.
-Enter a starting number in the box below the chart to recalculate.
+绑定到 State 变量的图表数据会在状态变化时自动更新，提供了一种根据用户界面元素可视化数据的好方法。查看 "Data" 选项卡以了解驱动此 Collatz 猜想迭代计算的子状态。在图表下方的输入框中输入一个起始数字即可重新计算。
 
 ```python demo exec
 class ScatterChartState(rx.State):
@@ -131,7 +127,7 @@ def scatter_dynamic():
     )
 ```
 
-## Legend Type and Shape
+## 图例类型和形状
 
 ```python demo exec
 class ScatterChartState2(rx.State):
@@ -210,9 +206,9 @@ def scatter_shape():
     )
 ```
 
-## Bubble Chart
+## 气泡图（Bubble Chart）
 
-Adding an `rx.recharts.z_axis()` turns a scatter chart into a bubble chart: the `z` value of each point controls the bubble size, mapped to a pixel `range`. This lets you encode a third dimension of data alongside the x and y position.
+添加 `rx.recharts.z_axis()` 可将散点图变为气泡图：每个点的 `z` 值控制气泡大小，映射到像素 `range`。这让你可以在 x 和 y 位置之外编码第三维数据。
 
 ```python demo graphing
 data = [
@@ -240,10 +236,10 @@ def bubble_chart():
     )
 ```
 
-## Related Charts
+## 相关图表
 
-Explore more chart types you can build with Reflex and Recharts in pure Python:
+探索更多可以使用 Reflex 和 Recharts 以纯 Python 构建的图表类型：
 
-- [Line Chart](/docs/library/graphing/charts/linechart)
-- [Bar Chart](/docs/library/graphing/charts/barchart)
-- [Error Bar](/docs/library/graphing/charts/errorbar)
+- [折线图](/docs/library/graphing/charts/linechart)
+- [柱状图](/docs/library/graphing/charts/barchart)
+- [误差条](/docs/library/graphing/charts/errorbar)

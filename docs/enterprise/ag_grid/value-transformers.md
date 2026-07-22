@@ -8,19 +8,19 @@ import reflex as rx
 import reflex_enterprise as rxe
 ```
 
-# Value Transformers
+# 值转换器（Value Transformers）
 
-AgGrid allow you to apply transformers based on the column of your grid. This allow you to perform operations on the data before displaying it on the grid, without having to pre-process the data on the backend, reducing the load on your application.
+AgGrid 允许你根据网格的列应用转换器。这允许你在将数据显示在网格之前对数据执行操作，而无需在后端预处理数据，从而减少应用的负载。
 
-TOC:
-- [Value Getter](#value-getter)
-- [Value Formatter](#value-formatter)
+目录：
+- [值获取器（Value Getter）](#value-getter)
+- [值格式化器（Value Formatter）](#value-formatter)
 
-## Value Getter
+## 值获取器（Value Getter）
 
-`value_getter` is a property of the column definition that allows you to define a function that will be called to get the value of the cell. This function will receive the row data as a parameter and should return the value to be displayed on the cell.
+`value_getter` 是列定义的一个属性，允许你定义一个将被调用以获取单元格值的函数。此函数将接收行数据作为参数，并应返回要显示在单元格上的值。
 
-If you have two columns `col_a` and `col_b` and you want to display the sum of these two columns in a third column `sum`, you can define the `value_getter` of `sum` as follows:
+如果你有两列 `col_a` 和 `col_b`，并且想在第三列 `sum` 中显示这两列的和，你可以如下定义 `sum` 的 `value_getter`：
 
 ```python demo exec
 import reflex as rx
@@ -55,11 +55,11 @@ def ag_grid_value_getter():
     )
 ```
 
-## Value Formatter
+## 值格式化器（Value Formatter）
 
-`value_formatter` is a property of the column definition that allows you to define a function that will be called to format the value of the cell. This function will receive the value of the cell as a parameter and should return the formatted value to be displayed on the cell.
+`value_formatter` 是列定义的一个属性，允许你定义一个将被调用以格式化单元格值的函数。此函数将接收单元格的值作为参数，并应返回要显示在单元格上的格式化值。
 
-If you have a column `price` and you want to display the price with a currency symbol, you can define the `value_formatter` of `price` as follows:
+如果你有一列 `price`，并且想显示带有货币符号的价格，你可以如下定义 `price` 的 `value_formatter`：
 
 ```python demo exec
 import reflex as rx

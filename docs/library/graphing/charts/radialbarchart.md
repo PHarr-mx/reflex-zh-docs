@@ -5,20 +5,20 @@ title: Radial Bar Chart
 meta_description: "Create radial bar and gauge charts in Python with Reflex. Build circular Recharts radial bar charts with custom colors, start and end angles, and legends — all in pure Python."
 ---
 
-# Radial Bar Chart
+# 径向柱状图（Radial Bar Chart）
 
 ```python exec
 import reflex as rx
 ```
 
-Radial bar charts in Reflex are built on [Recharts](https://recharts.org/), a React charting library, and created in pure Python. A radial bar chart is a circular visualization where data categories are represented by bars extending outward from a central point, with the length of each bar proportional to its value.
+Reflex 中的径向柱状图基于 [Recharts](https://recharts.org/)（一个 React 图表库）构建，使用纯 Python 创建。径向柱状图是一种圆形可视化图表，数据类别由从中心点向外延伸的条形表示，每个条形的长度与其值成正比。
 
-## Simple Example
+## 简单示例
 
-This example demonstrates how to use a `radial_bar_chart` with a `radial_bar`. The `radial_bar_chart` takes in `data` and then the `radial_bar` takes in a `data_key` naming the value each bar represents. The `min_angle` prop sets a minimum sweep for every bar so that even small values stay visible around the circle.
+此示例演示了如何将 `radial_bar_chart` 与 `radial_bar` 一起使用。`radial_bar_chart` 接收 `data`，然后 `radial_bar` 接收一个 `data_key` 来命名每个条形所代表的值。`min_angle` 属性为每个条形设置最小扫描角度，使得即使较小的值在圆环上也保持可见。
 
 ```md alert info
-# Fill color supports `rx.color()`, which automatically adapts to dark/light mode changes.
+# 填充颜色支持 `rx.color()`，它会自动适应深色/浅色模式的变化。
 ```
 
 ```python demo graphing
@@ -45,9 +45,9 @@ def radial_bar_simple():
     )
 ```
 
-## Advanced Example
+## 高级示例
 
-The `start_angle` and `end_angle` define the circular arc over which the bars are distributed, while `inner_radius` and `outer_radius` determine the radial extent of the bars from the center. Sweeping a half circle (`start_angle=180`, `end_angle=0`) is a common way to build a gauge chart.
+`start_angle` 和 `end_angle` 定义了条形分布的圆弧范围，而 `inner_radius` 和 `outer_radius` 决定了条形从中心向外延伸的径向范围。扫描半圆（`start_angle=180`、`end_angle=0`）是构建仪表盘（Gauge Chart）的常见方式。
 
 ```python demo graphing
 data_radial_bar = [
@@ -79,14 +79,14 @@ def radial_bar_advanced():
     )
 ```
 
-## When to Use a Radial Bar Chart
+## 何时使用径向柱状图
 
-A radial bar chart is a compact, eye-catching alternative to a standard bar chart, best suited to comparing a small number of categories or showing progress toward a goal. Because the bars wrap around a circle, it works well for dashboards where space is limited. The key props for shaping the chart are `inner_radius` and `outer_radius` (how far the bars sit from the center), `start_angle` and `end_angle` (the arc the bars span — use `180` to `0` for a half-circle gauge), `min_angle` (the minimum bar length), and `background` (a track drawn behind each bar). For many categories or precise value comparisons, a standard [Bar Chart](/docs/library/graphing/charts/barchart) is usually easier to read.
+径向柱状图是标准柱状图的紧凑且醒目的替代方案，最适合比较少量类别或展示目标完成进度。由于条形围绕圆形排列，它非常适合空间有限的仪表板。塑造图表的关键属性包括 `inner_radius` 和 `outer_radius`（条形距中心的距离）、`start_angle` 和 `end_angle`（条形跨越的圆弧——使用 `180` 到 `0` 可创建半圆仪表盘）、`min_angle`（最小条形长度）以及 `background`（绘制在每个条形后面的轨道）。对于大量类别或精确的数值比较，标准[柱状图](/docs/library/graphing/charts/barchart)通常更容易阅读。
 
-## Related Charts
+## 相关图表
 
-Explore more chart types you can build with Reflex and Recharts in pure Python:
+探索更多可以使用 Reflex 和 Recharts 以纯 Python 构建的图表类型：
 
-- [Radar Chart](/docs/library/graphing/charts/radarchart)
-- [Pie Chart](/docs/library/graphing/charts/piechart)
-- [Bar Chart](/docs/library/graphing/charts/barchart)
+- [雷达图](/docs/library/graphing/charts/radarchart)
+- [饼图](/docs/library/graphing/charts/piechart)
+- [柱状图](/docs/library/graphing/charts/barchart)

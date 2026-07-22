@@ -7,10 +7,10 @@ components:
 import reflex as rx
 ```
 
-# Code Block
+# 代码块（Code Block）
 
-The Code Block component can be used to display code easily within a website.
-Put in a multiline string with the correct spacing and specify and language to show the desired code.
+代码块（Code Block）组件可以在网站中轻松显示代码。
+传入一个具有正确缩进的多行字符串，并指定语言即可显示所需的代码。
 
 ```python demo
 rx.code_block(
@@ -24,9 +24,9 @@ rx.code_block(
 )
 ```
 
-## Themes
+## 主题
 
-The `theme` prop must be set to a `Theme` value accessed from the `rx.code_block.themes` namespace; strings are not accepted. By default, the code block uses `one_light` in light mode and `one_dark` in dark mode.
+`theme` 属性必须设置为从 `rx.code_block.themes` 命名空间访问的 `Theme` 值；不接受字符串。默认情况下，代码块在浅色模式下使用 `one_light`，在深色模式下使用 `one_dark`。
 
 ```python demo
 rx.code_block(
@@ -36,7 +36,7 @@ rx.code_block(
 )
 ```
 
-To pick a theme that responds to the global color mode, pass `rx.color_mode_cond` with the desired light and dark variants:
+要选择响应全局颜色模式的主题，请传入带有所需浅色和深色变体的 `rx.color_mode_cond`：
 
 ```python demo
 rx.code_block(

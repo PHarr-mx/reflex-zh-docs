@@ -3,11 +3,11 @@ meta_description: "Build aligned grids with AG Grid in Reflex. Synchronize colum
 title: Aligned Grids
 ---
 
-# Aligned Grids
+# 对齐网格（Aligned Grids）
 
-AgGrid provides a way to align multiple grids together. This is useful when you want to display related data in a synchronized manner.
+AgGrid 提供了一种将多个网格对齐在一起的方式。当你想以同步的方式显示相关数据时，这非常有用。
 
-You can do so through the `aligned_grids` prop. This prop takes a list of grid IDs that you want to align.
+你可以通过 `aligned_grids` 属性来实现。此属性接受一个你想要对齐的网格 ID 列表。
 
 ```python demo exec
 import pandas as pd
@@ -65,5 +65,5 @@ def aligned_grids_page():
 ```
 
 ```md alert warning
-# The pivot functionality does not work with aligned grids. This is because pivoting data changes the columns, which would make the aligned grids incompatible, as they are no longer sharing the same set of columns.
+# 透视功能不适用于对齐网格。这是因为透视数据会改变列，这会使对齐网格不兼容，因为它们不再共享相同的列集合。
 ```

@@ -7,9 +7,9 @@ components:
 import reflex as rx
 ```
 
-# Strong
+# Strong（加粗强调）
 
-Marks text to signify strong importance.
+标记文本以表示强烈的重要性。
 
 ```python demo
 rx.text(

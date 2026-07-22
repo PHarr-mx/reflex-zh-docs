@@ -7,11 +7,11 @@ components:
 import reflex as rx
 ```
 
-# HTML Embed
+# HTML 嵌入（HTML Embed）
 
-The HTML component can be used to render raw HTML code.
+HTML 组件可用于渲染原始 HTML 代码。
 
-Before you reach for this component, consider using Reflex's raw HTML element support instead.
+在使用此组件之前，请考虑使用 Reflex 的原始 HTML 元素支持。
 
 ```python demo
 rx.vstack(
@@ -24,13 +24,12 @@ rx.vstack(
 ```
 
 ```md alert
-# Missing Styles?
+# 样式缺失？
 
-Reflex uses Radix-UI and tailwind for styling, both of which reset default styles for headings.
-If you are using the html component and want pretty default styles, consider setting `class_name='prose'`, adding `@tailwindcss/typography` package to `frontend_packages` and enabling it via `tailwind` config in `rxconfig.py`. See the [Tailwind docs](/docs/styling/overview) for an example of adding this plugin.
+Reflex 使用 Radix-UI 和 Tailwind 进行样式设置，两者都会重置标题的默认样式。如果你使用 html 组件并希望获得美观的默认样式，可以考虑设置 `class_name='prose'`，将 `@tailwindcss/typography` 包添加到 `frontend_packages` 中，并通过 `rxconfig.py` 中的 `tailwind` 配置启用它。有关添加此插件的示例，请参阅 [Tailwind 文档](/docs/styling/overview)。
 ```
 
-In this example, we render an image.
+在这个例子中，我们渲染了一张图片。
 
 ```python demo
 rx.html(

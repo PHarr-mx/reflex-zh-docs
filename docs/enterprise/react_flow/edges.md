@@ -1,31 +1,31 @@
-# Edges
+# 边（Edges）
 
-Edges connect nodes together in a flow. This page explains how to define, customize, and interact with edges in Reflex Flow.
+边（Edges）将流程图中的节点连接在一起。本页介绍如何在 Reflex Flow 中定义、自定义边并与之交互。
 
-## The Edge Type
+## 边类型（Edge Type）
 
-An edge is represented as a Python dictionary with the following fields:
+边以 Python 字典表示，包含以下字段：
 
-- `id` (`str`) – Unique identifier for the edge.
-- `source` (`str`) – ID of the source node.
-- `target` (`str`) – ID of the target node.
-- `type` (`str`) – Edge type defined in `edge_types`.
-- `sourceHandle` (`str | None`) – Optional source handle ID.
-- `targetHandle` (`str | None`) – Optional target handle ID.
-- `animated` (`bool`) – Whether the edge should animate.
-- `hidden` (`bool`) – Whether the edge is hidden.
-- `deletable` (`bool`) – Whether the edge can be removed.
-- `selectable` (`bool`) – Whether the edge can be selected.
-- `data` (`dict`) – Arbitrary metadata.
-- `label` (`Any`) – Label rendered along the edge.
-- `style` (`dict`) – Custom styles.
-- `className` (`str`) – CSS class for the edge.
+- `id`（`str`）—— 边的唯一标识符。
+- `source`（`str`）—— 源节点的 ID。
+- `target`（`str`）—— 目标节点的 ID。
+- `type`（`str`）—— 在 `edge_types` 中定义的边类型。
+- `sourceHandle`（`str | None`）—— 可选的源连接点 ID。
+- `targetHandle`（`str | None`）—— 可选的目标连接点 ID。
+- `animated`（`bool`）—— 边是否应有动画效果。
+- `hidden`（`bool`）—— 边是否隐藏。
+- `deletable`（`bool`）—— 边是否可被移除。
+- `selectable`（`bool`）—— 边是否可被选中。
+- `data`（`dict`）—— 任意元数据。
+- `label`（`Any`）—— 沿边渲染的标签。
+- `style`（`dict`）—— 自定义样式。
+- `className`（`str`）—— 边的 CSS 类。
 
-## Basic Edge Types
+## 基本边类型
 
-Reflex Flow comes with several built-in edge types:
+Reflex Flow 自带几种内置边类型：
 
-### Default Edge Types
+### 默认边类型
 
 ```python
 edges: list[Edge] = [
@@ -37,17 +37,17 @@ edges: list[Edge] = [
 ]
 ```
 
-- **default** – Standard curved edge
-- **straight** – Direct line between nodes
-- **step** – Right-angled path with steps
-- **smoothstep** – Smooth right-angled path
-- **bezier** – Curved bezier path
+- **default** —— 标准曲线边
+- **straight** —— 节点之间的直线
+- **step** —— 带阶梯的直角路径
+- **smoothstep** —— 平滑的直角路径
+- **bezier** —— 弯曲的贝塞尔路径
 
-## Edge Styling
+## 边的样式
 
-### Basic Styling
+### 基本样式
 
-Add visual styling to edges using the `style` property:
+使用 `style` 属性为边添加视觉样式：
 
 ```python
 edges: list[Edge] = [
@@ -63,9 +63,9 @@ edges: list[Edge] = [
 ]
 ```
 
-### Animated Edges
+### 动画边
 
-Make edges animate with flowing dots:
+让边以流动的点呈现动画效果：
 
 ```python
 edges: list[Edge] = [
@@ -79,9 +79,9 @@ edges: list[Edge] = [
 ]
 ```
 
-### Edge Labels
+### 边标签
 
-Add text labels to edges:
+为边添加文本标签：
 
 ```python
 edges: list[Edge] = [
@@ -95,9 +95,9 @@ edges: list[Edge] = [
 ]
 ```
 
-## Custom Edges
+## 自定义边
 
-React Flow in Reflex also allows you to define custom edge types. This is useful when you want edges to carry extra functionality (like buttons, labels, or dynamic styling) beyond the default straight or bezier connectors.
+Reflex 中的 React Flow 还允许你定义自定义边类型。当你希望边承载超出默认直线或贝塞尔连接器的额外功能（例如按钮、标签或动态样式）时，这非常有用。
 
 ```python demo exec
 import reflex as rx

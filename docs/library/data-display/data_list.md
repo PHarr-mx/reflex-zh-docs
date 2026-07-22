@@ -50,11 +50,11 @@ DataListValue: |
 import reflex as rx
 ```
 
-# Data List
+# 数据列表（Data List）
 
-The `DataList` component displays key-value pairs and is particularly helpful for showing metadata.
+`DataList` 组件用于显示键值对，特别适合展示元数据。
 
-A `DataList` needs to be initialized using `rx.data_list.root()` and currently takes in data list items: `rx.data_list.item`
+`DataList` 需要使用 `rx.data_list.root()` 进行初始化，目前接受数据列表项：`rx.data_list.item`
 
 ```python demo
 (

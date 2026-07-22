@@ -2,43 +2,36 @@
 title: Customizing the Auth Pages
 ---
 
-_New in reflex-enterprise v0.9.1._
+_reflex-enterprise v0.9.1 新增。_
 
-# Customizing the Auth Pages
+# 自定义认证页面（Customizing the Auth Pages）
 
-`rxe.AuthPlugin` registers four auth routes and owns their protocol wiring. The
-component rendered on each route is customizable; the OIDC redirect, callback
-token exchange, and logout dispatch remain plugin-owned.
+`rxe.AuthPlugin` 注册四个认证路由并拥有其协议逻辑。每个路由上渲染的组件可以自定义；OIDC 重定向、回调令牌交换和退出登录调度仍由插件拥有。
 
-| Endpoint | Default route | Plugin-owned wiring | Builder |
+| 端点 | 默认路由 | 插件拥有的逻辑 | 构建器 |
 | --- | --- | --- | --- |
-| `login_endpoint` | `/login` | Renders the login palette and starts the OIDC redirect. | `login_page` |
-| `auth_callback_endpoint` | `/callback` | CSRF (OAuth `state`) check + authorization-code token exchange, then redirect back. | `callback_page` |
-| `logout_endpoint` | `/logout` | Dispatches the active provider's logout; a CSRF guard blocks cross-site logout (see [secure by default](/docs/enterprise/auth/secure-by-default/#logout-is-protected-against-csrf)). | `logout_page` |
-| `forbidden_endpoint` | `/forbidden` | Shown when an authenticated user lacks permission to view a page. | `forbidden_page` |
+| `login_endpoint` | `/login` | 渲染登录面板并启动 OIDC 重定向。 | `login_page` |
+| `auth_callback_endpoint` | `/callback` | CSRF（OAuth `state`）检查 + 授权码令牌交换，然后重定向回去。 | `callback_page` |
+| `logout_endpoint` | `/logout` | 调度当前活跃提供商的退出登录；CSRF 防护阻止跨站退出登录（参阅[默认安全](/docs/enterprise/auth/secure-by-default/#logout-is-protected-against-csrf)）。 | `logout_page` |
+| `forbidden_endpoint` | `/forbidden` | 当已认证用户无权查看某页面时显示。 | `forbidden_page` |
 
-The routes themselves are configurable through `login_endpoint`,
-`logout_endpoint`, `auth_callback_endpoint`, and `forbidden_endpoint`. See the
-[providers](/docs/enterprise/auth/providers/) page for configuring identity
-providers, and the [overview](/docs/enterprise/auth/overview/) for how the plugin
-fits together.
+路由本身可通过 `login_endpoint`、`logout_endpoint`、`auth_callback_endpoint` 和 `forbidden_endpoint` 进行配置。有关配置身份提供商，请参阅[提供商](/docs/enterprise/auth/providers/)页面；有关插件的整体架构，请参阅[概述](/docs/enterprise/auth/overview/)。
 
 ```md alert warning
-# Register the callback URI with your IdP
-If you change `auth_callback_endpoint`, register that exact URI as the OAuth redirect URI with your identity provider, or the token exchange will be rejected.
+# 在 IdP 中注册回调 URI
+如果你更改了 `auth_callback_endpoint`，请将该确切的 URI 注册为身份提供商的 OAuth 重定向 URI，否则令牌交换将被拒绝。
 ```
 
-## The page builder contract
+## 页面构建器约定
 
-A page builder is a callable that receives the build context as **keyword
-arguments**:
+页面构建器是一个可调用对象，以**关键字参数**的形式接收构建上下文：
 
-| Keyword | Type | Meaning |
+| 关键字 | 类型 | 含义 |
 | --- | --- | --- |
-| `providers` | `Sequence[type[OIDCAuthState]]` | The resolved provider state classes. |
-| `plugin` | `AuthPlugin` | The plugin instance. |
+| `providers` | `Sequence[type[OIDCAuthState]]` | 已解析的提供商状态类。 |
+| `plugin` | `AuthPlugin` | 插件实例。 |
 
-Name the required entries and add `**context` to ignore the rest:
+命名所需的条目并添加 `**context` 以忽略其余部分：
 
 ```python
 import reflex as rx
@@ -47,18 +40,13 @@ import reflex as rx
 def custom_login_page(providers, **context) -> rx.Component: ...
 ```
 
-A builder may also accept only `**context`. The same contract
-applies to the login, callback, logout, and forbidden builders.
+构建器也可以只接受 `**context`。相同的约定适用于登录、回调、退出登录和禁止访问构建器。
 
-## A custom login page
+## 自定义登录页面
 
-In most apps, send users to `/login`. Customize `login_page` when the default
-login buttons need a different layout.
+在大多数应用中，将用户引导到 `/login`。当默认登录按钮需要不同的布局时，自定义 `login_page`。
 
-Call each provider's `get_login_button(*children)` and pass the clickable
-element as children. This preserves the OIDC redirect wiring and the iframe
-popup listener. `provider.display_name()` returns the provider label; by default
-it is the title-cased `__provider__` value:
+调用每个提供商的 `get_login_button(*children)` 并将可点击元素作为 children 传入。这会保留 OIDC 重定向逻辑和 iframe 弹窗监听器。`provider.display_name()` 返回提供商标签；默认情况下，它是 `__provider__` 值的首字母大写形式：
 
 ```python
 import reflex as rx
@@ -80,17 +68,11 @@ def custom_login_page(providers, **context) -> rx.Component:
     )
 ```
 
-With two or more providers, render one `get_login_button()` per provider. See
-[running inside an iframe](/docs/enterprise/auth/providers/#running-inside-an-iframe)
-for the popup flow requirement.
+如果有两个或更多提供商，为每个提供商渲染一个 `get_login_button()`。有关弹窗流程要求，请参阅[在 iframe 中运行](/docs/enterprise/auth/providers/#running-inside-an-iframe)。
 
-## Custom callback and logout pages
+## 自定义回调和退出登录页面
 
-The callback and logout routes only show an interstitial while their
-plugin-owned `on_load` runs. Reuse `providers[0].get_authentication_loading_page()`,
-which already shows the validating and redirecting states as the exchange (or
-logout) proceeds, plus an error view if it fails (see
-[auth-failure UX and troubleshooting](#auth-failure-ux-and-troubleshooting)):
+回调和退出登录路由仅在其插件拥有的 `on_load` 运行时显示一个过渡页面。复用 `providers[0].get_authentication_loading_page()`，它已经在交换（或退出登录）进行时显示验证和重定向状态，失败时还会显示错误视图（参阅[认证失败 UX 和故障排除](#auth-failure-ux-and-troubleshooting)）：
 
 ```python
 import reflex as rx
@@ -110,29 +92,20 @@ def custom_logout_page(providers, **context) -> rx.Component:
     return providers[0].get_authentication_loading_page()
 ```
 
-Wrap that view in an app-specific layout when the interstitial needs branding.
+当过渡页面需要品牌化时，将该视图包装在应用特定的布局中。
 
-## Auth-failure UX and troubleshooting
+## 认证失败 UX 和故障排除
 
-When a token exchange or validation fails, `get_authentication_loading_page()`
-swaps its spinner for an error view: a user-facing message plus an **error ID**
-(a per-flow UUID) the user can hand to support. The same failure is logged on the
-backend at `ERROR` level, prefixed `<client_token> [txid=<id>]`. The log entry
-is emitted even when the app configures no logging. Use the displayed ID to find
-the matching server log.
+当令牌交换或验证失败时，`get_authentication_loading_page()` 会将加载动画替换为错误视图：一条面向用户的消息加上一个**错误 ID**（每个流程的 UUID），用户可以将它提供给技术支持。相同的失败会在后端以 `ERROR` 级别记录日志，前缀为 `<client_token> [txid=<id>]`。即使应用未配置日志，也会输出该日志条目。使用显示的 ID 来查找对应的服务器日志。
 
 ```md alert info
-# Operator note
-When a user reports a failed login, search the backend logs for `[txid=...]` with the ID they were shown.
+# 运维提示
+当用户报告登录失败时，在后端日志中搜索他们看到的 ID 对应的 `[txid=...]`。
 ```
 
-The page builders do **not** take an error override. `default_callback_page`
-calls `get_authentication_loading_page()`. There are two supported ways to
-customize the failure UI:
+页面构建器**不**接受错误覆盖参数。`default_callback_page` 调用 `get_authentication_loading_page()`。有两种受支持的方式来自定义失败 UI：
 
-**1. Override the state classmethods.** Subclass your provider state and override
-`get_error_component`, `get_authentication_error_component`, or
-`get_logout_error_component`. The loading page picks up the override automatically:
+**1. 覆盖状态类方法。** 继承你的提供商状态并覆盖 `get_error_component`、`get_authentication_error_component` 或 `get_logout_error_component`。加载页面会自动获取覆盖：
 
 ```python
 import reflex as rx
@@ -149,9 +122,7 @@ class MyProviderState(GenericOIDCAuthState):
         )
 ```
 
-**2. Hand-write a page reading the public vars.** `has_error`,
-`user_error_message`, and `last_error_txid` are public Vars on the provider state,
-A custom callback or logout builder can branch on them directly:
+**2. 手写一个读取公开 Var 的页面。** `has_error`、`user_error_message` 和 `last_error_txid` 是提供商状态上的公开 Var，自定义回调或退出登录构建器可以直接根据它们进行分支：
 
 ```python
 import reflex as rx
@@ -173,12 +144,9 @@ def custom_callback_page(providers, **context) -> rx.Component:
     )
 ```
 
-## A custom forbidden page
+## 自定义禁止访问页面
 
-`/forbidden` is shown when an **authenticated** user tries to load a page they
-are not authorized to view. This happens when the global default
-`AuthPlugin(auth=...)` is a callable check that fails on a page load. The
-forbidden page has no plugin-owned `on_load`.
+当**已认证**用户尝试加载其无权查看的页面时，会显示 `/forbidden`。这发生在全局默认 `AuthPlugin(auth=...)` 是一个可调用检查且在页面加载时失败的情况下。禁止访问页面没有插件拥有的 `on_load`。
 
 ```python
 import reflex as rx
@@ -198,16 +166,13 @@ def custom_forbidden_page(**context) -> rx.Component:
 ```
 
 ```md alert info
-# When does the forbidden page appear?
-Only on a **page** load that an authenticated user fails through a callable global default. Failed event-handler checks show an `"Action not allowed"` toast. Failed field and var checks withhold the value. Neither navigates to `/forbidden`. See [authentication vs authorization](/docs/enterprise/auth/secure-by-default/#authentication-vs-authorization).
+# 禁止访问页面何时出现？
+仅在已认证用户通过可调用全局默认检查失败的**页面**加载时出现。事件处理器检查失败会显示 `"Action not allowed"` 提示。字段和变量检查失败会隐藏值。两者都不会导航到 `/forbidden`。参阅[认证与授权](/docs/enterprise/auth/secure-by-default/#authentication-vs-authorization)。
 ```
 
-## Wiring them up
+## 接入配置
 
-Pass the builders to the plugin in `rxconfig.py` as **import-path strings**
-(`"module.function"`). The builder modules import `reflex_enterprise`, which loads
-`rxconfig` at import time. Importing them directly in `rxconfig.py` would
-re-enter the config. Import-path strings are resolved lazily at compile time:
+在 `rxconfig.py` 中以**导入路径字符串**（`"module.function"`）的形式将构建器传递给插件。构建器模块会导入 `reflex_enterprise`，而后者在导入时加载 `rxconfig`。在 `rxconfig.py` 中直接导入它们会导致重新进入配置。导入路径字符串在编译时延迟解析：
 
 ```python
 import reflex_enterprise as rxe
@@ -226,24 +191,22 @@ config = rxe.Config(
 ```
 
 ```md alert info
-# Strings in rxconfig, callables elsewhere
-The import-path string is only required in `rxconfig.py`. Where the builder is already importable, pass the callable directly: `login_page=custom_login_page`.
+# rxconfig 中用字符串，其他地方用可调用对象
+导入路径字符串仅在 `rxconfig.py` 中是必需的。在构建器已经可以导入的地方，直接传递可调用对象：`login_page=custom_login_page`。
 ```
 
-## Defaults
+## 默认值
 
-Omit a builder and the plugin falls back to its defaults from
-`reflex_enterprise.auth.pages`:
+省略构建器时，插件会回退到 `reflex_enterprise.auth.pages` 中的默认值：
 
-| Builder argument | Default | Renders |
+| 构建器参数 | 默认值 | 渲染内容 |
 | --- | --- | --- |
-| `login_page` | `default_login_page` | One `provider.get_login_button()` per provider. |
-| `callback_page` | `default_callback_page` | `providers[0].get_authentication_loading_page()`. |
-| `logout_page` | `default_logout_page` | `providers[0].get_authentication_loading_page()`. |
-| `forbidden_page` | `default_forbidden_page` | A 403 access denied view. |
+| `login_page` | `default_login_page` | 每个提供商一个 `provider.get_login_button()`。 |
+| `callback_page` | `default_callback_page` | `providers[0].get_authentication_loading_page()`。 |
+| `logout_page` | `default_logout_page` | `providers[0].get_authentication_loading_page()`。 |
+| `forbidden_page` | `default_forbidden_page` | 403 拒绝访问视图。 |
 
-The defaults take the same keyword context. A custom builder may call a default
-builder and wrap the returned content:
+默认值接受相同的关键字上下文。自定义构建器可以调用默认构建器并包装返回的内容：
 
 ```python
 import reflex as rx
@@ -254,10 +217,8 @@ def custom_login_page(providers, **context) -> rx.Component:
     return rx.center(default_login_page(providers=providers, **context))
 ```
 
-## Related
+## 相关内容
 
-- [Providers](/docs/enterprise/auth/providers/): identity provider
-  configuration.
-- [Secure by default](/docs/enterprise/auth/secure-by-default/): protected
-  surfaces and `/forbidden` behavior.
-- [Testing](/docs/enterprise/auth/testing/): guarded-surface tests.
+- [提供商](/docs/enterprise/auth/providers/)：身份提供商配置。
+- [默认安全](/docs/enterprise/auth/secure-by-default/)：受保护的界面和 `/forbidden` 行为。
+- [测试](/docs/enterprise/auth/testing/)：受保护界面的测试。

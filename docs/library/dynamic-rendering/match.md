@@ -7,21 +7,20 @@ components:
 import reflex as rx
 ```
 
-# Match
+# 模式匹配（Match）
 
-The `rx.match` feature in Reflex serves as a powerful alternative to `rx.cond` for handling conditional statements.
-While `rx.cond` excels at conditionally rendering two components based on a single condition,
-`rx.match` extends this functionality by allowing developers to handle multiple conditions and their associated components.
-This feature is especially valuable when dealing with intricate conditional logic or nested scenarios,
-where the limitations of `rx.cond` might lead to less readable and more complex code.
+Reflex 中的 `rx.match` 功能是处理条件语句的 `rx.cond` 的强大替代方案。
+虽然 `rx.cond` 擅长基于单个条件有条件地渲染两个组件，
+但 `rx.match` 扩展了这一功能，允许开发者处理多个条件及其关联的组件。
+此功能在处理复杂的条件逻辑或嵌套场景时特别有价值，
+在这些情况下 `rx.cond` 的局限性可能导致代码可读性降低且更加复杂。
 
-With `rx.match`, developers can not only handle multiple conditions but also perform structural pattern matching,
-making it a versatile tool for managing various scenarios in Reflex applications.
+使用 `rx.match`，开发者不仅可以处理多个条件，还可以执行结构化模式匹配，
+使其成为管理 Reflex 应用中各种场景的多功能工具。
 
-## Basic Usage
+## 基本用法
 
-The `rx.match` function provides a clear and expressive syntax for handling multiple
-conditions and their corresponding components:
+`rx.match` 函数提供了清晰且富有表现力的语法，用于处理多个条件及其对应的组件：
 
 ```python
 rx.match(
@@ -34,11 +33,11 @@ rx.match(
 
 ```
 
-- `condition`: The value to match against.
-- `(case_i, component_i)`: A Tuple of matching cases and their corresponding return components.
-- `default_component`: A special case for the default component when the condition isn't matched by any of the match cases.
+- `condition`：要匹配的值。
+- `(case_i, component_i)`：匹配用例及其对应返回组件的元组。
+- `default_component`：当条件不匹配任何匹配用例时的默认组件的特殊情况。
 
-Example
+示例
 
 ```python demo exec
 from typing import List
@@ -89,14 +88,12 @@ def match_demo():
     )
 ```
 
-## Default Case
+## 默认情况
 
-The default case in `rx.match` serves as a universal handler for scenarios where none of
-the specified match cases aligns with the given match condition. Here are key considerations
-when working with the default case:
+`rx.match` 中的默认情况作为通用处理程序，用于处理没有任何指定匹配用例与给定匹配条件对齐的场景。以下是使用默认情况时的关键注意事项：
 
-- **Placement in the Match Function**: The default case must be the last non-tuple argument in the `rx.match` component.
-  All match cases should be enclosed in tuples; any non-tuple value is automatically treated as the default case. For example:
+- **在 Match 函数中的位置**：默认情况必须是 `rx.match` 组件中最后一个非元组参数。
+  所有匹配用例都应包含在元组中；任何非元组值都会自动被视为默认情况。例如：
 
 ```python
 rx.match(
@@ -107,10 +104,10 @@ rx.match(
 )
 ```
 
-The above code snippet will result in an error due to the misplaced default case.
+上面的代码片段将由于默认情况位置错误而导致错误。
 
-- **Single Default Case**: Only one default case is allowed in the `rx.match` component.
-  Attempting to specify multiple default cases will lead to an error. For instance:
+- **单个默认情况**：`rx.match` 组件中只允许一个默认情况。
+  尝试指定多个默认情况将导致错误。例如：
 
 ```python
 rx.match(
@@ -122,9 +119,9 @@ rx.match(
 )
 ```
 
-- **Optional Default Case for Component Return Values**: If the match cases in a `rx.match` component
-  return components, the default case can be optional. In this scenario, if a default case is
-  not provided, `rx.fragment` will be implicitly assigned as the default. For example:
+- **组件返回值的可选默认情况**：如果 `rx.match` 组件中的匹配用例
+  返回组件，则默认情况可以是可选的。在这种情况下，如果未提供默认情况，
+  `rx.fragment` 将被隐式分配为默认值。例如：
 
 ```python
 rx.match(
@@ -134,8 +131,8 @@ rx.match(
 )
 ```
 
-In this case, `rx.fragment` is the default case. However, not providing a default case for non-component
-return values will result in an error:
+在这种情况下，`rx.fragment` 是默认情况。但是，对于非组件
+返回值不提供默认情况将导致错误：
 
 ```python
 rx.match(
@@ -145,15 +142,14 @@ rx.match(
 )
 ```
 
-The above code snippet will result in an error as a default case must be explicitly
-provided in this scenario.
+上面的代码片段将导致错误，因为在此场景中必须显式提供默认情况。
 
-## Handling Multiple Conditions
+## 处理多条件
 
-`rx.match` excels in efficiently managing multiple conditions and their corresponding components,
-providing a cleaner and more readable alternative compared to nested `rx.cond` structures.
+`rx.match` 擅长高效管理多个条件及其对应的组件，
+与嵌套的 `rx.cond` 结构相比，提供了更简洁、更易读的替代方案。
 
-Consider the following example:
+考虑以下示例：
 
 ```python demo exec
 from typing import List
@@ -207,10 +203,10 @@ def multi_match_demo():
     )
 ```
 
-In a match case tuple, you can specify multiple conditions. The last value of the match case
-tuple is automatically considered as the return value. It's important to note that a match case
-tuple should contain a minimum of two elements: a match case and a return value.
-The following code snippet will result in an error:
+在匹配用例元组中，你可以指定多个条件。匹配用例元组的最后一个值
+自动被视为返回值。需要注意的是，匹配用例
+元组应至少包含两个元素：一个匹配用例和一个返回值。
+以下代码片段将导致错误：
 
 ```python
 rx.match(
@@ -220,9 +216,9 @@ rx.match(
 )
 ```
 
-## Usage as Props
+## 作为属性使用
 
-Similar to `rx.cond`, `rx.match` can be used as prop values, allowing dynamic behavior for UI components:
+与 `rx.cond` 类似，`rx.match` 可以用作属性值，允许 UI 组件具有动态行为：
 
 ```python demo exec
 import reflex as rx
@@ -262,10 +258,10 @@ def match_prop_demo_():
     )
 ```
 
-In the example above, the background color property of the box component containing `State.value` changes to red when
-`state.value` is 1, blue when its 5, green when its 5, orange when its 15 and black for any other value.
+在上面的示例中，包含 `State.value` 的 box 组件的背景颜色属性在
+`state.value` 为 1 时变为红色，为 5 时变为蓝色，为 5 时变为绿色，为 15 时变为橙色，其他任何值时为黑色。
 
-The example below also shows handling multiple conditions with the match component as props.
+下面的示例还展示了使用 match 组件作为属性来处理多个条件。
 
 ```python demo exec
 import reflex as rx
@@ -308,11 +304,11 @@ def match_multi_prop_demo_():
 ```
 
 ```md alert warning
-# Usage with Structural Pattern Matching
+# 与结构化模式匹配配合使用
 
-The `rx.match` component is designed for structural pattern matching. If the value of your match condition evaluates to a boolean (True or False), it is recommended to use `rx.cond` instead.
+`rx.match` 组件专为结构化模式匹配而设计。如果匹配条件的值计算结果为布尔值（True 或 False），建议使用 `rx.cond`。
 
-Consider the following example, which is more suitable for `rx.cond`:\*
+考虑以下示例，它更适合使用 `rx.cond`：\*
 ```
 
 ```python

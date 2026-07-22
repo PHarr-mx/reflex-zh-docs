@@ -38,6 +38,6 @@ components:
   - rx.el.ul
 ---
 
-# HTML Layout Elements
+# HTML 布局元素
 
-Document structure and layout HTML elements are available through the `rx.el` namespace.
+文档结构和布局 HTML 元素可通过 `rx.el` 命名空间使用。
