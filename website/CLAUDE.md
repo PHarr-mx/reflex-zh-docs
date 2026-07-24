@@ -16,27 +16,29 @@ Use `reflex_docs/whitelist.py` in dev to compile only the routes you care about;
 ## Project layout
 
 ```
-reflex_docs/        # Main application code
-  reflex_docs.py    # App entry point
-  whitelist.py      # Dev mode: limits which pages are compiled (faster builds)
-  pages/            # All page routes (docs/, etc.)
-  components/       # Reusable UI components
-  views/            # Shared view components (navbar, footer, cta)
-  templates/        # Page templates (docpage, mainpage)
+website/            # Reflex website application
+  reflex_docs/      # Main application code
+    reflex_docs.py  # App entry point
+    whitelist.py    # Dev mode: limits which pages are compiled (faster builds)
+    pages/          # All page routes (docs/, etc.)
+    components/     # Reusable UI components
+    views/          # Shared view components (navbar, footer, cta)
+    templates/      # Page templates (docpage, mainpage)
 docs/               # Markdown documentation (reflex_docgen)
-tests/              # Pytest + Playwright tests
+vendor/             # Vendored Python packages required by the website
+website/tests/      # Pytest + Playwright tests
 ```
 
 ## Commands
 
 | Task | Command |
 |------|---------|
-| Install deps | `uv sync` |
-| Run dev server | `uv run reflex run` |
-| Run prod | `uv run reflex run --env prod` |
-| Compile check | `uv run reflex compile` |
-| Run tests | `uv run pytest tests/` |
-| Install Playwright (if tests fail) | `uv run playwright install` |
+| Install deps | `cd website && uv sync` |
+| Run dev server | `cd website && uv run reflex run` |
+| Run prod | `cd website && uv run reflex run --env prod` |
+| Compile check | `cd website && uv run reflex compile` |
+| Run tests | `cd website && uv run pytest tests/` |
+| Install Playwright (if tests fail) | `cd website && uv run playwright install` |
 | Lint / format | `uv run pre-commit run --all-files` |
 
 ## Dev mode: page whitelist

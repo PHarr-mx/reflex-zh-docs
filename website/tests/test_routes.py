@@ -30,13 +30,11 @@ def test_unique_routes(routes_fixture):
 
 
 def test_changelog_routes(routes_fixture):
-    """Every discovered package changelog is served under /changelog/."""
+    """Any discovered package changelog is served under /changelog/."""
     from reflex_docs.pages.docs import changelog_packages
 
     paths = {route.path for route in routes_fixture if route.path}
 
-    assert changelog_packages["reflex"] == "/changelog/"
-    assert "/changelog/reflex-base/" in paths
     for changelog_route in changelog_packages.values():
         assert changelog_route in paths
 

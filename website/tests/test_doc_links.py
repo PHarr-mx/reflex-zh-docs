@@ -183,9 +183,10 @@ def check(md_root: Path, sitemap_path: Path) -> list[str]:
     return errors
 
 
-_DOCS_APP = Path(__file__).resolve().parent.parent  # docs/app/
-_MD_ROOT = _DOCS_APP.parent  # docs/
-_SITEMAP = _DOCS_APP / ".web" / "public" / "sitemap.xml"
+_WEBSITE_ROOT = Path(__file__).resolve().parent.parent  # website/
+_REPO_ROOT = _WEBSITE_ROOT.parent
+_MD_ROOT = _REPO_ROOT / "docs"
+_SITEMAP = _WEBSITE_ROOT / ".web" / "public" / "sitemap.xml"
 
 
 @pytest.mark.xfail(

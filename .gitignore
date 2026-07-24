@@ -1,0 +1,26 @@
+# Python build and runtime artifacts
+**/__pycache__/
+**/*.py[cod]
+**/*.egg-info/
+
+# Local environment and generated files
+**/.venv/
+**/venv/
+**/.env
+**/.DS_Store
+
+# Reflex build and local project artifacts
+.states
+**/*.db
+**/*.swp
+**/.web
+*.db
+*.zip
+.idea
+.markdownlint.json
+assets/external/
+pcconfig2.py
+pynecone.db
+reflex.db
+build
+shared/

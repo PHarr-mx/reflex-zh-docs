@@ -2,6 +2,16 @@
 
 Reflex 中文文档。
 
+网站应用位于 `website/`，Markdown 文档位于 `docs/`，随仓库提供的 Python 依赖位于 `vendor/`。
+
+启动网站：
+
+```bash
+cd website
+uv sync
+uv run reflex run
+```
+
 [Reflex](https://reflex.dev/) 是一个用于构建和部署全栈 Web 应用的纯 Python 框架——前端、后端和数据库一站式搞定，无需 JavaScript、无需单独的 API。本仓库收录了 Reflex 官方文档的简体中文翻译，方便中文开发者快速上手。
 
 ## 文档列表

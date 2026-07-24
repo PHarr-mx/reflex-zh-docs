@@ -108,16 +108,17 @@ def get_previews_from_frontmatter(filepath: str) -> dict[str, str]:
 # ---------------------------------------------------------------------------
 # Discover all docs — single pipeline via reflex_docgen
 # ---------------------------------------------------------------------------
-_app_root = Path(__file__).resolve().parent.parent.parent.parent  # …/app/
-_docs_dir = _app_root.parent  # …/docs/ (parent of app/)
+_website_root = Path(__file__).resolve().parents[3]  # …/website/
+_repo_root = _website_root.parent
+_docs_dir = _repo_root / "docs"
 _pkg_root = _docs_dir / "package"  # …/package/ (reflex-docs-bundle)
-_vendor_root = _docs_dir / "vendor"
+_vendor_root = _repo_root / "vendor"
 
 all_docs: dict[str, str] = {}  # virtual_path → actual_path
 for _md_file in sorted(_docs_dir.rglob("*.md")):
-    # Skip anything inside the app/ or package/ subdirectories.
+    # Skip anything inside the website/, package/, or vendor/ directories.
     if (
-        _md_file.is_relative_to(_app_root)
+        _md_file.is_relative_to(_website_root)
         or _md_file.is_relative_to(_pkg_root)
         or _md_file.is_relative_to(_vendor_root)
     ):
@@ -461,7 +462,7 @@ def get_component_docgen(virtual_doc: str, actual_path: str, title: str):
 # them in as regular docs under docs/changelog/, with the main reflex
 # changelog served at the section index.
 changelog_packages: dict[str, str] = {}  # package name → route
-for _package, _changelog_path in discover_changelogs(_docs_dir.parent).items():
+for _package, _changelog_path in discover_changelogs(_repo_root).items():
     _virtual = (
         f"{CHANGELOG_VIRTUAL_PREFIX}index.md"
         if _package == "reflex"

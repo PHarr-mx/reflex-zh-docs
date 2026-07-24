@@ -69,7 +69,10 @@ def test_double_eval_does_not_crash():
 def test_double_eval_browser_javascript():
     """The actual file that triggered the CI failure."""
     filepath = (
-        Path(__file__).parent.parent.parent / "api-reference" / "browser_javascript.md"
+        Path(__file__).resolve().parents[2]
+        / "docs"
+        / "api-reference"
+        / "browser_javascript.md"
     )
     if not filepath.exists():
         pytest.skip(f"{filepath} not found")
@@ -85,12 +88,12 @@ def test_double_eval_browser_javascript():
 # Parametrized test: evaluate every markdown doc file twice
 # ---------------------------------------------------------------------------
 
-_app_root = Path(__file__).resolve().parent.parent  # …/app/
-_docs_dir = _app_root.parent  # …/docs/ (parent of app/)
+_website_root = Path(__file__).resolve().parent.parent  # …/website/
+_docs_dir = _website_root.parent / "docs"
 
 _all_docs: dict[str, str] = {}  # virtual_path → actual_path
 for _md_file in sorted(_docs_dir.rglob("*.md")):
-    if _md_file.is_relative_to(_app_root):
+    if _md_file.is_relative_to(_website_root):
         continue
     _virtual = "docs/" + str(_md_file.relative_to(_docs_dir)).replace("\\", "/")
     _all_docs[_virtual] = str(_md_file)

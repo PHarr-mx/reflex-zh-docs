@@ -64,7 +64,7 @@ def check_urls(repo_dir):
 @pytest.mark.skip(reason="Skip until reflex.dev index route is fixed")
 @pytest.mark.parametrize(
     "repo_dir",
-    [Path(__file__).resolve().parent.parent],
+    [Path(__file__).resolve().parents[2]],
 )
 def test_find_and_check_urls(repo_dir):
     """Test that all URLs in the repo are valid and secure.

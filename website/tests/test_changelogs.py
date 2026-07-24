@@ -11,7 +11,7 @@ from reflex_docs.changelogs import (
     normalize_changelog,
 )
 
-REPO_ROOT = Path(__file__).resolve().parents[3]
+REPO_ROOT = Path(__file__).resolve().parents[2]
 
 
 class _FakeDist:
@@ -46,11 +46,10 @@ def test_discover_repo_changelogs(tmp_path):
 
 
 def test_discover_repo_changelogs_real_repo():
-    """The docs app reaches up to the actual repo root for changelogs."""
+    """The docs app reaches the standalone repository root for changelogs."""
     changelogs = discover_repo_changelogs(REPO_ROOT)
 
-    assert changelogs["reflex"] == REPO_ROOT / "CHANGELOG.md"
-    assert "reflex-base" in changelogs
+    assert "reflex" not in changelogs
     assert all(path.is_file() for path in changelogs.values())
 
 
