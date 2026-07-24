@@ -38,8 +38,15 @@ def _llms_txt_directive() -> rx.Component:
     )
 
 
+class DocsEnterpriseApp(rxe.App):
+    """Enterprise-compatible app that does not require docs users to log in."""
+
+    def _check_login(self):
+        """Allow the public documentation site to compile without authentication."""
+
+
 # Create the app.
-app = rxe.App(
+app = DocsEnterpriseApp(
     style=styles.BASE_STYLE,
     app_wraps={},
     theme=rx.theme(

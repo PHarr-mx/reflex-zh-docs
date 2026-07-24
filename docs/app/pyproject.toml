@@ -107,3 +107,7 @@ skip = "data/*"
 
 [tool.uv]
 required-version = ">=0.7.0"
+
+[tool.uv.sources]
+reflex-integrations-docs = { path = "../vendor/reflex-integrations-docs" }
+reflex-site-shared = { path = "../vendor/reflex-site-shared" }
